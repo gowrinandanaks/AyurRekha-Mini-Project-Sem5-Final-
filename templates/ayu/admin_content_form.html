@@ -1,0 +1,51 @@
+{% extends 'ayu/admin_base.html' %}
+
+{% block title %}{{ action }} Content - AyurRekha Admin{% endblock %}
+{% block page_title %}{{ action }} Wellness Content{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 900px; margin: 0 auto;">
+    <div class="card-header">
+        <h3>Content Editor</h3>
+        <p style="color: #888; font-size: 0.9rem;">Create high-quality wellness articles and tips.</p>
+    </div>
+
+    <form method="POST" style="display: flex; flex-direction: column; gap: 25px;">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label style="display: block; margin-bottom: 8px; font-weight: 600;">Title</label>
+            <input type="text" name="title" value="{{ content_obj.title }}" required placeholder="Enter compelling title..." style="width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 8px; font-size: 1.1rem; font-family: 'Cormorant Garamond', serif;">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="form-group">
+                <label style="display: block; margin-bottom: 8px; font-weight: 600;">Category</label>
+                    <option value="article" {% if content_obj.category == 'article' %}selected{% endif %}>Article</option>
+                    <option value="blog" {% if content_obj.category == 'blog' %}selected{% endif %}>Blog Post</option>
+                    <option value="tip" {% if content_obj.category == 'tip' %}selected{% endif %}>Wellness Tip</option>
+                    <option value="remedy" {% if content_obj.category == 'remedy' %}selected{% endif %}>Ayurvedic Remedy</option>
+                    <option value="yoga" {% if content_obj.category == 'yoga' %}selected{% endif %}>Yoga & Asana</option>
+                    <option value="panchakarma" {% if content_obj.category == 'panchakarma' %}selected{% endif %}>Panchakarma</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label style="display: block; margin-bottom: 8px; font-weight: 600;">Publishing Status</label>
+                <label style="display: flex; align-items: center; gap: 10px; padding: 10px; background: #f9f9f9; border-radius: 8px; cursor: pointer;">
+                    <input type="checkbox" name="is_published" {% if content_obj.is_published %}checked{% endif %}> Publish immediately
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label style="display: block; margin-bottom: 8px; font-weight: 600;">Content Body</label>
+            <textarea name="content" rows="15" required style="width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Montserrat', sans-serif; line-height: 1.6;">{{ content_obj.content }}</textarea>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 15px;">
+            <a href="{% url 'admin_content_list' %}" class="btn" style="background: #eee; color: #666;">Discard</a>
+            <button type="submit" class="btn btn-gold" style="padding: 12px 30px;">Save Content</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

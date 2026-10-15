@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Routine (Dinacharya) | AyurRekha</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --forest: #1B3022;
+            --gold: #C5A059;
+            --pearl: #FBFAF5;
+            --text: #333333;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--pearl);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--forest);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--forest);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .hero-mini {
+            background: linear-gradient(rgba(27, 48, 34, 0.8), rgba(27, 48, 34, 0.8)),
+                url("https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80") center/cover no-repeat;
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .hero-mini h1 {
+            color: white;
+            font-size: 3rem;
+            margin: 0;
+        }
+
+        /* --- Timeline Styling --- */
+        .timeline {
+            position: relative;
+            margin-top: 50px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 31px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gold);
+            opacity: 0.3;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 80px;
+            margin-bottom: 50px;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 60px;
+            height: 60px;
+            background: white;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--forest);
+            font-size: 1.2rem;
+            z-index: 10;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .timeline-content h3 {
+            margin: 0 0 10px;
+            font-size: 1.6rem;
+        }
+
+        .timeline-content .time {
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+
+        .checklist li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .checklist li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        .section-break {
+            background: #fff;
+            padding: 40px;
+            border-radius: 30px;
+            border: 1px dashed var(--gold);
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        footer {
+            background: white;
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            color: #888;
+            margin-top: 80px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="hero-mini">
+        <h1>Dinacharya: The Daily Rhythm</h1>
+        <p>Aligning Individual Cycles with the Universal Beat of Nature</p>
+    </div>
+
+    <div class="container">
+        
+        <a href="{% url 'guide' %}" class="back-link"><i class="fas fa-arrow-left"></i> Back to Guide</a>
+
+        <div style="text-align: center; margin-bottom: 60px;">
+            <h2>The Sacred Morning Rituals</h2>
+            <p>In Ayurveda, how you start your day determines your overall vitality (Prana). Dinacharya is about building a foundation of regular habits that ground the nervous system and stoke the digestive fire.</p>
+        </div>
+
+        <div class="timeline">
+            
+            <!-- Morning -->
+            <div class="timeline-item">
+                <div class="timeline-marker"><i class="fas fa-sun"></i></div>
+                <div class="timeline-content">
+                    <span class="time">Brahma Muhurta (4:30 AM - 6:00 AM)</span>
+                    <h3>The Awakening</h3>
+                    <p>Waking up 45 minutes before sunrise allows you to sync with the rising energy of the earth. This time is rich in "Sattva" (purity) and perfect for mental clarity.</p>
+                    <ul class="checklist">
+                        <li>Wake up without an aggressive alarm</li>
+                        <li>Give thanks for a new day</li>
+                        <li>Drink a glass of warm water (copper vessel preferred)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Cleansing -->
+            <div class="timeline-item">
+                <div class="timeline-marker"><i class="fas fa-leaf"></i></div>
+                <div class="timeline-content">
+                    <span class="time">6:00 AM - 7:00 AM</span>
+                    <h3>Purity & Cleansing</h3>
+                    <p>Cleanse the sense organs to remove toxins (Ama) accumulated overnight. This awakens the brain and prepares the digestive tract.</p>
+                    <ul class="checklist">
+                        <li><strong>Tongue Scraping:</strong> Use a copper scraper to remove the white coating (toxins).</li>
+                        <li><strong>Oil Pulling (Gandusha):</strong> Swish sesame or coconut oil for 10 mins to strengthen gums.</li>
+                        <li><strong>Neti Kriya:</strong> Nasal rinsing with saline water to clear the sinuses.</li>
+                        <li><strong>Abhyanga:</strong> Self-massage with warm oil to lubricate joints and skin.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Nourishment -->
+            <div class="timeline-item">
+                <div class="timeline-marker"><i class="fas fa-utensils"></i></div>
+                <div class="timeline-content">
+                    <span class="time">12:00 PM - 1:30 PM</span>
+                    <h3>Solar Nourishment</h3>
+                    <p>Lunch should be your largest meal. Between noon and 2 PM, the "Agni" (digestive fire) is at its peak, perfectly synced with the sun.</p>
+                    <ul class="checklist">
+                        <li>Eat in a calm, seated environment</li>
+                        <li>Favor warm, freshly cooked foods</li>
+                        <li>Sit quietly for 10 minutes after eating</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Evening -->
+            <div class="timeline-item">
+                <div class="timeline-marker"><i class="fas fa-moon"></i></div>
+                <div class="timeline-content">
+                    <span class="time">9:00 PM - 10:00 PM</span>
+                    <h3>Nighttime Wind-down</h3>
+                    <p>The evening is for "Kapha" energy—stability and rest. Prepare the body for deep cellular repair by disconnecting from stimulation.</p>
+                    <ul class="checklist">
+                        <li>Eat a light, warm dinner at least 2 hours before bed</li>
+                        <li>Disconnect from digital screens by 9:00 PM</li>
+                        <li>Foot massage (Padabhyanga) with warm oil</li>
+                        <li>Aim to be asleep by 10:00 PM (Pitta repair time)</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="section-break">
+            <h3>Seasonal Wisdom (Ritucharya)</h3>
+            <p>Just as our daily routine changes with the sun, our yearly routine must change with the seasons. Spring requires detoxification, Summer needs cooling, and Winter demands grounding nourishment.</p>
+            <a href="{% url 'guide_seasonal' %}" style="color: var(--gold); font-weight: 600; text-decoration: none;">Explore the Seasonal Guide &rarr;</a>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 AyurRekha | Tracing the Path to Natural Wellness</p>
+    </footer>
+
+</body>
+</html>

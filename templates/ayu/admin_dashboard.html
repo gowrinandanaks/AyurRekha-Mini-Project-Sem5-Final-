@@ -1,0 +1,143 @@
+{% extends 'ayu/admin_base.html' %}
+
+{% block title %}Dashboard - AyurRekha Admin{% endblock %}
+{% block page_title %}Dashboard Overview{% endblock %}
+
+{% block extra_css %}
+<style>
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 25px;
+        margin-bottom: 40px;
+    }
+    .stat-card {
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .stat-info h3 { margin: 0; font-size: 0.9rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+    .stat-info p { margin: 5px 0 0; font-size: 1.8rem; font-weight: 700; color: var(--forest); }
+    .stat-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+    .icon-users { background: #e3f2fd; color: #2196f3; }
+    .icon-docs { background: #e8f5e9; color: #4caf50; }
+    .icon-appts { background: #fff3e0; color: #ff9800; }
+    .icon-rev { background: #f3e5f5; color: #9c27b0; }
+
+    .recent-activity {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 30px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-info">
+            <h3>Total Users</h3>
+            <p>{{ total_users }}</p>
+        </div>
+        <div class="stat-icon icon-users"><i class="fas fa-users"></i></div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-info">
+            <h3>Practitioners</h3>
+            <p>{{ total_practitioners }}</p>
+        </div>
+        <div class="stat-icon icon-docs"><i class="fas fa-user-md"></i></div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-info">
+            <h3>Appointments Today</h3>
+            <p>{{ appointments_today }}</p>
+        </div>
+        <div class="stat-icon icon-appts"><i class="fas fa-calendar-check"></i></div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-info">
+            <h3>Pending Approvals</h3>
+            <p>{{ pending_approvals }}</p>
+        </div>
+        <div class="stat-icon icon-rev"><i class="fas fa-clock"></i></div>
+    </div>
+</div>
+
+<div class="recent-activity">
+    <div class="card">
+        <div class="card-header">
+            <h3>Recent Users</h3>
+            <a href="#" class="btn btn-gold" style="padding: 5px 15px; font-size: 0.8rem;">View All</a>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Joined</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in recent_users %}
+                <tr>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="width: 32px; height: 32px; background: #eee; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem;">{{ user.username|first|upper }}</div>
+                            <div>
+                                <div style="font-weight: 600;">{{ user.username }}</div>
+                                <div style="font-size: 0.75rem; color: #888;">{{ user.email }}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td><span class="status-badge" style="background:#eee; color:#666;">{{ user.profile.role }}</span></td>
+                    <td>
+                        {% if user.profile.is_blocked %}
+                        <span class="status-badge status-cancelled">Blocked</span>
+                        {% else %}
+                        <span class="status-badge status-approved">Active</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ user.date_joined|date:"M d, Y" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Activity Log</h3>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            {% for log in activity_logs %}
+            <div style="display: flex; gap: 12px; font-size: 0.85rem;">
+                <div style="color: {% if log.icon_color == 'gold' %}var(--gold){% elif log.icon_color == 'red' %}#e74c3c{% else %}#2196f3{% endif %};">
+                    <i class="fas fa-circle"></i>
+                </div>
+                <div>
+                    <strong>{{ log.user.username|default:"System" }}</strong> {{ log.action }}
+                    {% if log.details %}<br><small style="color: #666;">{{ log.details }}</small>{% endif %}
+                    <div style="color: #888; margin-top: 3px;">{{ log.timestamp|timesince }} ago</div>
+                </div>
+            </div>
+            {% empty %}
+            <div style="color: #888; font-style: italic; text-align: center;">No recent activities</div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

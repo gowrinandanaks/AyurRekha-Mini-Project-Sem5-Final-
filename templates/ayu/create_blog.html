@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Blog - AyurRekha</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --forest: #1B3022;
+            --gold: #C5A059;
+            --pearl: #FBFAF5;
+            --text: #333333;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--pearl);
+            color: var(--text);
+        }
+        .header-top {
+            padding: 20px;
+            text-align: center;
+            background: white;
+            border-bottom: 2px solid var(--forest);
+        }
+        .header-top img {
+            height: 80px;
+            object-fit: contain;
+        }
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--forest);
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.05);
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--forest);
+            font-weight: 600;
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: 0.3s;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 5px rgba(197, 160, 89, 0.3);
+        }
+        .btn-gold {
+            background: var(--gold);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-weight: 600;
+            text-transform: uppercase;
+            width: 100%;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1rem;
+        }
+        .btn-gold:hover {
+            background: #b38f4d;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--forest);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .back-link:hover {
+            color: var(--gold);
+        }
+        .help-text {
+            font-size: 0.85rem;
+            color: #777;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-top">
+        <a href="{% url 'home' %}">
+            <img src="https://i.pinimg.com/736x/e9/cf/f3/e9cff3536efddc806355f3793e9aedcf.jpg" alt="Logo">
+        </a>
+    </header>
+
+    <div class="container">
+        <a href="{% url 'community_blogs' %}" class="back-link">&larr; Back to Community Insights</a>
+        
+        <div class="form-container">
+            <h2 style="text-align: center; margin-top: 0;">Share Your Wisdom</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px;">
+                Write an article or blog about Ayurveda to share with the AyurRekha community.
+            </p>
+
+            <form method="post" action="{% url 'create_blog' %}">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="{{ form.title.id_for_label }}">Blog Title</label>
+                    {{ form.title }}
+                    {% if form.title.errors %}
+                        <div style="color: red; font-size: 0.85rem; margin-top: 5px;">{{ form.title.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.image_url.id_for_label }}">Cover Image (Optional URL)</label>
+                    {{ form.image_url }}
+                    <div class="help-text">Provide a link to an image to be used as the blog's cover.</div>
+                    {% if form.image_url.errors %}
+                        <div style="color: red; font-size: 0.85rem; margin-top: 5px;">{{ form.image_url.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.content.id_for_label }}">Content</label>
+                    {{ form.content }}
+                    {% if form.content.errors %}
+                        <div style="color: red; font-size: 0.85rem; margin-top: 5px;">{{ form.content.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn-gold"><i class="fas fa-paper-plane"></i> Publish Blog</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

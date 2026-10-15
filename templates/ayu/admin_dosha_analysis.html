@@ -1,0 +1,115 @@
+{% extends 'ayu/admin_base.html' %}
+
+{% block title %}Dosha Analytics - AyurRekha Admin{% endblock %}
+{% block page_title %}Health Assessment & Dosha Analysis{% endblock %}
+
+{% block extra_css %}
+<style>
+    .analytics-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+    .chart-box {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .bar-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 20px;
+    }
+    .bar-item {
+        width: 100%;
+    }
+    .bar-label {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+    .bar-outer {
+        height: 12px;
+        background: #eee;
+        border-radius: 6px;
+        overflow: hidden;
+    }
+    .bar-inner {
+        height: 100%;
+        border-radius: 6px;
+        transition: 1s ease-out;
+    }
+    .vata-color { background: #3498db; }
+    .pitta-color { background: #e67e22; }
+    .kapha-color { background: #2ecc71; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="analytics-grid">
+    <div class="chart-box">
+        <h3>Dosha Distribution (Aggregate)</h3>
+        <p style="color: #888; font-size: 0.9rem; text-align: center;">Distribution of Vata, Pitta, and Kapha scores across all {{ total_assessments }} assessments.</p>
+        
+        <div class="bar-container">
+            <div class="bar-item">
+                <div class="bar-label"><span>Vata</span> <span>{{ chart_data.Vata }}</span></div>
+                <div class="bar-outer">
+                    <div class="bar-inner vata-color" style="width: 33%;"></div>
+                </div>
+            </div>
+            <div class="bar-item">
+                <div class="bar-label"><span>Pitta</span> <span>{{ chart_data.Pitta }}</span></div>
+                <div class="bar-outer">
+                    <div class="bar-inner pitta-color" style="width: 33%;"></div>
+                </div>
+            </div>
+            <div class="bar-item">
+                <div class="bar-label"><span>Kapha</span> <span>{{ chart_data.Kapha }}</span></div>
+                <div class="bar-outer">
+                    <div class="bar-inner kapha-color" style="width: 33%;"></div>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 30px; font-size: 0.8rem; color: #999;">* Percentages calculated based on total point distribution.</div>
+    </div>
+
+    <div class="card" style="margin-bottom: 0;">
+        <div class="card-header">
+            <h3>Recent Assessments</h3>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Result</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in results %}
+                <tr>
+                    <td style="font-weight: 600;">{{ r.user.username }}</td>
+                    <td>
+                        <div style="font-size: 0.75rem;">
+                            V: {{ r.vata }} | P: {{ r.pitta }} | K: {{ r.kapha }}
+                        </div>
+                    </td>
+                    <td style="color: #888; font-size: 0.8rem;">{{ r.created_at|date:"M d, Y" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

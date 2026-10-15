@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Appointments - AyurRekha</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest: #1B3022;
+            --gold: #C5A059;
+            --pearl: #FBFAF5;
+            --soft-gray: #f2f2f2;
+            --text: #333333;
+            --white: #ffffff;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--pearl);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            color: var(--forest);
+            margin: 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .appointment-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 30px;
+            border-left: 5px solid transparent;
+        }
+
+        .appointment-card.pending { border-left-color: #f1c40f; }
+        .appointment-card.approved { border-left-color: #2ecc71; }
+        .appointment-card.cancelled { border-left-color: #e74c3c; }
+
+        .date-box {
+            text-align: center;
+            padding: 15px;
+            background: var(--soft-gray);
+            border-radius: 15px;
+            width: 80px;
+        }
+
+        .date-box .month {
+            display: block;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #888;
+        }
+
+        .date-box .day {
+            display: block;
+            font-size: 1.8rem;
+            font-重量: 700;
+            color: var(--forest);
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .details h3 {
+            margin: 0 0 5px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            color: var(--forest);
+        }
+
+        .details p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .status-badge {
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .status-pending { background: #fffcf0; color: #f39c12; }
+        .status-approved { background: #f0fff4; color: #27ae60; }
+        .status-cancelled { background: #fff5f5; color: #c0392b; }
+
+        .btn-new {
+            display: block;
+            width: fit-content;
+            margin: 0 auto 40px;
+            background: var(--forest);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .btn-new:hover { background: var(--gold); }
+
+        .no-appointments {
+            text-align: center;
+            padding: 80px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 20px;
+            border: 2px dashed #ddd;
+        }
+
+        @media (max-width: 768px) {
+            .appointment-card {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .date-box { margin: 0 auto; }
+            .status-badge { width: fit-content; margin: 0 auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="{% url 'dashboard' %}" class="back-link"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+        
+        <header>
+            <h1>My Consultations</h1>
+            <p style="color:var(--gold); margin-top:10px;">Track your journey with our experts</p>
+        </header>
+
+        <a href="{% url 'practitioner_directory' %}" class="btn-new"><i class="fas fa-plus"></i> Book New Consultation</a>
+
+        {% for appt in appointments %}
+        <div class="appointment-card {{ appt.status }}">
+            <div class="date-box">
+                <span class="month">{{ appt.date_time|date:"M" }}</span>
+                <span class="day">{{ appt.date_time|date:"d" }}</span>
+            </div>
+            
+            <div class="details">
+                <h3>Dr. {{ appt.practitioner.username }}</h3>
+                <p><i class="far fa-clock"></i> {{ appt.date_time|date:"H:i" }}</p>
+                {% if appt.notes %}
+                <p style="margin-top:10px; font-style: italic;">"{{ appt.notes }}"</p>
+                {% endif %}
+            </div>
+
+            <div>
+                <span class="status-badge status-{{ appt.status }}">{{ appt.get_status_display }}</span>
+                {% if appt.status == 'approved' %}
+                <div style="margin-top: 15px;">
+                    <a href="{% url 'consultation_chat' appt.practitioner.id %}" class="status-badge" style="background:var(--forest); color:white; text-decoration:none; display:inline-block;">
+                        <i class="fas fa-comments"></i> Chat
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <div class="no-appointments">
+            <i class="fas fa-calendar-times fa-4x" style="color:#eee; margin-bottom: 20px; display: block;"></i>
+            <h3>No appointments scheduled</h3>
+            <p style="color:#888;">Your consultation history will appear here.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+</body>
+</html>

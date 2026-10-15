@@ -1,0 +1,70 @@
+{% extends 'ayu/admin_base.html' %}
+
+{% block title %}Login History - AyurRekha Admin{% endblock %}
+{% block page_title %}Security & Login History{% endblock %}
+
+{% block extra_css %}
+<style>
+    .log-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        padding: 20px;
+        margin-bottom: 25px;
+    }
+    .badge-success { background: #d4edda; color: #155724; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; }
+    .badge-danger { background: #f8d7da; color: #721c24; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #eee; }
+    th { color: #888; font-weight: 500; font-size: 0.9rem; }
+    .suspicious { background-color: #fff3cd; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="log-card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h3>Recent Login Attempts</h3>
+        <span class="status-badge" style="background:#eee;">Total Records: {{ logs.count }}</span>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Date & Time</th>
+                <th>Attempted Username/Email</th>
+                <th>IP Address</th>
+                <th>Status</th>
+                <th>User Account</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for log in logs %}
+            <tr {% if not log.is_successful %}class="suspicious"{% endif %}>
+                <td>{{ log.timestamp|date:"M d, Y H:i" }}</td>
+                <td style="font-family: monospace;">{{ log.username_attempted|default:"-" }}</td>
+                <td>{{ log.ip_address|default:"Unknown" }}</td>
+                <td>
+                    {% if log.is_successful %}
+                        <span class="badge-success">Success</span>
+                    {% else %}
+                        <span class="badge-danger">Failed</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if log.user %}
+                        {{ log.user.username }} ({{ log.user.email }})
+                    {% else %}
+                        <span style="color: #888;">N/A</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" style="text-align: center; color: #888; padding: 30px;">No login history found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

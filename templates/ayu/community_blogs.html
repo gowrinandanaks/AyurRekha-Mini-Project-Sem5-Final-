@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Blogs - AyurRekha</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --forest: #1B3022;
+            --gold: #C5A059;
+            --pearl: #FBFAF5;
+            --text: #333333;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--pearl);
+            color: var(--text);
+        }
+        .header-top {
+            padding: 20px;
+            text-align: center;
+            background: white;
+            border-bottom: 2px solid var(--forest);
+        }
+        .header-top img {
+            height: 80px;
+            object-fit: contain;
+        }
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--forest);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 20px;
+        }
+        .btn-gold {
+            background: var(--gold);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-weight: 600;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-gold:hover {
+            background: #b38f4d;
+        }
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .blog-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        .blog-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: #eee;
+        }
+        .blog-content {
+            padding: 20px;
+        }
+        .blog-title {
+            font-size: 1.5rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .blog-meta {
+            font-size: 0.85rem;
+            color: #777;
+            margin-bottom: 15px;
+        }
+        .blog-excerpt {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .read-more {
+            color: var(--forest);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .read-more:hover {
+            color: var(--gold);
+        }
+        /* --- Form Styles for Create and Review --- */
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--forest);
+            font-weight: 600;
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--forest);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
+        .back-link:hover {
+            color: var(--gold);
+            transform: translateX(-5px);
+        }
+        
+    </style>
+</head>
+<body>
+
+    <header class="header-top">
+        <a href="{% url 'home' %}">
+            <img src="https://i.pinimg.com/736x/e9/cf/f3/e9cff3536efddc806355f3793e9aedcf.jpg" alt="Logo">
+        </a>
+    </header>
+
+    <div class="container">
+        <a href="{% url 'home' %}" class="back-link"><i class="fas fa-home"></i> Back to Home</a>
+        <div class="page-header">
+            <h1>Ayurveda Community Insights</h1>
+            {% if user.is_authenticated %}
+                <a href="{% url 'create_blog' %}" class="btn-gold"><i class="fas fa-pen"></i> Write a Blog</a>
+            {% else %}
+                <a href="{% url 'home' %}?login=true" class="btn-gold"><i class="fas fa-sign-in-alt"></i> Login to Write</a>
+            {% endif %}
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div style="background: #e8f5e9; color: #2e7d32; padding: 15px; border-radius: 5px; margin-bottom: 20px; border-left: 5px solid #4CAF50;">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% if blogs %}
+            <div class="blog-grid">
+                {% for blog in blogs %}
+                    <div class="blog-card">
+                        {% if blog.image_url %}
+                            <img src="{{ blog.image_url }}" alt="{{ blog.title }}" class="blog-img">
+                        {% else %}
+                            <div class="blog-img" style="display:flex; align-items:center; justify-content:center; background:#1B3022;">
+                                <i class="fas fa-leaf" style="font-size: 4rem; color:#C5A059;"></i>
+                            </div>
+                        {% endif %}
+                        <div class="blog-content">
+                            <h3 class="blog-title">{{ blog.title }}</h3>
+                            <div class="blog-meta">
+                                By <strong>{{ blog.author.username }}</strong> &bull; {{ blog.created_at|date:"M d, Y" }}
+                            </div>
+                            <div class="blog-excerpt">
+                                {{ blog.content|truncatechars:120 }}
+                            </div>
+                            <a href="{% url 'blog_detail' blog.id %}" class="read-more">Read Full Article &rarr;</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div style="text-align: center; padding: 60px; background: white; border-radius: 10px;">
+                <h3 style="color: #666;">No community blogs published yet.</h3>
+                <p>Be the first to share your Ayurvedic wisdom!</p>
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>

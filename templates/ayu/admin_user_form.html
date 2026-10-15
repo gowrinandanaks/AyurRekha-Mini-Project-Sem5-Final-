@@ -1,0 +1,138 @@
+{% extends 'ayu/admin_base.html' %}
+
+{% block title %}{{ action }} User - AyurRekha Admin{% endblock %}
+{% block page_title %}{{ action }} User / Practitioner{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 800px; margin: 0 auto;">
+    <div class="card-header">
+        <h3>User Information</h3>
+        <p style="color: #888; font-size: 0.9rem;">Fill in the details for the {% if role %}{{ role }}{% else %}account{% endif %}</p>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 20px;">
+        {% csrf_token %}
+        <input type="hidden" name="role" value="{{ role|default:'patient' }}">
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="form-group">
+                <label style="display: block; margin-bottom: 8px; font-weight: 600;">Username</label>
+                <input type="text" name="username" value="{{ user_obj.username }}" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+            </div>
+            <div class="form-group">
+                <label style="display: block; margin-bottom: 8px; font-weight: 600;">Email Address</label>
+                <input type="email" name="email" value="{{ user_obj.email }}" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+            </div>
+        </div>
+
+        {% if action == 'Add' %}
+        <div class="form-group">
+            <label style="display: block; margin-bottom: 8px; font-weight: 600;">Password</label>
+            <input type="password" name="password" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+        </div>
+        {% endif %}
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="form-group">
+                <label style="display: block; margin-bottom: 8px; font-weight: 600;">Age</label>
+                <input type="number" name="age" value="{{ user_obj.profile.age }}" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+            </div>
+            <div class="form-group">
+                <label style="display: block; margin-bottom: 8px; font-weight: 600;">Profession / Category</label>
+                <select name="profession" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                    <option value="student" {% if user_obj.profile.profession == 'student' %}selected{% endif %}>Student</option>
+                    <option value="professional" {% if user_obj.profile.profession == 'professional' %}selected{% endif %}>Working Professional</option>
+                    <option value="homemaker" {% if user_obj.profile.profession == 'homemaker' %}selected{% endif %}>Homemaker</option>
+                    <option value="retired" {% if user_obj.profile.profession == 'retired' %}selected{% endif %}>Retired</option>
+                    <option value="other" {% if user_obj.profile.profession == 'other' or not user_obj %}selected{% endif %}>Other</option>
+                </select>
+            </div>
+        </div>
+
+        {% if role == 'practitioner' or user_obj.profile.role == 'practitioner' %}
+        <div style="background: #fdfaf0; padding: 20px; border-radius: 12px; border: 1px solid #faebcc;">
+            <h4 style="margin-top: 0; color: var(--gold);"><i class="fas fa-certificate"></i> Practitioner Details</h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px;">
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Qualification</label>
+                    <input type="text" name="qualification" value="{{ user_obj.profile.qualification }}" placeholder="e.g. BAMS, MD Ayurveda" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                </div>
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Specialization</label>
+                    <input type="text" name="specialization" value="{{ user_obj.profile.specialization|default:'' }}" placeholder="e.g. Panchakarma, Nadi Pariksha" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px;">
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Profile Photo</label>
+                    <input type="file" name="profile_photo" accept="image/*" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; background: white;">
+                    {% if user_obj.profile.profile_photo %}
+                        <p style="margin-top: 5px; font-size: 0.85rem; color: #666;">Current: <a href="{{ user_obj.profile.profile_photo.url }}" target="_blank">View Photo</a></p>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Certificate Document</label>
+                    <input type="file" name="certificate" accept=".pdf,.jpg,.jpeg,.png" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; background: white;">
+                    {% if user_obj.profile.certificate %}
+                        <p style="margin-top: 5px; font-size: 0.85rem; color: #666;">Current: <a href="{{ user_obj.profile.certificate.url }}" target="_blank">View Certificate</a></p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px;">
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Hospital/Clinic Name</label>
+                    <input type="text" name="hospital_name" value="{{ user_obj.profile.hospital_name|default:'' }}" placeholder="Current Workplace Name" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                </div>
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Years of Experience</label>
+                    <input type="number" name="experience_years" value="{{ user_obj.profile.experience_years|default:0 }}" min="0" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px;">
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Hospital District (Kerala)</label>
+                    <select name="hospital_district" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                        <option value="">-- Select District --</option>
+                        <option value="thiruvananthapuram" {% if user_obj.profile.hospital_district == 'thiruvananthapuram' %}selected{% endif %}>Thiruvananthapuram</option>
+                        <option value="kollam" {% if user_obj.profile.hospital_district == 'kollam' %}selected{% endif %}>Kollam</option>
+                        <option value="pathanamthitta" {% if user_obj.profile.hospital_district == 'pathanamthitta' %}selected{% endif %}>Pathanamthitta</option>
+                        <option value="alappuzha" {% if user_obj.profile.hospital_district == 'alappuzha' %}selected{% endif %}>Alappuzha</option>
+                        <option value="kottayam" {% if user_obj.profile.hospital_district == 'kottayam' %}selected{% endif %}>Kottayam</option>
+                        <option value="idukki" {% if user_obj.profile.hospital_district == 'idukki' %}selected{% endif %}>Idukki</option>
+                        <option value="ernakulam" {% if user_obj.profile.hospital_district == 'ernakulam' %}selected{% endif %}>Ernakulam</option>
+                        <option value="thrissur" {% if user_obj.profile.hospital_district == 'thrissur' %}selected{% endif %}>Thrissur</option>
+                        <option value="palakkad" {% if user_obj.profile.hospital_district == 'palakkad' %}selected{% endif %}>Palakkad</option>
+                        <option value="malappuram" {% if user_obj.profile.hospital_district == 'malappuram' %}selected{% endif %}>Malappuram</option>
+                        <option value="kozhikode" {% if user_obj.profile.hospital_district == 'kozhikode' %}selected{% endif %}>Kozhikode</option>
+                        <option value="wayanad" {% if user_obj.profile.hospital_district == 'wayanad' %}selected{% endif %}>Wayanad</option>
+                        <option value="kannur" {% if user_obj.profile.hospital_district == 'kannur' %}selected{% endif %}>Kannur</option>
+                        <option value="kasaragod" {% if user_obj.profile.hospital_district == 'kasaragod' %}selected{% endif %}>Kasaragod</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Hospital Place</label>
+                    <input type="text" name="hospital_place" value="{{ user_obj.profile.hospital_place|default:'' }}" placeholder="City/Town Area" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                </div>
+            </div>
+            <div class="form-group">
+                <label style="display: block; margin-bottom: 8px; font-weight: 600;">Biography</label>
+                <textarea name="bio" rows="3" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">{{ user_obj.profile.bio }}</textarea>
+            </div>
+            <div style="margin-top: 15px;">
+                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                    <input type="checkbox" name="is_approved" {% if user_obj.profile.is_approved %}checked{% endif %}> Verified & Approved
+                </label>
+            </div>
+        </div>
+        {% endif %}
+
+        <div style="display: flex; justify-content: flex-end; gap: 15px; margin-top: 20px;">
+            <a href="{% if role == 'practitioner' %}{% url 'admin_practitioner_list' %}{% else %}{% url 'admin_user_list' %}{% endif %}" class="btn" style="background: #eee; color: #666;">Cancel</a>
+            <button type="submit" class="btn btn-gold">Save Changes</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

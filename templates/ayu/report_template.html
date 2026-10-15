@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AyurRekha Health Report</title>
+    <style>
+        @page {
+            size: a4 portrait;
+            margin: 2cm;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #1B3022;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #1B3022;
+            margin: 0;
+            font-size: 24pt;
+        }
+        .header p {
+            color: #C5A059;
+            margin: 5px 0 0;
+            font-style: italic;
+        }
+        .section {
+            margin-bottom: 25px;
+        }
+        .section-title {
+            background-color: #f2f2f2;
+            padding: 8px 15px;
+            font-weight: bold;
+            color: #1B3022;
+            border-left: 5px solid #C5A059;
+            margin-bottom: 15px;
+        }
+        .info-grid {
+            display: block;
+            margin-bottom: 20px;
+        }
+        .info-item {
+            margin-bottom: 8px;
+        }
+        .label {
+            font-weight: bold;
+            color: #555;
+            width: 150px;
+            display: inline-block;
+        }
+        .dosha-box {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background: #FBFAF5;
+        }
+        .recommendation-box {
+            padding: 15px;
+            background: #fff;
+            border: 1px solid #eee;
+            margin-bottom: 10px;
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 9pt;
+            color: #888;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        th {
+            background: #f9f9f9;
+            font-size: 10pt;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>AyurRekha</h1>
+        <p>Holistic Ayurvedic Wellness & Patient Management</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Patient Information</div>
+        <div class="info-grid">
+            <div class="info-item"><span class="label">Patient Name:</span> {{ patient.username }}</div>
+            <div class="info-item"><span class="label">Patient ID:</span> #{{ patient.id }}</div>
+            <div class="info-item"><span class="label">Report Date:</span> {{ today|date:"d M, Y" }}</div>
+            <div class="info-item"><span class="label">Practitioner:</span> Dr. {{ practitioner.username }}</div>
+        </div>
+    </div>
+
+    {% if dosha %}
+    <div class="section">
+        <div class="section-title">Dosha Analysis (Prakriti)</div>
+        <div class="dosha-box">
+            <p><strong>Dominant Dosha:</strong> {{ dosha.dominant_dosha }}</p>
+            <p>Your constitutional balance consists of:</p>
+            <ul>
+                <li>Vata: {{ dosha.vata }}%</li>
+                <li>Pitta: {{ dosha.pitta }}%</li>
+                <li>Kapha: {{ dosha.kapha }}%</li>
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="section">
+        <div class="section-title">Latest Vital Records</div>
+        {% if records %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Blood Pressure</th>
+                    <th>Cholesterol</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rec in records %}
+                <tr>
+                    <td>{{ rec.created_at|date:"d/m/Y" }}</td>
+                    <td>{{ rec.blood_pressure }}</td>
+                    <td>{{ rec.cholesterol|default:"-" }}</td>
+                    <td>{{ rec.physical_pain_details|truncatechars:50 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No vital records found.</p>
+        {% endif %}
+    </div>
+
+    <div class="section">
+        <div class="section-title">Treatment Recommendations</div>
+        {% for plan in recommendations %}
+        <div class="recommendation-box">
+            <p><strong>Plan Date:</strong> {{ plan.created_at|date:"d M, Y" }}</p>
+            <p><strong>Medicines:</strong> {{ plan.medicines }}</p>
+            <p><strong>Therapies:</strong> {{ plan.therapies }}</p>
+            <p><strong>Dietary Advice:</strong> {{ plan.diet_plan }}</p>
+        </div>
+        {% empty %}
+        <p>No active treatment recommendations.</p>
+        {% endfor %}
+    </div>
+
+    <div class="footer">
+        Generated by AyurRekha Portal &copy; {% now "Y" %}. This is an electronically generated report.
+    </div>
+
+</body>
+</html>

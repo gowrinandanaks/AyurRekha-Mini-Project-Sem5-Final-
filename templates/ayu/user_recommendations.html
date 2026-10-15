@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Recommendations - AyurRekha</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest: #1B3022;
+            --gold: #C5A059;
+            --pearl: #FBFAF5;
+            --soft-gray: #f2f2f2;
+            --text: #333333;
+            --white: #ffffff;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--pearl);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            color: var(--forest);
+            margin: 0;
+        }
+
+        header p {
+            font-style: italic;
+            color: var(--gold);
+            margin-top: 10px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .recommendation-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            border-left: 5px solid var(--gold);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid var(--soft-gray);
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .card-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            margin: 0;
+            color: var(--forest);
+        }
+
+        .card-header .date {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section h3 {
+            font-size: 1.1rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section p {
+            line-height: 1.6;
+            color: #555;
+            white-space: pre-wrap; /* Preserves line breaks from the practitioner's input */
+            background: #fdfdfd;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 0;
+        }
+
+        .practitioner-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 60px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 20px;
+            border: 2px dashed #ddd;
+        }
+
+        .no-data i {
+            font-size: 3rem;
+            color: var(--soft-gray);
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.2rem; }
+            .recommendation-card { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="{% url 'dashboard' %}" class="back-link"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+        
+        <header>
+            <h1>Your Healing Journey</h1>
+            <p>Personalized Ayurvedic Wisdom for Body, Mind, and Spirit</p>
+            <div style="margin-top: 20px;">
+                <a href="{% url 'export_health_report' user.id %}" class="back-link" style="background:var(--forest); color:white; padding:10px 25px; border-radius:10px; font-weight:600; text-decoration:none;">
+                    <i class="fas fa-file-pdf"></i> Download Full Health Report
+                </a>
+            </div>
+        </header>
+
+        {% for rec in recommendations %}
+        <div class="recommendation-card">
+            <div class="card-header">
+                <div>
+                    <h2>Treatment Consultation</h2>
+                    <div class="practitioner-info">
+                        <i class="fas fa-user-md"></i> Prescribed by Dr. {{ rec.practitioner.username }}
+                    </div>
+                </div>
+                <div class="date">{{ rec.created_at|date:"d F, Y" }}</div>
+            </div>
+
+            <div class="section">
+                <h3><i class="fas fa-pills"></i> Ayurvedic Medicines</h3>
+                <p>{{ rec.medicines }}</p>
+            </div>
+
+            <div class="section">
+                <h3><i class="fas fa-spa"></i> Prescribed Therapies</h3>
+                <p>{{ rec.therapies }}</p>
+            </div>
+
+            <div class="section">
+                <h3><i class="fas fa-om"></i> Yoga & Pranayama</h3>
+                <p>{{ rec.yoga_pranayama }}</p>
+            </div>
+
+            <div class="section">
+                <h3><i class="fas fa-leaf"></i> Diet & Lifestyle</h3>
+                <p>{{ rec.diet_plan }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <div class="no-data">
+            <i class="fas fa-scroll"></i>
+            <h3>No recommendations yet</h3>
+            <p>Consult with an Ayurvedic practitioner to receive personalized health plans.</p>
+            <br>
+            <a href="{% url 'home' %}#services" class="back-link">Book a Consultation</a>
+        </div>
+        {% endfor %}
+    </div>
+
+</body>
+</html>

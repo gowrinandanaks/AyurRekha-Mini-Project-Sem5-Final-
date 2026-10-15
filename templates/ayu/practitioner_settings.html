@@ -1,0 +1,258 @@
+{% extends "ayu/practitioner_base.html" %}
+
+{% block title %}Practitioner Settings - AyurRekha{% endblock %}
+
+{% block header_title %}Profile Settings{% endblock %}
+{% block header_subtitle %}Keep your professional profile updated for patients.{% endblock %}
+
+{% block extra_css %}
+    .settings-form {
+        max-width: 800px;
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--forest);
+    }
+    .form-control {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-family: 'Montserrat', sans-serif;
+    }
+    .btn-save {
+        background: var(--forest);
+        color: white;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        font-family: 'Montserrat', sans-serif;
+    }
+    .btn-save:hover {
+        background: var(--gold);
+    }
+    .current-photo {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 10px;
+        border: 3px solid var(--gold);
+    }
+    .section-card {
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 12px;
+        padding: 25px;
+        border: 1px solid rgba(0, 100, 0, 0.1);
+    }
+    .section-title {
+        font-family: 'Cormorant Garamond', serif;
+        color: var(--forest);
+        font-size: 1.4rem;
+        margin-bottom: 20px;
+        border-bottom: 2px solid var(--gold);
+        display: inline-block;
+        padding-bottom: 5px;
+    }
+    .file-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--gold);
+        font-weight: 600;
+        text-decoration: none;
+        background: rgba(184, 134, 11, 0.1);
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        margin-bottom: 10px;
+    }
+    .file-link:hover {
+        background: var(--gold);
+        color: white;
+    }
+    small {
+        color: #666;
+        display: block;
+        margin-top: 4px;
+        font-size: 0.8rem;
+    }
+{% endblock %}
+
+{% block content %}
+<div class="glass-card settings-form">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- 1. Identity & Basic Info -->
+        <div class="section-card">
+            <h3 class="section-title"><i class="fas fa-id-card"></i> Identity & Basic Info</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-group">
+                    <label>Profile Photo</label>
+                    {% if user.profile.profile_photo %}
+                        <img src="{{ user.profile.profile_photo.url }}" class="current-photo">
+                    {% endif %}
+                    {{ form.profile_photo }}
+                </div>
+                <div class="form-group">
+                    <label>Bio (Professional Summary)</label>
+                    {{ form.bio }}
+                </div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+                <div class="form-group">
+                    <label>Gender</label>
+                    {{ form.gender }}
+                </div>
+                <div class="form-group">
+                    <label>Date of Birth</label>
+                    {{ form.date_of_birth }}
+                </div>
+                <div class="form-group">
+                    <label>Contact Number</label>
+                    {{ form.contact_number }}
+                </div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-group">
+                    <label>Government ID Type</label>
+                    {{ form.gov_id_type }}
+                </div>
+                <div class="form-group">
+                    <label>Upload ID Proof (Aadhaar/Passport/License)</label>
+                    {% if user.profile.gov_id_file %}
+                        <p><a href="{{ user.profile.gov_id_file.url }}" target="_blank" class="file-link"><i class="fas fa-file-alt"></i> View ID</a></p>
+                    {% endif %}
+                    {{ form.gov_id_file }}
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Educational Background -->
+        <div class="section-card" style="margin-top: 30px;">
+            <h3 class="section-title"><i class="fas fa-graduation-cap"></i> Educational Background</h3>
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
+                <div class="form-group">
+                    <label>University or College Name</label>
+                    {{ form.university_name }}
+                </div>
+                <div class="form-group">
+                    <label>Year of Graduation</label>
+                    {{ form.graduation_year }}
+                </div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-group">
+                    <label>Major Qualification (e.g., BAMS)</label>
+                    {{ form.qualification }}
+                </div>
+                <div class="form-group">
+                    <label>Internship Completion Certificate</label>
+                    {% if user.profile.internship_certificate %}
+                        <p><a href="{{ user.profile.internship_certificate.url }}" target="_blank" class="file-link"><i class="fas fa-file-contract"></i> View Certificate</a></p>
+                    {% endif %}
+                    {{ form.internship_certificate }}
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Medical Registration -->
+        <div class="section-card" style="margin-top: 30px;">
+            <h3 class="section-title"><i class="fas fa-file-medical"></i> Medical Registration</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-group">
+                    <label>Registration Number</label>
+                    {{ form.med_reg_number }}
+                </div>
+                <div class="form-group">
+                    <label>Registered Medical Council</label>
+                    {{ form.med_council }}
+                    <small>e.g., State Ayurveda Medical Council</small>
+                </div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-group">
+                    <label>Registration Certificate Upload</label>
+                    {% if user.profile.reg_certificate %}
+                        <p><a href="{{ user.profile.reg_certificate.url }}" target="_blank" class="file-link"><i class="fas fa-certificate"></i> View Certificate</a></p>
+                    {% endif %}
+                    {{ form.reg_certificate }}
+                </div>
+                <div class="form-group">
+                    <label>License Validity Date</label>
+                    {{ form.license_validity }}
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Clinical & Workplace Details -->
+        <div class="section-card" style="margin-top: 30px;">
+            <h3 class="section-title"><i class="fas fa-hospital"></i> Clinical & Workplace Details</h3>
+            <div class="form-group">
+                <label>Specialization (Areas of Expertise)</label>
+                {{ form.specialization }}
+            </div>
+            <div style="display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 20px;">
+                <div class="form-group">
+                    <label>Current Hospital/Clinic Name</label>
+                    {{ form.hospital_name }}
+                </div>
+                <div class="form-group">
+                    <label>Hospital District</label>
+                    {{ form.hospital_district }}
+                </div>
+                <div class="form-group">
+                    <label>Hospital Place</label>
+                    {{ form.hospital_place }}
+                </div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1.5fr 1.2fr 1fr; gap: 20px;">
+                <div class="form-group">
+                    <label>Hospital Email Address</label>
+                    {{ form.hospital_email }}
+                </div>
+                <div class="form-group">
+                    <label>Hospital Contacts</label>
+                    {{ form.hospital_contact }}
+                </div>
+                <div class="form-group">
+                    <label>Consultation Type</label>
+                    {{ form.consultation_type }}
+                </div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-group">
+                    <label>Experience (Total Years)</label>
+                    {{ form.experience_years }}
+                </div>
+                <div class="form-group">
+                    <label>Medical Degree Certificate</label>
+                    {% if user.profile.certificate %}
+                        <p><a href="{{ user.profile.certificate.url }}" target="_blank" class="file-link"><i class="fas fa-user-graduate"></i> View Degree</a></p>
+                    {% endif %}
+                    {{ form.certificate }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Previous Career Highlights</label>
+                {{ form.previous_hospitals }}
+                <small>Include previous hospitals, clinics, and details of work.</small>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; border-top: 1px solid #eee; padding-top: 25px; text-align: center;">
+            <button type="submit" class="btn-save" style="width: 300px; font-size: 1.1rem;">
+                <i class="fas fa-save"></i> Save My Professional Profile
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

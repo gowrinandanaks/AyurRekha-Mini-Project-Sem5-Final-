@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ritucharya: The Seasonal Guide | AyurRekha</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --forest: #1B3022;
+            --gold: #C5A059;
+            --pearl: #FBFAF5;
+            --text: #333333;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--pearl);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--forest);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--forest);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .hero-mini {
+            background: linear-gradient(rgba(27, 48, 34, 0.8), rgba(27, 48, 34, 0.8)),
+                url("https://images.unsplash.com/photo-1502082553048-f009c37129b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80") center/cover no-repeat;
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .hero-mini h1 {
+            color: white;
+            font-size: 3rem;
+            margin: 0;
+        }
+
+        .season-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .season-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            text-align: center;
+            border: 1px solid #eee;
+            transition: 0.3s;
+        }
+
+        .season-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+        }
+
+        .season-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .season-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .season-meta {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .season-details {
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .season-details ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .season-details li {
+            position: relative;
+            padding-left: 15px;
+            margin-bottom: 8px;
+        }
+
+        .season-details li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+        }
+
+        .seasonal-cycle {
+            background: #fff;
+            padding: 50px;
+            border-radius: 30px;
+            margin: 80px 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.05);
+        }
+
+        .seasonal-cycle h2 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .cycle-intro {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        footer {
+            background: white;
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            color: #888;
+            margin-top: 80px;
+        }
+
+        @media (max-width: 768px) {
+            .cycle-intro {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="hero-mini">
+        <h1>Ritucharya: Seasonal Harmony</h1>
+        <p>Adapting Your Inner World to the Ever-Changing Rhythms of the Earth</p>
+    </div>
+
+    <div class="container">
+        
+        <a href="{% url 'guide' %}" class="back-link"><i class="fas fa-arrow-left"></i> Back to Guide</a>
+
+        <div class="cycle-intro">
+            <div>
+                <h2>Nature Changes, So Should We</h2>
+                <p>In Ayurveda, the macrocosm (universe) is mirrored in the microcosm (human body). Just as plants bloom in spring and shed in autumn, our internal Doshas accumulate and dissipate with the seasons.</p>
+                <p>Ritucharya is the practice of adjusting your diet and lifestyle to maintain balance despite external shifts. Transitioning between seasons (Ritu Sandhi) is considered the most critical time for health.</p>
+            </div>
+            <div style="text-align: center;">
+                <img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Seasons" style="width: 100%; border-radius: 20px;">
+            </div>
+        </div>
+
+        <div class="season-grid">
+            
+            <!-- Winter -->
+            <div class="season-card">
+                <i class="fas fa-snowflake season-icon" style="color: #a5d6a7;"></i>
+                <h3>Winter</h3>
+                <span class="season-meta">Vata / Kapha</span>
+                <div class="season-details">
+                    <p>Agni is highest in winter to combat the cold. Focus on grounding and warmth.</p>
+                    <ul>
+                        <li>Favor soups and hot grains</li>
+                        <li>Internal & external oils</li>
+                        <li>Avoid cold/raw foods</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Spring -->
+            <div class="season-card">
+                <i class="fas fa-seedling season-icon" style="color: #81c784;"></i>
+                <h3>Spring</h3>
+                <span class="season-meta">Kapha Detox</span>
+                <div class="season-details">
+                    <p>The "melting" of winter Kapha. Focus on detoxification and renewal.</p>
+                    <ul>
+                        <li>Favor bitter & pungent tastes</li>
+                        <li>Light, stimulating exercise</li>
+                        <li>Minimize heavy/oily dairy</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Summer -->
+            <div class="season-card">
+                <i class="fas fa-sun season-icon" style="color: #ffd54f;"></i>
+                <h3>Summer</h3>
+                <span class="season-meta">Pitta Cooling</span>
+                <div class="season-details">
+                    <p>External heat raises internal Pitta. Focus on cooling and hydration.</p>
+                    <ul>
+                        <li>Juicy fruits & leafy greens</li>
+                        <li>Stay hydrated with coconut water</li>
+                        <li>Avoid spicy & fried foods</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Autumn -->
+            <div class="season-card">
+                <i class="fas fa-leaf season-icon" style="color: #ffb74d;"></i>
+                <h3>Autumn</h3>
+                <span class="season-meta">Vata Grounding</span>
+                <div class="season-details">
+                    <p>Dry and windy weather aggravates Vata. Focus on moisture and stability.</p>
+                    <ul>
+                        <li>Nourishing root vegetables</li>
+                        <li>Regular sleep schedule</li>
+                        <li>Stay warm and wrap up</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="seasonal-cycle">
+            <h2>Seasonal Dosha Transitions</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 30px;">Each season has a specific relationship with the Doshas, broadly categorized into three phases:</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+                <div style="padding: 20px; border: 1px solid #eee; border-radius: 15px;">
+                    <h4 style="color: var(--gold);">1. Chaya (Accumulation)</h4>
+                    <p>The Dosha begins to increase in its own habitat due to environmental factors.</p>
+                </div>
+                <div style="padding: 20px; background: var(--pearl); border: 2px solid var(--gold); border-radius: 15px;">
+                    <h4 style="color: var(--gold);">2. Prakopa (Vitiation)</h4>
+                    <p>The Dosha overflows its habitat and can lead to immediate symptoms.</p>
+                </div>
+                <div style="padding: 20px; border: 1px solid #eee; border-radius: 15px;">
+                    <h4 style="color: var(--gold);">3. Prashama (Pacification)</h4>
+                    <p>The Dosha naturally returns to its equilibrium as the season passes.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 AyurRekha | Tracing the Path to Natural Wellness</p>
+    </footer>
+
+</body>
+</html>

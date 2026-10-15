@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultation Chat - AyurRekha</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest: #1B3022;
+            --gold: #C5A059;
+            --pearl: #FBFAF5;
+            --soft-gray: #f2f2f2;
+            --text: #333333;
+            --white: #ffffff;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--pearl);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-container {
+            flex: 1;
+            max-width: 900px;
+            margin: 20px auto;
+            width: 100%;
+            background: var(--white);
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            padding: 25px 40px;
+            background: var(--forest);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--forest);
+            font-size: 1.2rem;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background: #f9f9f9;
+        }
+
+        .message {
+            max-width: 70%;
+            padding: 15px 25px;
+            border-radius: 20px;
+            position: relative;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        .message.sent {
+            align-self: flex-end;
+            background: var(--forest);
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message.received {
+            align-self: flex-start;
+            background: var(--soft-gray);
+            color: var(--text);
+            border-bottom-left-radius: 5px;
+        }
+
+        .message-time {
+            font-size: 0.7rem;
+            opacity: 0.7;
+            margin-top: 5px;
+            display: block;
+            text-align: right;
+        }
+
+        .chat-input-area {
+            padding: 30px 40px;
+            background: white;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 20px;
+        }
+
+        #messageInput {
+            flex: 1;
+            padding: 15px 25px;
+            border-radius: 50px;
+            border: 1px solid #ddd;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        #messageInput:focus {
+            border-color: var(--gold);
+        }
+
+        .btn-send {
+            background: var(--gold);
+            color: white;
+            border: none;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .btn-send:hover {
+            background: var(--forest);
+            transform: scale(1.05);
+        }
+
+        .back-btn {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .back-btn:hover { opacity: 1; }
+
+        @media (max-width: 600px) {
+            .chat-container { margin: 0; border-radius: 0; height: 100vh; }
+            .chat-messages { padding: 20px; }
+            .message { max-width: 85%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="chat-container">
+        <header class="chat-header">
+            <div class="user-info">
+                <a href="javascript:history.back()" class="back-btn"><i class="fas fa-chevron-left"></i></a>
+                <div class="user-avatar">{{ other_user.username|slice:":1"|upper }}</div>
+                <div>
+                    <div style="font-weight:600; font-size:1.1rem;">{{ other_user.username }}</div>
+                    <div style="font-size:0.75rem; color:var(--gold);"><i class="fas fa-circle" style="font-size:0.5rem;"></i> Active Consultation</div>
+                </div>
+            </div>
+            <i class="fas fa-ellipsis-v"></i>
+        </header>
+
+        <div class="chat-messages" id="chatMessages">
+            {% for msg in chat_messages %}
+            <div class="message {% if msg.sender == request.user %}sent{% else %}received{% endif %}">
+                {{ msg.content }}
+                <span class="message-time">{{ msg.timestamp|date:"H:i" }}</span>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="chat-input-area">
+            <input type="text" id="messageInput" placeholder="Type your message here..." autocomplete="off">
+            <button class="btn-send" id="sendBtn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script>
+        const chatMessages = document.getElementById('chatMessages');
+        const messageInput = document.getElementById('messageInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const recipientId = {{ other_user.id }};
+
+        // Scroll to bottom
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        async function sendMessage() {
+            const content = messageInput.value.trim();
+            if (!content) return;
+
+            messageInput.value = '';
+            
+            try {
+                const response = await fetch(`/api/send-consultation-message/${recipientId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({ content: content })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    appendMessage(data.content, 'sent', data.timestamp);
+                }
+            } catch (error) {
+                console.error('Error sending message:', error);
+            }
+        }
+
+        function appendMessage(content, type, time) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${type}`;
+            msgDiv.innerHTML = `
+                ${content}
+                <span class="message-time">${time}</span>
+            `;
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        sendBtn.addEventListener('click', sendMessage);
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        // Periodic check for new messages could be added here
+    </script>
+</body>
+</html>

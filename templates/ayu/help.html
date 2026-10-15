@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AyurRekha Help Center</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --forest: #1B3022;
+      --gold: #C5A059;
+      --pearl: #FBFAF5;
+      --soft-gray: #f2f2f2;
+      --text: #333333;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--pearl);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--forest);
+    }
+
+    .header-top {
+      padding: 20px;
+      text-align: center;
+      background: white;
+      border-bottom: 1px solid #eee;
+    }
+
+    .header-top img {
+      height: 100px;
+      object-fit: contain;
+    }
+
+    .vertical-nav {
+      position: fixed;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .vertical-nav a {
+      background: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--forest);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      font-size: 1.2rem;
+      transition: 0.3s;
+    }
+
+    .vertical-nav a:hover {
+      background: var(--forest);
+      color: white;
+    }
+
+
+    .site-container {
+      text-align: center;
+      padding: 40px 20px;
+      color: #5f4b32;
+    }
+
+
+
+
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px auto;
+      max-width: auto;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background-color: var(--gold);
+    }
+
+    .divider-icon {
+      margin: 0 10px;
+      font-size: 20px;
+      color: var(--gold);
+    }
+
+    .site-title {
+      font-weight: bold;
+      font-size: 18px;
+      margin-top: 10px;
+      color: var(--forest);
+    }
+
+    .site-address {
+      font-size: 16px;
+      color: var(--text);
+      opacity: 0.8;
+      margin-top: 5px;
+    }
+
+    .site-address a {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .site-address a:hover {
+      text-decoration: underline;
+    }
+
+
+
+    .section {
+      border-left: 4px solid var(--gold);
+      padding-left: 20px;
+      margin: 40px 20px;
+    }
+
+    .section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      margin-bottom: 12px;
+      color: var(--forest);
+    }
+
+    .section p {
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      color: var(--forest);
+      font-size: 28px;
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 10px;
+      margin-bottom: 25px;
+    }
+
+    details {
+      border-left: 4px solid var(--gold);
+      padding-left: 20px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--soft-gray);
+      padding-bottom: 15px;
+    }
+
+    details p {
+      margin-top: 10px;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    summary {
+      font-size: 17px;
+      font-weight: 500;
+      list-style: none;
+      position: relative;
+    }
+
+    summary::after {
+      content: '▾';
+      font-size: 20px;
+      position: absolute;
+      right: 0;
+      top: 0;
+      transition: transform 0.3s ease;
+    }
+
+    details[open] summary::after {
+      transform: rotate(180deg);
+    }
+
+    .contact {
+      background-color: #f2ede3;
+      padding: 20px;
+      border-left: 4px solid #9c8b66;
+      margin-top: 40px;
+    }
+
+    .contact p {
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    .subscribe {
+      margin-top: 30px;
+      background-color: #f4f1ea;
+      padding: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .subscribe input[type="email"] {
+      padding: 10px;
+      flex: 1 1 250px;
+      border: 1px solid #ccc;
+      font-family: inherit;
+    }
+
+    .subscribe button {
+      padding: 10px 20px;
+      background-color: var(--forest);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.3s;
+    }
+
+    .subscribe button:hover {
+      background-color: #2a4a35;
+    }
+
+    .contact-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-top: 60px;
+      padding: 0 20px 60px;
+    }
+
+    .contact-info {
+      flex: 1;
+      font-size: 16px;
+      color: #4d3c2e;
+      min-width: 250px;
+    }
+
+    .contact-info h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .contact-info b {
+      font-weight: 600;
+      color: #3c2e26;
+    }
+
+    .contact-form {
+      flex: 2;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 40px;
+    }
+
+    .contact-form label {
+      display: block;
+      font-size: 13px;
+      letter-spacing: 1px;
+      color: #6e5c4f;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+      width: 100%;
+      padding: 12px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 2px;
+      background-color: #fff;
+    }
+
+    .contact-form textarea {
+      height: 130px;
+      grid-column: span 2;
+    }
+
+    .checkbox {
+      grid-column: span 2;
+      font-size: 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .mandatory {
+      font-style: italic;
+      font-size: 14px;
+      color: #6e5c4f;
+      margin-top: 20px;
+    }
+
+    .single-column {
+      grid-column: span 2;
+    }
+
+    footer {
+      background-color: var(--forest);
+      color: var(--pearl);
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 14px;
+      margin-top: 60px;
+    }
+
+    footer a {
+      color: var(--gold);
+    }
+
+    a {
+      color: #5e4a2f;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header-top">
+    <img src="https://i.pinimg.com/736x/e9/cf/f3/e9cff3536efddc806355f3793e9aedcf.jpg" alt="Logo">
+  </header>
+
+  <div class="vertical-nav">
+    {% if user.is_authenticated %}
+    <a href="{% url 'logout' %}" title="Logout"><i class="fas fa-sign-out-alt"></i></a>
+    {% else %}
+    <a href="{% url 'home' %}" title="Login"><i class="fas fa-user"></i></a>
+    {% endif %}
+    <a href="{% url 'home' %}" title="Treatment"><i class="fas fa-spa"></i></a>
+    <a href="{% url 'home' %}" title="History"><i class="fas fa-book-open"></i></a>
+    <a href="{% url 'home' %}" title="Programs"><i class="fas fa-leaf"></i></a>
+    <a href="{% url 'doshatest' %}" title="Dosha Quiz"><i class="fas fa-clipboard-list"></i></a>
+    <a href="{% url 'help' %}" title="Help" style="background: var(--forest); color: white;"><i
+        class="fas fa-question-circle"></i></a>
+    <a href="{% url 'home' %}" title="Back Home"><i class="fas fa-home"></i></a>
+  </div>
+
+  <div class="section">
+    <h2>Getting Started</h2>
+    <p>Welcome to AyurRekha! If you're new here, this section will help you understand our offerings, how to choose
+      wellness packages, and how to begin your journey to natural healing.</p>
+  </div>
+
+  <main>
+    <h2>Frequently Asked Questions</h2>
+
+    <details>
+      <summary>What is AyurRekha?</summary>
+      <p>AyurRekha is a wellness platform that offers tools and knowledge based on Ayurveda to help you understand your
+        Dosha, follow a balanced lifestyle, and discover healing practices.</p>
+    </details>
+
+    <details>
+      <summary>How do I take the Dosha Quiz?</summary>
+      <p>Visit the Dosha Quiz page, answer all 10 questions, and click Submit. You'll be shown your Dosha and get
+        suggestions based on your profile.</p>
+    </details>
+
+    <details>
+      <summary>How do I download the Dosha Report?</summary>
+      <p>After completing the quiz, you’ll be redirected to the Dosha Report page. Click the "Generate PDF" button to
+        download your personalized report.</p>
+    </details>
+
+    <details>
+      <summary>Do I need to log in?</summary>
+      <p>Yes, login ensures your answers and reports are securely stored. AyurRekha uses cookie-based login sessions for
+        smooth access.</p>
+    </details>
+     
+    <details>
+      <summary>What kind of questions can I ask the chatbot?</summary>
+      <p>You can ask questions about Ayurveda, yoga, health tips, dosha information, and guidance related to the website.</p>
+    </details>
+  
+     <details>
+    <summary>Is my conversation with the chatbot private and secure?</summary>
+      <p>Yes, your chat is kept private and is only used to help answer your questions and improve your experience.</p>
+    </details>
+
+
+    <details>
+      <summary>The site is not loading correctly. What should I do?</summary>
+      <p>Try refreshing the page or clearing your browser cache. You can also contact us using the details below for
+        help.</p>
+    </details>
+
+
+
+    <div class="contact-container">
+      <div class="contact-info">
+        <h2>Contact Us</h2>
+        <p><b>For Reservations or Booking Assistance</b><br>
+          Call: +91-80-69750000<br>
+          call: +91-91-45006712<br>
+          Email: <i>admin@ayurrekha.com</i></p>
+        <p><b>AyurRekha Wellness and Guidance</b><br>
+          <i>admin@ayurwellness.com</i><br>
+          </i>
+        </p>
+        <p class="mandatory">* = mandatory field</p>
+      </div>
+
+      {% if user.is_authenticated %}
+      <form class="contact-form" action="{% url 'help' %}" method="POST">
+        {% csrf_token %}
+        <div>
+          <label for="programme">Programme*</label>
+          <select id="programme" name="programme" required>
+            <option value="">Please Select</option>
+            <option>Yoga Retreat</option>
+            <option>Panchakarma</option>
+            <option>Weight Management</option>
+          </select>
+        </div>
+        <div>
+          <label for="arrival">Arrival Date*</label>
+          <input type="date" id="arrival" name="arrival" required>
+        </div>
+        <div>
+          <label for="firstname">First Name*</label>
+          <input type="text" id="firstname" name="firstname" placeholder="First Name*" required>
+        </div>
+        <div>
+          <label for="surname">Surname*</label>
+          <input type="text" id="surname" name="surname" placeholder="Surname*" required>
+        </div>
+        <div>
+          <label for="email">Email*</label>
+          <input type="email" id="email" name="email" placeholder="Email*" value="{{ user.email }}" required>
+        </div>
+        <div>
+          <label for="telephone">Mobile No</label>
+          <input type="tel" id="telephone" name="telephone" pattern="[0-9]{10}" placeholder="Mobile">
+        </div>
+        <div>
+          <label for="country">Country</label>
+          <select id="country" name="country">
+            <option value="">Please Select</option>
+            <option>India</option>
+            <option>USA</option>
+            <option>UK</option>
+            <option>Australia</option>
+            <option>France</option>
+          </select>
+        </div>
+        
+        <div class="single-column">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Message"></textarea>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="subscribe" name="subscribe">
+          <label for="subscribe">Subscribe to newsletter to receive news and offers? You can unsubscribe at any
+            time.</label>
+        </div>
+        <div class="single-column">
+          <button type="submit" class="modal-btn"
+            style="background-color: var(--forest); color: white; border-radius: 5px; width: 100%; border:none; padding: 15px; cursor: pointer; font-size: 16px; font-weight: 600; margin-top: 10px;">Send
+            Help Request</button>
+        </div>
+      </form>
+      {% else %}
+      <div class="contact-form"
+        style="display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fff; padding: 40px; border: 1px dashed var(--gold); border-radius: 10px; text-align: center;">
+        <i class="fas fa-lock" style="font-size: 3rem; color: var(--gold); margin-bottom: 20px;"></i>
+        <h3 style="margin-bottom: 15px;">Login Required</h3>
+        <p style="color: #666; margin-bottom: 25px;">You must be logged in to send a message to the AyurWellness team.
+          Please log in or create an account to proceed.</p>
+        <a href="{% url 'home' %}" class="modal-btn"
+          style="text-decoration: none; display: inline-block; background: var(--forest); color: white; padding: 12px 30px; border-radius: 5px; font-weight: 600;">Back
+          to Home / Login</a>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="subscribe">
+      <input type="email" placeholder="Your email for updates & wellness tips">
+      <button>Send</button>
+    </div>
+  </main>
+
+  <div class="site-container">
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-icon">~~~~</div>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="site-title">AyurRekha Wellness</div>
+    <div class="site-address"> Tracing the Path to Natural Wellness<br>
+      Your Trusted Wellness Partner
+      (<a href="{% url 'home' %}" target="_blank">Visit Site</a>)
+    </div>
+
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-icon">~~~~</div>
+      <div class="divider-line"></div>
+    </div>
+  </div>
+  <footer>
+    <p>&copy; 2026 AyurRekha | Tracing the Path to Natural Wellness | <a href="#">Privacy Policy</a></p>
+  </footer>
+
+</body>
+
+</html>

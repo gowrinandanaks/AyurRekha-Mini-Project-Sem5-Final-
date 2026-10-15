@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dosha Quiz - Question</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --forest: #1B3022;
+      --gold: #C5A059;
+      --pearl: #F9F7F2;
+      --text: #333;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--pearl);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--forest);
+    }
+
+    .header-top {
+      padding: 20px;
+      text-align: center;
+      background: white;
+      border-bottom: 1px solid #eee;
+    }
+
+    .header-top img {
+      height: 100px;
+      object-fit: contain;
+    }
+
+    .vertical-nav {
+      position: fixed;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .vertical-nav a {
+      background: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--forest);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      font-size: 1.2rem;
+      transition: 0.3s;
+    }
+
+    .vertical-nav a:hover {
+      background: var(--forest);
+      color: white;
+    }
+
+
+
+
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: var(--forest);
+    }
+
+    .option-container {
+      margin: 15px 0;
+      background: #e0f2f1;
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .option-container:hover {
+      background: #d0ebeb;
+    }
+
+    input[type="radio"] {
+      margin-right: 10px;
+    }
+
+    .progress {
+      margin-top: 20px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 20px;
+      background: #c5e1a5;
+      border-radius: 10px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #558b2f;
+      width: 0%;
+      border-radius: 10px;
+      transition: width 0.3s;
+    }
+
+    button {
+      background: var(--forest);
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: var(--gold);
+    }
+
+
+    footer {
+      background-color: #33691e;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 600px) {
+
+      header,
+      footer {
+        text-align: center;
+        flex-direction: column;
+      }
+
+      header img {
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header-top">
+    <img src="https://i.pinimg.com/736x/e9/cf/f3/e9cff3536efddc806355f3793e9aedcf.jpg" alt="Logo">
+  </header>
+
+  <div class="vertical-nav">
+    {% if user.is_authenticated %}
+    <a href="{% url 'logout' %}" title="Logout"><i class="fas fa-sign-out-alt"></i></a>
+    {% else %}
+    <a href="{% url 'home' %}" title="Login"><i class="fas fa-user"></i></a>
+    {% endif %}
+    <a href="{% url 'home' %}" title="Treatment"><i class="fas fa-spa"></i></a>
+    <a href="{% url 'home' %}" title="History"><i class="fas fa-book-open"></i></a>
+    <a href="{% url 'home' %}" title="Programs"><i class="fas fa-leaf"></i></a>
+    <a href="{% url 'doshatest' %}" title="Dosha Quiz" style="background: var(--forest); color: white;"><i
+        class="fas fa-clipboard-list"></i></a>
+    <a href="{% url 'help' %}" title="Help"><i class="fas fa-question-circle"></i></a>
+    <a href="{% url 'home' %}" title="Back Home"><i class="fas fa-home"></i></a>
+  </div>
+
+
+
+  <div class="container">
+    <h2 id="question-text">Loading...</h2>
+    <form id="quiz-form"></form>
+    <div class="progress">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <p id="progress-label"></p>
+    </div>
+    <button onclick="nextQuestion()">Next</button>
+  </div>
+
+
+
+  <footer>
+    &copy; 2026 AyurRekha | wellness
+  </footer>
+
+
+
+  <script>
+    const questions = [
+      { text: "How would you describe your body frame?", options: ["Thin and light|vata", "Medium and muscular|pitta", "Broad and heavy|kapha"] },
+      { text: "Your appetite is:", options: ["Irregular|vata", "Strong and consistent|pitta", "Slow and steady|kapha"] },
+      { text: "How do you sleep?", options: ["Light and disturbed|vata", "Moderate and sound|pitta", "Deep and long|kapha"] },
+      { text: "Your energy levels are:", options: ["Variable and bursty|vata", "High and intense|pitta", "Slow and sustained|kapha"] },
+      { text: "Your skin tends to be:", options: ["Dry and rough|vata", "Warm and oily|pitta", "Smooth and moist|kapha"] },
+      { text: "Your hands and feet are usually:", options: ["Cold|vata", "Warm|pitta", "Cool and moist|kapha"] },
+      { text: "Your digestion is:", options: ["Irregular|vata", "Strong|pitta", "Slow|kapha"] },
+      { text: "Your walking style is:", options: ["Quick and light|vata", "Purposeful and fast|pitta", "Slow and steady|kapha"] },
+      { text: "Your voice is:", options: ["Thin and hoarse|vata", "Sharp and commanding|pitta", "Slow and melodious|kapha"] },
+      { text: "Your memory is:", options: ["Short-term|vata", "Sharp|pitta", "Long-term|kapha"] },
+      { text: "Your bowel movements are:", options: ["Dry or constipated|vata", "Frequent|pitta", "Regular and sluggish|kapha"] },
+      { text: "Your eating habit is:", options: ["Forget meals|vata", "Hungry on time|pitta", "Overeat often|kapha"] },
+      { text: "Your joints are:", options: ["Cracking and dry|vata", "Inflamed sometimes|pitta", "Stable and soft|kapha"] },
+      { text: "You wake up:", options: ["Restless and early|vata", "Refreshed and on time|pitta", "Tired and late|kapha"] },
+      { text: "You gain weight:", options: ["With difficulty|vata", "Moderately|pitta", "Very easily|kapha"] }
+    ];
+
+    const qParam = new URLSearchParams(window.location.search).get('q');
+    const current = parseInt(qParam) || 1;
+
+    // Reset score if starting fresh
+    if (current === 1) {
+      localStorage.removeItem('doshaScore');
+    }
+
+    const data = questions[current - 1];
+
+    if (!data) {
+      // All questions completed — redirect to dashboard
+      window.location.href = "{% url 'dashboard' %}";
+    }
+
+    document.getElementById('question-text').textContent = `Q${current}. ${data.text}`;
+    document.getElementById('quiz-form').innerHTML = shuffle(data.options).map((opt, i) => {
+      const [text, dosha] = opt.split('|');
+      return `
+        <label class="option-container">
+          <input type="radio" name="answer" value="${dosha}" required />
+          ${text}
+        </label>`;
+    }).join('');
+
+    const percent = ((current - 1) / questions.length) * 100;
+    document.getElementById('progressFill').style.width = percent + '%';
+    document.getElementById('progress-label').textContent = `${current - 1}/15 Completed`;
+
+    function getCookie(name) {
+      let v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+      return v ? v[2] : null;
+    }
+
+    async function saveDoshaToServer(score) {
+      const formData = new FormData();
+      formData.append('vata', score.vata);
+      formData.append('pitta', score.pitta);
+      formData.append('kapha', score.kapha);
+      formData.append('csrfmiddlewaretoken', getCookie('csrftoken'));
+      try {
+        const response = await fetch("{% url 'save_dosha' %}", {
+          method: 'POST',
+          headers: { 'X-Requested-With': 'XMLHttpRequest' },
+          body: formData,
+          credentials: 'same-origin'
+        });
+        if (!response.ok) {
+          throw new Error('Failed to save dosha result');
+        }
+        const contentType = response.headers.get('content-type') || '';
+        if (contentType.includes('application/json')) {
+          const data = await response.json();
+          if (!data.success) {
+            throw new Error(data.message || 'Could not save dosha result');
+          }
+        }
+      } catch (e) {
+        console.warn('Could not save to database:', e);
+        throw e;
+      }
+    }
+
+    function nextQuestion() {
+      const selected = document.querySelector('input[name="answer"]:checked');
+      if (!selected) {
+        alert("⚠️ Please select an answer before continuing.");
+        return;
+      }
+
+      const dosha = selected.value;
+      let score = JSON.parse(localStorage.getItem('doshaScore') || '{"vata":0,"pitta":0,"kapha":0}');
+      score[dosha]++;
+      localStorage.setItem('doshaScore', JSON.stringify(score));
+
+      if (current >= questions.length) {
+        const redirect = () => { window.location.href = "{% url 'dashboard' %}"; };
+        {% if user.is_authenticated %}
+        saveDoshaToServer(score).then(redirect).catch(redirect);
+        {% else %}
+        redirect();
+        {% endif %}
+      } else {
+        window.location.href = `{% url 'doshatest' %}?q=${current + 1}`;
+      }
+    }
+
+    function shuffle(arr) {
+      return arr.sort(() => Math.random() - 0.5);
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,156 @@
+{% extends "ayu/practitioner_base.html" %}
+
+{% block title %}Practitioner Dashboard - AyurRekha{% endblock %}
+
+{% block extra_css %}
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .stat-icon.blue { background: #e3f2fd; color: #1e88e5; }
+        .stat-icon.gold { background: #fff8e1; color: var(--gold); }
+        .stat-icon.green { background: #e8f5e9; color: #43a047; }
+        .stat-info h3 { margin: 0; font-size: 2rem; }
+        .stat-info p { margin: 0; color: #888; font-size: 0.9rem; }
+
+        .dashboard-sections {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        /* --- Table Styling --- */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .data-table th {
+            text-align: left;
+            padding: 15px;
+            border-bottom: 2px solid var(--soft-gray);
+            color: #888;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+        .data-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--soft-gray);
+            vertical-align: middle;
+        }
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .status-badge.approved { background: #e8f5e9; color: #43a047; }
+        .status-badge.pending { background: #fff3e0; color: #fb8c00; }
+
+        .btn-view {
+            background: var(--soft-gray);
+            color: var(--forest);
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .btn-view:hover { background: var(--gold); color: white; }
+
+        @media (max-width: 1024px) {
+            .dashboard-sections { grid-template-columns: 1fr; }
+        }
+{% endblock %}
+
+{% block content %}
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon blue"><i class="fas fa-calendar-check"></i></div>
+                <div class="stat-info">
+                    <h3>{{ total_appointments }}</h3>
+                    <p>Total Appointments</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon gold"><i class="fas fa-user-friends"></i></div>
+                <div class="stat-info">
+                    <h3>{{ total_patients }}</h3>
+                    <p>Active Patients</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon green"><i class="fas fa-notes-medical"></i></div>
+                <div class="stat-info">
+                    <h3>12</h3>
+                    <p>New Consultations</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="dashboard-sections">
+            <section class="glass-card">
+                <div class="section-header">
+                    <h2>Recent Appointments</h2>
+                    <a href="{% url 'practitioner_appointments' %}" style="color: var(--gold); text-decoration: none; font-size: 0.9rem;">View All</a>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Patient</th>
+                            <th>Date & Time</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for appt in recent_appointments %}
+                        <tr>
+                            <td>
+                                <strong>{{ appt.patient.username }}</strong><br>
+                                <small>{{ appt.patient.email }}</small>
+                            </td>
+                            <td>{{ appt.date_time|date:"d M, Y H:i" }}</td>
+                            <td><span class="status-badge {{ appt.status }}">{{ appt.status }}</span></td>
+                            <td><a href="{% url 'practitioner_patient_detail' appt.patient.id %}" class="btn-view">Details</a></td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" style="text-align:center; color:#888; padding:30px;">No recent appointments found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="glass-card">
+                <div class="section-header">
+                    <h2>Notifications</h2>
+                </div>
+                <div class="notifications-list">
+                    <p style="color:#888; font-size:0.9rem; text-align:center; padding:20px;">No new notifications.</p>
+                </div>
+            </section>
+        </div>
+{% endblock %}

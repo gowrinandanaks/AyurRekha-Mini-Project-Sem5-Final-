@@ -1,0 +1,98 @@
+{% extends "ayu/practitioner_base.html" %}
+
+{% block title %}Manage Appointments - AyurRekha{% endblock %}
+
+{% block header_title %}Manage Appointments{% endblock %}
+{% block header_subtitle %}Track and respond to patient booking requests.{% endblock %}
+
+{% block extra_css %}
+        .appointment-table-container {
+            background: white; border-radius: 20px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 15px; border-bottom: 2px solid var(--soft-gray); color: var(--forest); font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; }
+        td { padding: 15px; border-bottom: 1px solid var(--soft-gray); vertical-align: middle; }
+
+        .patient-cell { display: flex; align-items: center; gap: 12px; }
+        .p-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--soft-gray); display: flex; align-items: center; justify-content: center; color: var(--gold); font-weight: 700; }
+
+        .status-badge { padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .status-pending { background: #fffcf0; color: #f39c12; }
+        .status-approved { background: #f0fff4; color: #27ae60; }
+        .status-cancelled { background: #fff5f5; color: #c0392b; }
+
+        .btn-action { padding: 8px 15px; border-radius: 8px; border: none; cursor: pointer; font-size: 0.8rem; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; transition: 0.3s; }
+        .btn-approve { background: #27ae60; color: white; }
+        .btn-approve:hover { background: #219150; }
+        .btn-cancel { background: #c0392b; color: white; }
+        .btn-cancel:hover { background: #a93226; }
+        .btn-profile { background: var(--soft-gray); color: var(--forest); text-decoration: none; }
+{% endblock %}
+
+{% block content %}
+        <div class="appointment-table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Patient</th>
+                        <th>Date & Time</th>
+                        <th>Notes</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for appt in appointments %}
+                    <tr>
+                        <td>
+                            <div class="patient-cell">
+                                <div class="p-avatar">{{ appt.patient.username|slice:":1"|upper }}</div>
+                                <div>
+                                    <div style="font-weight:600; color:var(--forest);">{{ appt.patient.username }}</div>
+                                    <div style="font-size:0.75rem; color:#888;">#{{ appt.patient.id }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="font-weight:500;">{{ appt.date_time|date:"d M, Y" }}</div>
+                            <div style="font-size:0.85rem; color:#888;">{{ appt.date_time|date:"H:i" }}</div>
+                        </td>
+                        <td>
+                            <div style="font-size:0.85rem; max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="{{ appt.notes }}">
+                                {{ appt.notes|default:"No notes provided" }}
+                            </div>
+                        </td>
+                        <td>
+                            <span class="status-badge status-{{ appt.status }}">{{ appt.get_status_display }}</span>
+                        </td>
+                        <td>
+                            <div style="display:flex; gap:10px;">
+                                {% if appt.status == 'pending' %}
+                                <form action="{% url 'update_appointment_status' appt.id %}" method="POST" style="display:inline;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="status" value="approved">
+                                    <button type="submit" class="btn-action btn-approve"><i class="fas fa-check"></i> Approve</button>
+                                </form>
+                                <form action="{% url 'update_appointment_status' appt.id %}" method="POST" style="display:inline;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="status" value="cancelled">
+                                    <button type="submit" class="btn-action btn-cancel"><i class="fas fa-times"></i> Cancel</button>
+                                </form>
+                                {% endif %}
+                                <a href="{% url 'practitioner_patient_detail' appt.patient.id %}" class="btn-action btn-profile"><i class="fas fa-user-medical"></i> View Profile</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" style="text-align:center; padding:50px; color:#888;">
+                            <i class="far fa-calendar-times fa-3x" style="margin-bottom:15px; display:block;"></i>
+                            No appointments found in your schedule.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+{% endblock %}

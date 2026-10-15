@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nature & Panchamahabhutas | AyurRekha</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --forest: #1B3022;
+            --gold: #C5A059;
+            --pearl: #FBFAF5;
+            --soft-gray: #f2f2f2;
+            --text: #333333;
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--pearl);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--forest);
+        }
+
+        /* --- Header --- */
+        header {
+            background: linear-gradient(rgba(27, 48, 34, 0.6), rgba(27, 48, 34, 0.6)),
+                url("https://i.pinimg.com/736x/35/0c/76/350c76afe4c6cb0e2895e27289c429e3.jpg") center/cover no-repeat;
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            color: white;
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-style: italic;
+            font-size: 1.4rem;
+            opacity: 0.9;
+        }
+
+        /* --- Back Button --- */
+        .back-nav {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            z-index: 100;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .back-btn:hover {
+            background: var(--gold);
+            color: white;
+            border-color: var(--gold);
+        }
+
+        /* --- Main Container --- */
+        .container {
+            max-width: 1100px;
+            margin: -60px auto 60px;
+            background: white;
+            padding: 60px;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--gold);
+        }
+
+        p {
+            font-size: 1.15rem;
+            margin-bottom: 25px;
+            color: #555;
+            text-align: justify;
+        }
+
+        strong {
+            color:  var(--gold);
+        }
+
+        .quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            color: var(--gold);
+            font-size: 2rem;
+            text-align: center;
+            margin: 50px 0;
+            padding: 0 40px;
+            line-height: 1.4;
+        }
+
+        /* --- Content Layout --- */
+        .content-split {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+            margin: 60px 0;
+        }
+
+        .content-img {
+            flex: 1;
+        }
+
+        .content-img img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .content-text {
+            flex: 1.2;
+        }
+
+        /* --- Panchamahabhuta Grid --- */
+        .elements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .element-card {
+            background: var(--soft-gray);
+            padding: 30px 20px;
+            border-radius: 20px;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid transparent;
+        }
+
+        .element-card:hover {
+            transform: translateY(-10px);
+            background: white;
+            border-color: var(--gold);
+            box-shadow: 0 10px 25px rgba(197, 160, 89, 0.15);
+        }
+
+        .element-card i, .element-card .spiral {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .element-card h3 {
+            margin: 0;
+            font-size: 1.6rem;
+            color: var(--forest);
+        }
+
+        .element-card span {
+            display: block;
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 15px;
+        }
+
+        .element-desc {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            font-size: 0.95rem;
+            color: #666;
+            transition: all 0.4s ease;
+        }
+
+        .element-card:hover .element-desc {
+            max-height: 150px;
+            opacity: 1;
+        }
+
+        footer {
+            background: white;
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        @media (max-width: 992px) {
+            .content-split {
+                flex-direction: column;
+            }
+            .container {
+                margin: -40px 20px 40px;
+                padding: 40px 25px;
+            }
+            header h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="back-nav">
+        <a href="{% url 'home' %}" class="btn-forest" style="background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); color: white; padding: 10px 25px; border-radius: 50px; text-decoration: none; font-weight: 600; border: 1px solid rgba(255, 255, 255, 0.3); display: flex; align-items: center; gap: 10px;">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+    </nav>
+
+    <header>
+        <h1>Nature🌿: The Soul Of Ayurveda</h1>
+        <p>Understanding the Deep Connection Between Natural Elements and Ancient Healing</p>
+    </header>
+
+    <div class="container">
+        <h2 class="section-title">Understanding the Name: Panchamahabhuta</h2>
+        <div style="background: var(--forest); color: white; padding: 40px; border-radius: 20px; margin-bottom: 60px;">
+            <p style="color: rgba(255,255,255,0.9); font-size: 1.2rem; margin-bottom: 30px; text-align: center;">
+                Derived from Sanskrit, the term <strong>Panchamahabhuta</strong> reveals the depth of Ayurvedic philosophy:
+            </p>
+            <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; text-align: center;">
+                <div>
+                    <h3 style="color: var(--gold); margin: 0; font-size: 2rem;">Pancha</h3>
+                    <p style="color: white; margin: 5px 0;">(Five)</p>
+                </div>
+                <div>
+                    <h3 style="color: var(--gold); margin: 0; font-size: 2rem;">Maha</h3>
+                    <p style="color: white; margin: 5px 0;">(Great)</p>
+                </div>
+                <div>
+                    <h3 style="color: var(--gold); margin: 0; font-size: 2rem;">Bhuta</h3>
+                    <p style="color: white; margin: 5px 0;">(Element / Basic Constituent)</p>
+                </div>
+            </div>
+            <p style="color: rgba(255,255,255,0.8); font-size: 1.1rem; margin-top: 30px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                Together, it translates to the <strong>"five great elements"</strong>. They are called "great" not because of their size, but because of their fundamental and universal role in forming everything that exists—from the human body to the cosmos.
+            </p>
+        </div>
+
+        <h2 class="section-title">Nature and Ayurveda: A Timeless Bond</h2>
+
+        <div class="content-split">
+            <div class="content-text">
+                <p>
+                    <strong>Ayurveda</strong>, the ancient Indian system of medicine, is deeply rooted in nature. It views health as a state of balance between the body, mind, and environment. According to Ayurveda, all living beings are made up of the <strong>Panchamahabhutas</strong> (five elements)—earth, water, fire, air, and space—which are the fundamental building blocks of nature.
+                </p>
+                <p>
+                    Ayurvedic practices use herbs, plants, minerals, and natural therapies to heal diseases and restore balance, making nature both the source and the solution for wellness. Seasonal changes, daily routines, and even the natural cycles of the moon and sun are considered vital in Ayurveda, guiding lifestyle and dietary choices.
+                </p>
+            </div>
+            <div class="content-img">
+                <img src="https://i.pinimg.com/736x/5f/4b/52/5f4b52469868262ddb70c68765969995.jpg" alt="Nature and Ayurveda">
+            </div>
+        </div>
+
+        <p class="quote">
+            "Ayurveda is nature’s whisper to the soul — reminding us that true wellness begins where earth, water, fire, air, and space unite within us."
+        </p>
+
+        <h2 style="text-align: center; margin-top: 80px;">Panchamahabhutas: The Five Pillars</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 40px;">
+            The term <strong>Panchamahabhuta</strong> is derived from Sanskrit: "Pancha" (five), "Maha" (great), and "Bhuta" (element). These are the fundamental forces that govern both the universe and the human body.
+        </p>
+
+        <div class="elements-grid">
+            <!-- Ether -->
+            <div class="element-card">
+                <div class="spiral">꩜</div>
+                <h3>Ākāśa</h3>
+                <span>(Ether / Space)</span>
+                <div class="element-desc">
+                    Represents space and consciousness. It is the subtle field where all elements interact and where sound travels.
+                </div>
+            </div>
+
+            <!-- Air -->
+            <div class="element-card">
+                <i class="fas fa-wind"></i>
+                <h3>Vāyu</h3>
+                <span>(Air)</span>
+                <div class="element-desc">
+                    Controls movement, breath, and nervous functions. It represents lightness, mobility, and the dynamic nature of life.
+                </div>
+            </div>
+
+            <!-- Fire -->
+            <div class="element-card">
+                <i class="fas fa-fire"></i>
+                <h3>Agni</h3>
+                <span>(Fire)</span>
+                <div class="element-desc">
+                    Stands for transformation, digestion, and metabolism. It provides the heat and energy needed for clarity and perception.
+                </div>
+            </div>
+
+            <!-- Water -->
+            <div class="element-card">
+                <i class="fas fa-water"></i>
+                <h3>Āpaḥ</h3>
+                <span>(Water)</span>
+                <div class="element-desc">
+                    Symbolizes fluidity, cohesion, and emotional expression. It governs all bodily fluids and provides nourishment.
+                </div>
+            </div>
+
+            <!-- Earth -->
+            <div class="element-card">
+                <i class="fas fa-mountain"></i>
+                <h3>Pṛthvī</h3>
+                <span>(Earth)</span>
+                <div class="element-desc">
+                    Represents stability, strength, and structure. It grounds the body and provides the physical foundation for existence.
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 80px; padding: 40px; background: white; border: 1px solid #eee; border-radius: 20px;">
+            <h2 style="margin-top: 0; text-align: center;" class="section-title">The Foundation of Healing</h2>
+            <p>
+                The Panchamahabhutas are the heartbeat of Ayurvedic diagnosis and treatment. Ayurveda views every living being as a <strong>miniature reflection of the universe</strong>. Just as the universe is composed of these five great elements, so is the human body.
+            </p>
+            
+            <div class="content-split" style="margin: 40px 0;">
+                <div class="content-text">
+                    <p>
+                        These elements combine in unique ways to form the three <strong>Doshas</strong>:
+                    </p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 15px; padding-left: 20px; border-left: 4px solid var(--gold);"><strong>Vata:</strong> Air + Space (Governs movement)</li>
+                        <li style="margin-bottom: 15px; padding-left: 20px; border-left: 4px solid var(--gold);"><strong>Pitta:</strong> Fire + Water (Governs transformation)</li>
+                        <li style="margin-bottom: 15px; padding-left: 20px; border-left: 4px solid var(--gold);"><strong>Kapha:</strong> Earth + Water (Governs structure/stability)</li>
+                    </ul>
+                </div>
+                <div class="content-text">
+                    <p>
+                        By understanding these elements, Ayurveda can assess your <strong>Prakriti</strong> (constitution) and diagnose imbalances. For example, an excess of <strong>Agni (Fire)</strong> may lead to inflammation or anger, which can be balanced by introducing <strong>Āpaḥ (Water)</strong> through specific diets, herbs, or lifestyle changes.
+                    </p>
+                </div>
+            </div>
+            
+            <p style="text-align: center; font-style: italic; color: var(--gold); font-size: 1.2rem; margin-top: 20px;">
+                Thus, the Panchamahabhutas are practical tools aimed at restoring harmony between your body and nature.
+            </p>
+        </div>
+
+        <div style="margin-top: 80px; padding: 40px; background: var(--soft-gray); border-radius: 20px;">
+            <h3 style="margin-top: 0;">Aligning with Your Prakriti</h3>
+            <p>
+                Environmental harmony is essential in Ayurveda. Pollution, poor lifestyle habits, and disconnection from natural cycles are seen as major causes of imbalance. By returning to nature, we align ourselves with our true constitution (<strong>Prakriti</strong>), promoting healing and longevity.
+            </p>
+            <p style="margin-bottom: 0;">
+                From herbal remedies to oil therapies and meditation in natural settings, Ayurveda encourages a life of balance, mindfulness, and respect for the Earth. It's not just a system of medicine—it's a philosophy that sees nature as the ultimate healer.
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 AyurRekha | Tracing the Path to Natural Wellness</p>
+    </footer>
+
+</body>
+
+</html>

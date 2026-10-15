@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayurvedic Diet & Nutrition | AyurRekha</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --forest: #1B3022;
+            --gold: #C5A059;
+            --pearl: #FBFAF5;
+            --text: #333333;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--pearl);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--forest);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--forest);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .hero-mini {
+            background: linear-gradient(rgba(27, 48, 34, 0.8), rgba(27, 48, 34, 0.8)),
+                url("https://images.unsplash.com/photo-1543339308-43e59d6b73a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80") center/cover no-repeat;
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .hero-mini h1 {
+            color: white;
+            font-size: 3rem;
+            margin: 0;
+        }
+
+        .agni-section {
+            background: #fff;
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            margin-bottom: 80px;
+            border-left: 10px solid var(--gold);
+        }
+
+        .diet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .dosha-diet-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+
+        .dosha-diet-card h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .dosha-diet-card .label {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .vata-label { background: #e3f2fd; color: #1976d2; }
+        .pitta-label { background: #fff3e0; color: #f57c00; }
+        .kapha-label { background: #e8f5e9; color: #388e3c; }
+
+        .food-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .food-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .food-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .tastes-teaser {
+            background: var(--forest);
+            color: white;
+            padding: 60px;
+            border-radius: 30px;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .tastes-teaser h2 { color: white; margin-bottom: 20px; }
+        
+        footer {
+            background: white;
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            color: #888;
+            margin-top: 80px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="hero-mini">
+        <h1>Ahara: Food as Medicine</h1>
+        <p>Fueling the Body's Radiant Intelligence through Sacred Nutrition</p>
+    </div>
+
+    <div class="container">
+        
+        <a href="{% url 'guide' %}" class="back-link"><i class="fas fa-arrow-left"></i> Back to Guide</a>
+
+        <div class="agni-section">
+            <h2>The Sacred Fire: Agni</h2>
+            <p>In Ayurveda, you are not just what you eat; you are what you <strong>digest</strong>. Agni is the metabolic fire that transforms food into energy and tissues. When Agni is strong, we feel vibrant and clear. When it is weak, toxins (Ama) build up, leading to disease.</p>
+            <p><strong>Tips for strong Agni:</strong> Eat only when hungry, sip warm water throughout the day, and avoid cold/iced drinks which "douse" the fire.</p>
+        </div>
+
+        <h2 style="text-align: center; margin-bottom: 50px; font-size: 2.5rem;">Dosha-Specific Nutrition</h2>
+
+        <div class="diet-grid">
+            
+            <!-- Vata -->
+            <div class="dosha-diet-card">
+                <span class="label vata-label">For Vata Balance</span>
+                <h3>Warm & Grounding</h3>
+                <p>Vata is cold and dry. Your diet should focus on heating, moist, and oily foods to ground your airy nature.</p>
+                <ul class="food-list">
+                    <li><strong>Favor:</strong> Cooked grains, root vegetables, nuts, seeds, and healthy fats (Ghee).</li>
+                    <li><strong>Avoid:</strong> Dry crackers, raw salads, cold drinks, and beans.</li>
+                    <li><strong>Spices:</strong> Ginger, Cumin, Cinnamon.</li>
+                </ul>
+            </div>
+
+            <!-- Pitta -->
+            <div class="dosha-diet-card">
+                <span class="label pitta-label">For Pitta Balance</span>
+                <h3>Cooling & Substantial</h3>
+                <p>Pitta is hot and sharp. Your diet should focus on cooling, refreshing, and moderately heavy foods to soothe your internal fire.</p>
+                <ul class="food-list">
+                    <li><strong>Favor:</strong> Sweet fruits, leafy greens, cucumber, coconut, and dairy.</li>
+                    <li><strong>Avoid:</strong> Spicy chilies, vinegar, fermented foods, and tomatoes.</li>
+                    <li><strong>Spices:</strong> Fennel, Coriander, Cardamom.</li>
+                </ul>
+            </div>
+
+            <!-- Kapha -->
+            <div class="dosha-diet-card">
+                <span class="label kapha-label">For Kapha Balance</span>
+                <h3>Light & Stimulating</h3>
+                <p>Kapha is heavy and cool. Your diet should focus on warm, light, and dry foods to stimulate your metabolic rate.</p>
+                <ul class="food-list">
+                    <li><strong>Favor:</strong> Legumes, bitter greens, light grains (Quinoa/Millet), and spicy hot foods.</li>
+                    <li><strong>Avoid:</strong> Heavy dairy, sweet desserts, excessive oils, and very salty foods.</li>
+                    <li><strong>Spices:</strong> Black Pepper, Turmeric, Clove.</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="tastes-teaser">
+            <h2>The Science of the Six Tastes</h2>
+            <p>A balanced Ayurvedic meal should ideally contain all six tastes to prevent cravings and ensure complete nutrition: Sweet, Sour, Salty, Pungent, Bitter, and Astringent.</p>
+            <a href="{% url 'guide_tastes' %}" style="color: var(--gold); font-weight: 600; text-decoration: none; font-size: 1.2rem; display: inline-block; margin-top: 20px;">Explore the Six Tastes &rarr;</a>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 AyurRekha | Tracing the Path to Natural Wellness</p>
+    </footer>
+
+</body>
+</html>

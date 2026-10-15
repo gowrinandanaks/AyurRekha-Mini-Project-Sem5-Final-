@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>25 Highly Effective Ayurvedic Therapies - AyurRekha</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    
+    <style>
+        :root {
+            --forest: #1B3022;
+            --gold: #C5A059;
+            --pearl: #FBFAF5;
+            --soft-gray: #f2f2f2;
+            --text: #333333;
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--pearl);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--forest);
+        }
+
+        /* --- Header & Logo --- */
+        .header-top {
+            padding: 20px;
+            text-align: center;
+            background: white;
+            border-bottom: 2px solid var(--forest);
+        }
+
+        .header-top img {
+            height: 100px; 
+            object-fit: contain;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            position: relative;
+            height: 50vh; 
+            background: linear-gradient(rgba(27, 48, 34, 0.7), rgba(27, 48, 34, 0.7)),
+                url("https://i.pinimg.com/736x/a0/aa/78/a0aa78ab0b54165bdd12bbb8a2dea1cd.jpg") center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .hero-content h1 {
+            color: white;
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+        }
+
+        .hero-content p {
+            font-style: italic;
+            font-size: 1.2rem;
+            margin-bottom: 0;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* --- Floating Nav --- */
+        .vertical-nav {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .vertical-nav a {
+            background: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--forest);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            font-size: 1.2rem;
+        }
+
+        .vertical-nav a:hover {
+            background: var(--forest);
+            color: white;
+        }
+
+        /* --- Split Content Sections --- */
+        .section {
+            display: flex;
+            align-items: center;
+            max-width: 1200px;
+            margin: 80px auto;
+            gap: 50px;
+            padding: 0 20px;
+        }
+
+        .section:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .section-img {
+            flex: 1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-img img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+
+        .section-text {
+            flex: 1;
+        }
+
+        .section-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .section-text h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 50px;
+            height: 2px;
+            background: var(--gold);
+        }
+        
+        /* Therapy List Styling */
+        .therapy-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .therapy-list li {
+            margin-bottom: 20px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .therapy-list li::before {
+            content: '🌿';
+            position: absolute;
+            left: 0;
+            top: 2px;
+            font-size: 0.9rem;
+        }
+
+        .therapy-list strong {
+            color: var(--forest);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: #fff;
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--forest);
+            text-decoration: none;
+            font-weight: 600;
+            margin: 20px 0;
+            transition: 0.3s;
+        }
+        
+        .back-link:hover {
+            color: var(--gold);
+            transform: translateX(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                flex-direction: column !important;
+                text-align: center;
+            }
+
+            .section-text h2::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .therapy-list li {
+                text-align: left;
+            }
+
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .vertical-nav {
+                display: none;
+            }
+            
+            .section-img img {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header-top">
+        <a href="{% url 'home' %}">
+            <img src="https://i.pinimg.com/736x/e9/cf/f3/e9cff3536efddc806355f3793e9aedcf.jpg" alt="AyurRekha Logo">
+        </a>
+    </header>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Ayurvedic Therapies & Rejuvenation</h1>
+            <p>“Explore the ancient, profound, and highly effective therapies of Ayurveda designed to cleanse your system, restore balance, and promote lifelong wellness.”</p>
+        </div>
+    </div>
+
+    <div class="vertical-nav">
+        <a href="{% url 'home' %}" title="Home"><i class="fas fa-home"></i></a>
+        <a href="{% url 'therapies' %}" title="Treatment"><i class="fas fa-spa"></i></a>
+        <a href="{% url 'guide' %}" title="Guide on ayurveda"><i class="fas fa-book-open"></i></a>
+        <a href="{% url 'nature' %}" title="Nature"><i class="fas fa-leaf"></i></a>
+        <a href="{% url 'community_blogs' %}" title="Blogs"><i class="fas fa-blog"></i></a>
+        <a href="{% url 'help' %}" title="Help"><i class="fas fa-question-circle"></i></a>
+    </div>
+
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+        <a href="{% url 'home' %}" class="back-link"><i class="fas fa-home"></i> Back to Home</a>
+    </div>
+
+    <section class="section">
+        <div class="section-img">
+            <img src="https://i.pinimg.com/736x/6a/b1/8d/6ab18d2f2ccf70eafa4c82f95b1b3da4.jpg" alt="Ayurvedic Herbs and Oils">
+        </div>
+        <div class="section-text">
+            <h2>The Foundations of Healing</h2>
+            <p>Ayurveda relies on a deep understanding of nature's countless treasures to heal ailments and keep us physically, mentally, and spiritually at our best. The clinical approach is broadly divided into two main categories:</p>
+            
+            <ul class="therapy-list">
+                <li><strong>Shodhana Chikitsa (Panchakarma):</strong> An all-natural, holistic technique of purifying the body. It takes 21 to 28 days to cleanse the system of toxins deposited in minute body channels (srotas).</li>
+                <li><strong>Shamana Chikitsa:</strong> Pacification therapies that use medicated oils, herbs, and lifestyle changes to manage imbalances without deep purification.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-img">
+            <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Abhyanga Ayurvedic Massage">
+        </div>
+        <div class="section-text">
+            <h2>Purvakarma: Preparing the Body</h2>
+            <p>Before deep detoxification, the body must be prepared. These techniques loosen toxins and lubricate organs to make the body receptive to further treatment.</p>
+            <ul class="therapy-list">
+                <li><strong>Snehan (Internal & External Oleation):</strong> The digestion of medicated ghee or an external light massage to lubricate internal organs and enhance circulation.</li>
+                <li><strong>Uzhichil / Abhyanga:</strong> A highly beneficial daily ritual. It is a deep, full-body massage using large quantities of herb-infused oil to stimulate blood/lymphatic circulation and relieve fatigue.</li>
+                <li><strong>Swedan:</strong> Sweating induced through medicated water or milk steam. It activates sweat glands to collect toxins so they can bind with oils for removal.</li>
+                <li><strong>Avagaham:</strong> The receiver is submerged in a hot water bathtub infused with powerful herbs. The heat and oils kickstart heavy sweating to expel toxins and relieve severe lower back and hip pain.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-img">
+            <img src="https://i.pinimg.com/736x/0c/c9/ba/0cc9ba8176a01ae370bbbd9028c1ec36.jpg" alt="Panchakarma Detoxification">
+        </div>
+        <div class="section-text">
+            <h2>Panchakarma: The Core Detox</h2>
+            <p>These five major therapies target specific organs to profoundly cleanse the body's systems.</p>
+            
+            <ul class="therapy-list">
+                <li><strong>Vamanan (Emesis):</strong> Medically induced vomiting using special herbal concoctions. Focuses on the respiratory system and upper GI tract to cure Kapha diseases like asthma and skin issues.</li>
+                <li><strong>Virechanam (Purgation):</strong> Medically induced purgation to purify the digestive tract, liver, and pancreas. It resets the digestive system and eliminates Pitta-related skin and eye diseases.</li>
+                <li><strong>Snehavasthy (Oil Enema):</strong> Conducted after a meal, this medicated oil enema deeply cleanses and lubricates the large and small intestines, curing Vata and spinal disorders.</li>
+                <li><strong>Kashayavasthy (Herbal Enema):</strong> Conducted before a meal, this herbal decoction enema nourishes the lower digestive tract and cures chronic rheumatisms and neurological disorders.</li>
+                <li><strong>Nasyam:</strong> Medicated oil droplets are introduced into the nose to clear out blockages above the neck. Highly effective for sinuses, scalp diseases, and brain/spinal cord disorders.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-img">
+            <img src="https://images.unsplash.com/photo-1552693673-1bf958298935?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Localized Herbal Therapy">
+        </div>
+        <div class="section-text">
+            <h2>Targeted Healing Therapies</h2>
+            <p>These highly effective treatments target specific areas of the body suffering from inflammation, pain, or functional loss.</p>
+            <ul class="therapy-list">
+                <li><strong>Tharpanam:</strong> Specially medicated ghee is poured and pooled over the eyes. It improves eyesight, relieves stress from screen time, and repairs ocular damage.</li>
+                <li><strong>Kateevasthy:</strong> A boundary of black gram dough is created on the lower back and filled with warm medicated oil. It stimulates circulation to treat stiffness, osteoporosis, and chronic back pain.</li>
+                <li><strong>Dhanyamladhara:</strong> A continuous stream of acidic, herb-infused liquid (made from cereals and vinegar) is poured over the body. It works wonders for arthritis, gout, and inflammatory pain.</li>
+                <li><strong>Upanaham:</strong> A thick herbal paste is applied to an affected joint or localized area and left overnight (or up to 12 hours) to slowly absorb and cure severe swelling and ulcers.</li>
+                <li><strong>Rakthamoksham (Bloodletting):</strong> A powerful technique to remove small quantities of impure blood (often using leeches) to resolve severe toxic buildup and vital organ disorders.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-img">
+            <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Shirodhara and Rejuvenation">
+        </div>
+        <div class="section-text">
+            <h2>Rejuvenation & Metabolic Boost</h2>
+            <p>These therapies are famous for toning the body, rebuilding muscle tissue, and profoundly calming the mind.</p>
+            <ul class="therapy-list">
+                <li><strong>Udwarthanam (Powder Massage):</strong> A vigorous dry massage using coarse herbal powders (sesame, horse gram). It awakens the lymphatic system, burns subcutaneous fat, reduces cellulite, and promotes weight loss.</li>
+                <li><strong>Ksheeradhara:</strong> Pure cow's milk infused with sandalwood and vetiver is poured in a continuous stream over the forehead. It deeply pacifies Pitta dosha, curing insomnia, anxiety, and memory issues.</li>
+                <li><strong>Navarakizhi:</strong> A massage using warm cotton bundles filled with medicinal Navara rice cooked in milk. It activates blood circulation and heals nerve degeneration, strokes, and muscle wasting.</li>
+                <li><strong>Narangakizhi:</strong> A specialized, powerful bundle massage utilizing the medicinal properties of lemons to relieve severe joint pain and lower back issues.</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 AyurRekha | Tracing the Path to Natural Wellness</p>
+    </footer>
+
+</body>
+</html>

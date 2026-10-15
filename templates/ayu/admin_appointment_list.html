@@ -1,0 +1,68 @@
+{% extends 'ayu/admin_base.html' %}
+
+{% block title %}Appointment Management - AyurRekha Admin{% endblock %}
+{% block page_title %}Appointments & Consultations{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h3>Scheduled Sessions</h3>
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <a href="{% url 'admin_add_appointment' %}" class="btn btn-forest" style="padding: 6px 15px; font-size: 0.9rem;"><i class="fas fa-plus"></i> Add Appointment</a>
+            <span class="status-badge" style="background:#eee;">Total: {{ appointments.count }}</span>
+        </div>
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Date & Time</th>
+                <th>Patient</th>
+                <th>Practitioner</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in appointments %}
+            <tr>
+                <td>
+                    <div style="font-weight: 600;">{{ a.date_time|date:"D, M d" }}</div>
+                    <div style="font-size: 0.8rem; color: #888;">{{ a.date_time|time:"H:i A" }}</div>
+                </td>
+                <td>
+                    <div style="font-weight: 500;">{{ a.patient.username }}</div>
+                    <div style="font-size: 0.75rem; color: #888;">{{ a.patient.email }}</div>
+                </td>
+                <td>
+                    <div style="font-weight: 500; color: var(--gold);">Dr. {{ a.practitioner.username }}</div>
+                    <div style="font-size: 0.75rem; color: #888;">{{ a.practitioner.profile.specialization }}</div>
+                </td>
+                <td>
+                    <span class="status-badge status-{{ a.status }}">
+                        {{ a.get_status_display }}
+                    </span>
+                </td>
+                <td>
+                    <div style="display: flex; gap: 8px;">
+                        {% if a.status == 'pending' %}
+                        <a href="{% url 'admin_update_appointment_status' a.id 'approved' %}" class="btn btn-forest" style="padding: 5px 12px; font-size: 0.7rem;">Approve</a>
+                        {% endif %}
+                        {% if a.status != 'cancelled' and a.status != 'completed' %}
+                        <a href="{% url 'admin_update_appointment_status' a.id 'cancelled' %}" class="btn btn-danger" style="padding: 5px 12px; font-size: 0.7rem;">Cancel</a>
+                        {% endif %}
+                        {% if a.status == 'approved' %}
+                        <a href="{% url 'admin_update_appointment_status' a.id 'completed' %}" class="btn btn-gold" style="padding: 5px 12px; font-size: 0.7rem;">Mark Complete</a>
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" style="text-align: center; padding: 30px; color: #888;">No appointments found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

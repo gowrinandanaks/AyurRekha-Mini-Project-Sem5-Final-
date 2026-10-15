@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Three Doshas (Body Types) | AyurRekha</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --forest: #1B3022;
+            --gold: #C5A059;
+            --pearl: #FBFAF5;
+            --text: #333333;
+            --vata: #1976d2;
+            --pitta: #f57c00;
+            --kapha: #388e3c;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--pearl);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--forest);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--forest);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .hero-mini {
+            background: linear-gradient(rgba(27, 48, 34, 0.8), rgba(27, 48, 34, 0.8)),
+                url("https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80") center/cover no-repeat;
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .hero-mini h1 {
+            color: white;
+            font-size: 3rem;
+            margin: 0;
+        }
+
+        .intro-block {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 80px;
+        }
+
+        .dosha-scroll {
+            display: flex;
+            flex-direction: column;
+            gap: 100px;
+        }
+
+        .dosha-row {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .dosha-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .dosha-desc {
+            flex: 1.2;
+        }
+
+        .dosha-visual {
+            flex: 1;
+            text-align: center;
+            padding: 50px;
+            border-radius: 50% 50% 0 0;
+            background: #fff;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .dosha-visual.vata { border-top: 15px solid var(--vata); }
+        .dosha-visual.pitta { border-top: 15px solid var(--pitta); }
+        .dosha-visual.kapha { border-top: 15px solid var(--kapha); }
+
+        .dosha-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .dosha-visual span {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--forest);
+        }
+
+        .traits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .trait-box {
+            padding: 20px;
+            background: #fff;
+            border-radius: 15px;
+            border: 1px solid #eee;
+        }
+
+        .trait-box h4 {
+            margin: 0 0 10px;
+            color: var(--gold);
+        }
+
+        .quiz-banner {
+            background: var(--forest);
+            color: white;
+            padding: 80px 20px;
+            border-radius: 30px;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .quiz-banner h2 { color: white; margin-bottom: 20px; }
+
+        footer {
+            background: white;
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            color: #888;
+            margin-top: 80px;
+        }
+
+        @media (max-width: 768px) {
+            .dosha-row {
+                flex-direction: column !important;
+                text-align: center;
+            }
+            .traits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="hero-mini">
+        <h1>Vata, Pitta, Kapha: Your Core Nature</h1>
+        <p>Understanding the Elements that Shape Your Body, Mind, and Spirit</p>
+    </div>
+
+    <div class="container">
+        
+        <a href="{% url 'guide' %}" class="back-link"><i class="fas fa-arrow-left"></i> Back to Guide</a>
+
+        <div class="intro-block">
+            <h2>What is a Dosha?</h2>
+            <p>According to Ayurveda, every human being is born with a unique proportion of five elements: Earth, Water, Fire, Air, and Space. These elements combine to form the three primary life forces, or <strong>Doshas</strong>. Together, they govern all our physical and mental processes.</p>
+        </div>
+
+        <div class="dosha-scroll">
+            
+            <!-- Vata -->
+            <div class="dosha-row">
+                <div class="dosha-visual vata">
+                    <i class="fas fa-wind dosha-icon" style="color: var(--vata);"></i>
+                    <span>VATA</span>
+                    <p style="color: #888;">Air + Space</p>
+                </div>
+                <div class="dosha-desc">
+                    <h2>Vata: The Force of Movement</h2>
+                    <p>Vata is the energy of movement. It governs all biological activity, from the blinking of eyes to the beating of the heart and the flow of thoughts in the mind.</p>
+                    <div class="traits-grid">
+                        <div class="trait-box">
+                            <h4>Physical</h4>
+                            <p>Light, thin build, dry skin, sensitive to cold. Rapid speech and movement.</p>
+                        </div>
+                        <div class="trait-box">
+                            <h4>Mental/Emotional</h4>
+                            <p>Creative, imaginative, quick to learn but quick to forget. Propensity for anxiety or fear when imbalanced.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pitta -->
+            <div class="dosha-row">
+                <div class="dosha-visual pitta">
+                    <i class="fas fa-fire dosha-icon" style="color: var(--pitta);"></i>
+                    <span>PITTA</span>
+                    <p style="color: #888;">Fire + Water</p>
+                </div>
+                <div class="dosha-desc">
+                    <h2>Pitta: The Force of Transformation</h2>
+                    <p>Pitta governs digestion, absorption, and metabolism. It is responsible for all biochemical transformations in the body and produces heat.</p>
+                    <div class="traits-grid">
+                        <div class="trait-box">
+                            <h4>Physical</h4>
+                            <p>Medium build, warm skin, strong digestion. Likely to have red or blonde hair and freckled skin.</p>
+                        </div>
+                        <div class="trait-box">
+                            <h4>Mental/Emotional</h4>
+                            <p>Intellectual, focused, and ambitious. Tendency toward anger, irritability, or perfectionism when imbalanced.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kapha -->
+            <div class="dosha-row">
+                <div class="dosha-visual kapha">
+                    <i class="fas fa-mountain dosha-icon" style="color: var(--kapha);"></i>
+                    <span>KAPHA</span>
+                    <p style="color: #888;">Earth + Water</p>
+                </div>
+                <div class="dosha-desc">
+                    <h2>Kapha: The Force of Stability</h2>
+                    <p>Kapha provides the structure, lubrication, and stamina for the body. It forms the skeletal system, fluids, and joints, and provides psychological stability.</p>
+                    <div class="traits-grid">
+                        <div class="trait-box">
+                            <h4>Physical</h4>
+                            <p>Solid, strong build. Soft, oily skin and thick, lustrous hair. Generally enjoys excellent stamina.</p>
+                        </div>
+                        <div class="trait-box">
+                            <h4>Mental/Emotional</h4>
+                            <p>Calm, patient, and loving. Loyal and steady. When imbalanced, can become possessive, lazy, or depressed.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="quiz-banner">
+            <h2>Ready to discover your unique constitution?</h2>
+            <p>Our interactive Dosha Quiz analyzes your physical and mental traits to reveal your dominant life force.</p>
+            <a href="{% url 'doshatest' %}" class="btn-link" style="color: var(--gold); border: 2px solid var(--gold); padding: 15px 40px; border-radius: 50px; text-decoration: none; display: inline-block; margin-top: 30px;">Take the Dosha Quiz &rarr;</a>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 AyurRekha | Tracing the Path to Natural Wellness</p>
+    </footer>
+
+</body>
+</html>

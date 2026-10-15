@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayurveda Guide | AyurRekha</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    
+    <style>
+        :root {
+            --forest: #1B3022;
+            --gold: #C5A059;
+            --pearl: #FBFAF5;
+            --soft-gray: #f2f2f2;
+            --text: #333333;
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--pearl);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--forest);
+        }
+
+        /* --- Header --- */
+        .header-top {
+            padding: 20px;
+            text-align: center;
+            background: white;
+            border-bottom: 2px solid var(--forest);
+        }
+
+        .header-top img {
+            height: 100px;
+            object-fit: contain;
+        }
+
+        /* --- Hero --- */
+        .hero {
+            position: relative;
+            height: 60vh;
+            background: linear-gradient(rgba(27, 48, 34, 0.7), rgba(27, 48, 34, 0.7)),
+                url("https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80") center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .hero-content h1 {
+            color: white;
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+        }
+
+        .hero-content p {
+            font-style: italic;
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* --- Main Sections --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 100px;
+        }
+
+        .intro-text h2 {
+            font-size: 2.8rem;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .intro-text h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 60px;
+            height: 3px;
+            background: var(--gold);
+        }
+
+        .intro-img img {
+            width: 100%;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+
+        /* --- Sub-pages Grid --- */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .guide-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+            transition: 0.4s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .guide-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 40px rgba(197, 160, 89, 0.15);
+        }
+
+        .guide-card i {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .guide-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .guide-card p {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 25px;
+        }
+
+        .btn-link {
+            color: var(--forest);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* --- Feature Highlights --- */
+        .feature-block {
+            background: var(--forest);
+            color: white;
+            padding: 100px 20px;
+            margin: 100px 0;
+            text-align: center;
+        }
+
+        .feature-block h2 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+        }
+
+        .feature-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-item {
+            background: rgba(255,255,255,0.05);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(197, 160, 89, 0.3);
+        }
+
+        .feature-item h3 {
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        /* --- Vertical Nav --- */
+        .vertical-nav {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .vertical-nav a {
+            background: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--forest);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            font-size: 1.2rem;
+        }
+
+        .vertical-nav a:hover {
+            background: var(--forest);
+            color: white;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--forest);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 40px;
+        }
+
+        .back-link:hover {
+            color: var(--gold);
+            transform: translateX(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .intro-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .intro-text h2::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .vertical-nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header-top">
+        <a href="{% url 'home' %}">
+            <img src="https://i.pinimg.com/736x/e9/cf/f3/e9cff3536efddc806355f3793e9aedcf.jpg" alt="Logo">
+        </a>
+    </header>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Comprehensive Ayurveda Guide</h1>
+            <p>“Ayurveda is the science of life, a bridge between nature and your soul, offering the wisdom to live in perfect harmony.”</p>
+        </div>
+    </div>
+
+    <div class="vertical-nav">
+        <a href="{% url 'home' %}" title="Home"><i class="fas fa-home"></i></a>
+        <a href="{% url 'therapies' %}" title="Therapies"><i class="fas fa-spa"></i></a>
+        <a href="{% url 'guide' %}" title="Ayurveda Guide"><i class="fas fa-book-open"></i></a>
+        <a href="{% url 'nature' %}" title="Nature"><i class="fas fa-leaf"></i></a>
+        <a href="{% url 'yoga' %}" title="Yoga"><span class="material-symbols-outlined">self_improvement</span></a>
+        <a href="{% url 'doshatest' %}" title="Dosha Quiz"><i class="fas fa-clipboard-list"></i></a>
+        <a href="{% url 'help' %}" title="Help"><i class="fas fa-question-circle"></i></a>
+    </div>
+
+    <div class="container">
+        
+        <a href="{% url 'home' %}" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+
+        <div class="intro-grid">
+            <div class="intro-text">
+                <h2>Introduction to Ayurveda</h2>
+                <p>Ayurveda, often called the <strong>"Mother of All Healing,"</strong> is a 5,000-year-old system of natural healing that has its origins in the Vedic culture of India. More than just a system of treating illness, Ayurveda is a science of life (Ayur = life, Veda = science or knowledge).</p>
+                <p>It teaches us that health is a state of equilibrium between the body, mind, and spirit. By understanding your unique constitution and aligning your lifestyle with the rhythms of nature, you can achieve profound and lasting wellness.</p>
+                
+                <h3 style="margin-top: 30px;">A Brief History</h3>
+                <p>The wisdom of Ayurveda was passed down orally for generations before being recorded in the Vedas. The three main classical texts—the Charaka Samhita, Sushruta Samhita, and Astanga Hridaya—remain the foundations of Ayurvedic practice today, covering everything from internal medicine to surgery and rejuvenation.</p>
+            </div>
+            <div class="intro-img">
+                <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc2069?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Ayurvedic Wisdom">
+            </div>
+        </div>
+
+        <section id="knowledge-hub">
+            <h2 style="text-align: center; font-size: 2.8rem; margin-bottom: 50px;">Master the Pillars of Wellness</h2>
+            <div class="guide-grid">
+                
+                <!-- The Three Doshas -->
+                <a href="{% url 'guide_doshas' %}" class="guide-card">
+                    <div>
+                        <i class="fas fa-dharmachakra"></i>
+                        <h3>The Three Doshas</h3>
+                        <p>Discover the core forces of Vata, Pitta, and Kapha that define your physical and emotional nature.</p>
+                    </div>
+                    <span class="btn-link">Explore Doshas &rarr;</span>
+                </a>
+
+                <!-- Daily Routine -->
+                <a href="{% url 'guide_routine' %}" class="guide-card">
+                    <div>
+                        <i class="fas fa-sun"></i>
+                        <h3>Daily Routine (Dinacharya)</h3>
+                        <p>Align your life with natural cycles through sacred morning and evening rituals for vitality.</p>
+                    </div>
+                    <span class="btn-link">Learn Rituals &rarr;</span>
+                </a>
+
+                <!-- Diet & Nutrition -->
+                <a href="{% url 'guide_diet' %}" class="guide-card">
+                    <div>
+                        <i class="fas fa-mortar-pestle"></i>
+                        <h3>Ayurvedic Diet & Ahara</h3>
+                        <p>Understand how food becomes medicine when tailored to your unique digestive fire (Agni).</p>
+                    </div>
+                    <span class="btn-link">Nutrition Guide &rarr;</span>
+                </a>
+
+                <!-- Medicinal Herbs -->
+                <a href="{% url 'guide_herbs' %}" class="guide-card">
+                    <div>
+                        <i class="fas fa-leaf"></i>
+                        <h3>Medicinal Herbs</h3>
+                        <p>Explore the healing power of Ashwagandha, Turmeric, and other sacred botanicals.</p>
+                    </div>
+                    <span class="btn-link">Browse Herbs &rarr;</span>
+                </a>
+
+                <!-- The Six Tastes -->
+                <a href="{% url 'guide_tastes' %}" class="guide-card">
+                    <div>
+                        <i class="fas fa-pepper-hot"></i>
+                        <h3>The Six Tastes</h3>
+                        <p>Master the Shad Rasa: Sweet, Sour, Salty, Pungent, Bitter, and Astringent for balanced meals.</p>
+                    </div>
+                    <span class="btn-link">Discover Tastes &rarr;</span>
+                </a>
+
+                <!-- Seasonal Living -->
+                <a href="{% url 'guide_seasonal' %}" class="guide-card">
+                    <div>
+                        <i class="fas fa-cloud-sun"></i>
+                        <h3>Seasonal Living (Ritucharya)</h3>
+                        <p>Adapt your lifestyle and diet as the seasons change to maintain year-round harmony.</p>
+                    </div>
+                    <span class="btn-link">Seasonal Calendar &rarr;</span>
+                </a>
+
+            </div>
+        </section>
+
+    </div>
+
+    <div class="feature-block">
+        <h2>Mind, Body & Spiritual Constitution</h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h3>Prakriti vs. Vikriti</h3>
+                <p>Your <strong>Prakriti</strong> is your original genetic constitution at birth. <strong>Vikriti</strong> is your current state of imbalance. Ayurveda works to return you from Vikriti to your natural Prakriti.</p>
+                <a href="{% url 'doshatest' %}" style="color: var(--gold); font-weight: 600; text-decoration: none;">Find Your Dosha &rarr;</a>
+            </div>
+            <div class="feature-item">
+                <h3>The Three Gunas</h3>
+                <p>The mind is governed by three qualities: <strong>Sattva</strong> (purity/peace), <strong>Rajas</strong> (action/passion), and <strong>Tamas</strong> (inertia/darkness). We aim to cultivate a Sattvic mind.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Yoga & Prana</h3>
+                <p>Breathwork (Pranayama) and physical postures are not just exercise—they are tools to move Prana (life force) and balance the subtle energies of the Doshas.</p>
+                <a href="{% url 'yoga' %}" style="color: var(--gold); font-weight: 600; text-decoration: none;">Yoga Guide &rarr;</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="padding-top: 0; text-align: center;">
+        <h2 style="font-size: 2.5rem; margin-bottom: 30px;">Ayurvedic Therapies & Rejuvenation</h2>
+        <p style="max-width: 800px; margin: 0 auto 40px; font-size: 1.1rem;">From the deep detoxification of Panchakarma to the soothing flow of Shirodhara, Ayurvedic therapies provide a profound reset for the nervous system and cellular repair.</p>
+        <a href="{% url 'therapies' %}" class="back-link" style="color: var(--gold); font-size: 1.2rem;">Detailed Therapies Guide &rarr;</a>
+    </div>
+
+    <footer>
+        <p>© 2026 AyurRekha | Tracing the Path to Natural Wellness</p>
+    </footer>
+
+</body>
+</html>
