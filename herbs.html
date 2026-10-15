@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicinal Herbs in Ayurveda | AyurRekha</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --forest: #1B3022;
+            --gold: #C5A059;
+            --pearl: #FBFAF5;
+            --text: #333333;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--pearl);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--forest);
+        }
+
+        .header-top {
+            padding: 20px;
+            text-align: center;
+            background: white;
+            border-bottom: 2px solid var(--forest);
+        }
+
+        .header-top img {
+            height: 80px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--forest);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .hero-mini {
+            background: linear-gradient(rgba(27, 48, 34, 0.8), rgba(27, 48, 34, 0.8)),
+                url("https://images.unsplash.com/photo-1512290923902-8a9f81dc2069?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80") center/cover no-repeat;
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .hero-mini h1 {
+            color: white;
+            font-size: 3rem;
+            margin: 0;
+        }
+
+        .herb-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .herb-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+
+        .herb-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .herb-content {
+            padding: 25px;
+        }
+
+        .herb-tag {
+            background: var(--soft-gray);
+            color: var(--gold);
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .herb-content h3 {
+            margin: 0 0 15px;
+            font-size: 1.6rem;
+        }
+
+        .herb-content p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .herb-benefits {
+            list-style: none;
+            padding: 0;
+            font-size: 0.9rem;
+        }
+
+        .herb-benefits li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+        }
+
+        .herb-benefits li::before {
+            content: '🌿';
+            position: absolute;
+            left: 0;
+        }
+
+        footer {
+            background: white;
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            color: #888;
+            margin-top: 80px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header-top">
+        <a href="{% url 'home' %}">
+            <img src="https://i.pinimg.com/736x/e9/cf/f3/e9cff3536efddc806355f3793e9aedcf.jpg" alt="Logo">
+        </a>
+    </header>
+
+    <div class="hero-mini">
+        <h1>Medicinal Herbs & Botanicals</h1>
+        <p>Harnessing the Pure Intelligence of Nature's Healing Plants</p>
+    </div>
+
+    <div class="container">
+        
+        <a href="{% url 'guide' %}" class="back-link"><i class="fas fa-arrow-left"></i> Back to Guide</a>
+
+        <div style="max-width: 800px; margin-bottom: 50px;">
+            <h2>Nature's Pharmacy</h2>
+            <p>In Ayurveda, herbs are considered "Ghana" (concentrated intelligence). They don't just provide chemical compounds; they carry specific energetic vibrations that speak directly to the cellular intelligence of our bodies. Here are some of the most revered herbs in the Ayurvedic pharmacopoeia.</p>
+        </div>
+
+        <div class="herb-grid">
+            
+            <!-- Ashwagandha -->
+            <div class="herb-card">
+                <div class="herb-img" style="background-image: url('https://i.pinimg.com/1200x/a3/55/00/a355007e6afcd596688bb5795d2de622.jpg');"></div>
+                <div class="herb-content">
+                    <span class="herb-tag">Adaptogen</span>
+                    <h3>Ashwagandha</h3>
+                    <p>The "Strength of a Horse." Known for providing both vigor and calm, it is the premier herb for stress and vitality.</p>
+                    <ul class="herb-benefits">
+                        <li>Reduces cortisol & stress</li>
+                        <li>Boosts immune function</li>
+                        <li>Enhances muscle recovery</li>
+                        <li>Supports thyroid health</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Turmeric -->
+            <div class="herb-card">
+                <div class="herb-img" style="background-image: url('https://i.pinimg.com/736x/66/d0/19/66d01908001812ce6ef15c269089c4a5.jpg');"></div>
+                <div class="herb-content">
+                    <span class="herb-tag">Anti-inflammatory</span>
+                    <h3>Turmeric (Haridra)</h3>
+                    <p>The Golden Spice of Life. A powerful purifier for the blood and the skin, used for centuries in daily cooking and medicine.</p>
+                    <ul class="herb-benefits">
+                        <li>Natural anti-inflammatory</li>
+                        <li>Supports liver detox</li>
+                        <li>Clears skin complexion</li>
+                        <li>Aids joint health</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Brahmi -->
+            <div class="herb-card">
+                <div class="herb-img" style="background-image: url('https://i.pinimg.com/1200x/c4/87/1f/c4871f68d293934b522d5d7a83cd403e.jpg');"></div>
+                <div class="herb-content">
+                    <span class="herb-tag">Nervine Tonic</span>
+                    <h3>Brahmi</h3>
+                    <p>The Herb of Grace. One of the most satvic (pure) herbs, traditionally used to enhance memory, focus, and spiritual clarity.</p>
+                    <ul class="herb-benefits">
+                        <li>Enhances memory & focus</li>
+                        <li>Calms the nervous system</li>
+                        <li>Promotes restful sleep</li>
+                        <li>Reduces cognitive decline</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Triphala -->
+            <div class="herb-card">
+                <div class="herb-img" style="background-image: url('https://i.pinimg.com/1200x/1e/84/b8/1e84b81a1997871d41156b246da37d6a.jpg');"></div>
+                <div class="herb-content">
+                    <span class="herb-tag">Digestion</span>
+                    <h3>Triphala</h3>
+                    <p>A formula of three fruits (Amalaki, Bibhitaki, Haritaki). It is the most popular Ayurvedic formula for internal cleansing and digestion.</p>
+                    <ul class="herb-benefits">
+                        <li>Gently detoxifies colon</li>
+                        <li>Rich in Vitamin C</li>
+                        <li>Improves nutrient absorption</li>
+                        <li>Supports regular elimination</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Tulsi -->
+            <div class="herb-card">
+                <div class="herb-img" style="background-image: url('https://i.pinimg.com/1200x/fa/df/aa/fadfaa1b545fad1e1feaced4dfc94abe.jpg');"></div>
+                <div class="herb-content">
+                    <span class="herb-tag">Immune Support</span>
+                    <h3>Tulsi (Holy Basil)</h3>
+                    <p>The Queen of Herbs. Highly spiritual and medicinal, it is an adaptogen that helps the body cope with environmental and physical stressors.</p>
+                    <ul class="herb-benefits">
+                        <li>Supports healthy lungs</li>
+                        <li>Balanced blood sugar</li>
+                        <li>Reduces physical stress</li>
+                        <li>Promotes emotional peace</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Shatavari -->
+            <div class="herb-card">
+                <div class="herb-img" style="background-image: url('https://i.pinimg.com/1200x/c8/17/d9/c817d9b7c08f6a4535910ced6d15fa9d.jpg');"></div>
+                <div class="herb-content">
+                    <span class="herb-tag">Rejuvenative</span>
+                    <h3>Shatavari</h3>
+                    <p>The "She Who Possesses a Hundred Husbands." A powerful cooling and nourishing herb focusing on reproductive and digestive health.</p>
+                    <ul class="herb-benefits">
+                        <li>Supports hormonal balance</li>
+                        <li>Nourishes reproductive system</li>
+                        <li>Soothes digestive tract</li>
+                        <li>Improves vitality (Ojas)</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 AyurRekha | Tracing the Path to Natural Wellness</p>
+    </footer>
+
+</body>
+</html>

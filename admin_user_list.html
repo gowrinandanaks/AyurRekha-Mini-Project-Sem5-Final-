@@ -1,0 +1,66 @@
+{% extends 'ayu/admin_base.html' %}
+
+{% block title %}User Management - AyurRekha Admin{% endblock %}
+{% block page_title %}User Management{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h3>All Registered Patients</h3>
+        <a href="{% url 'admin_add_user' %}" class="btn btn-gold"><i class="fas fa-plus"></i> Add User</a>
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>User Details</th>
+                <th>Age</th>
+                <th>Profession</th>
+                <th>Status</th>
+                <th>Joined</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in users %}
+            <tr>
+                <td>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 40px; height: 40px; background: var(--forest); color: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600;">{{ u.username|first|upper }}</div>
+                        <div>
+                            <div style="font-weight: 600; color: var(--forest);">{{ u.username }}</div>
+                            <div style="font-size: 0.8rem; color: #888;">{{ u.email }}</div>
+                        </div>
+                    </div>
+                </td>
+                <td>{{ u.profile.age|default:"--" }}</td>
+                <td>{{ u.profile.get_profession_display|default:"--" }}</td>
+                <td>
+                    {% if u.profile.is_blocked %}
+                        <span class="status-badge status-cancelled">Blocked</span>
+                    {% else %}
+                        <span class="status-badge status-approved">Active</span>
+                    {% endif %}
+                </td>
+                <td>{{ u.date_joined|date:"M d, Y" }}</td>
+                <td>
+                    <div style="display: flex; gap: 10px;">
+                        <a href="{% url 'admin_update_user' u.id %}" class="btn btn-forest" style="padding: 5px 10px; font-size: 0.8rem;"><i class="fas fa-edit"></i></a>
+                        <a href="{% url 'admin_toggle_block_user' u.id %}" class="btn {% if u.profile.is_blocked %}btn-gold{% else %}btn-danger{% endif %}" style="padding: 5px 10px; font-size: 0.8rem;" title="{% if u.profile.is_blocked %}Unblock{% else %}Block{% endif %}">
+                            <i class="fas {% if u.profile.is_blocked %}fa-unlock{% else %}fa-user-slash{% endif %}"></i>
+                        </a>
+                        {% if not u.is_superuser %}
+                        <a href="{% url 'admin_delete_user' u.id %}" class="btn btn-danger" style="padding: 5px 10px; font-size: 0.8rem;" onclick="return confirm('Delete this user?')" title="Delete"><i class="fas fa-trash"></i></a>
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" style="text-align: center; padding: 30px; color: #888;">No users found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

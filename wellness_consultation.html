@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wellness Consultation | AyurRekha</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest: #1B3022;
+            --forest-light: #2a4a35;
+            --gold: #C5A059;
+            --gold-light: #d4b578;
+            --pearl: #FBFAF5;
+            --soft-gray: #f2f2f2;
+            --text: #333333;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.9);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--pearl);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; color: var(--forest); }
+
+        /* ── Header ── */
+        .header {
+            background: var(--white);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo h2 { color: var(--forest); font-weight: 700; letter-spacing: 1px; }
+        .logo h2 span { color: var(--gold); }
+
+        .back-btn {
+            text-decoration: none;
+            color: var(--forest);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover { color: var(--gold); transform: translateX(-5px); }
+
+        /* ── Main Layout ── */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .hero-section {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, var(--forest), var(--forest-light));
+            border-radius: 24px;
+            padding: 50px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 15px 35px rgba(27, 48, 34, 0.2);
+        }
+
+        .hero-section::after {
+            content: '\f6d1'; 
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: -20px;
+            bottom: -20px;
+            font-size: 20rem;
+            opacity: 0.05;
+            color: white;
+        }
+
+        .hero-content h1 { color: white; font-size: 3.5rem; margin-bottom: 10px; }
+        .hero-content p { font-size: 1.1rem; opacity: 0.9; font-style: italic; }
+
+        /* ── Cards ── */
+        .card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+            margin-bottom: 30px;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--soft-gray);
+            padding-bottom: 15px;
+        }
+
+        .card-title i { color: var(--gold); }
+
+        /* ── Vitals Grid ── */
+        .vitals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+        }
+
+        .vital-item {
+            background: var(--pearl);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(197, 160, 89, 0.1);
+        }
+
+        .vital-label { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; }
+        .vital-value { font-size: 1.4rem; font-weight: 700; color: var(--forest); margin: 5px 0; }
+        .vital-unit { font-size: 0.8rem; color: #aaa; }
+
+        /* ── Dosha Section ── */
+        .dosha-analysis {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .dosha-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid var(--soft-gray);
+            position: relative;
+        }
+
+        .dosha-circle.active { border-color: var(--gold); box-shadow: 0 0 20px rgba(197, 160, 89, 0.2); }
+        .dosha-circle.vata { background: #eff6ff; }
+        .dosha-circle.pitta { background: #fffbeb; }
+        .dosha-circle.kapha { background: #f0fdf4; }
+
+        .dosha-circle .name { font-weight: 700; font-size: 1rem; color: var(--forest); }
+        .dosha-circle .score { font-size: 1.5rem; font-weight: 800; color: var(--gold); }
+
+        /* ── Recommendations ── */
+        .rec-item {
+            background: #fdfdfd;
+            border-left: 4px solid var(--gold);
+            padding: 20px;
+            border-radius: 0 15px 15px 0;
+            margin-bottom: 20px;
+        }
+
+        .rec-item h4 { font-size: 1.2rem; margin-bottom: 10px; color: var(--forest); display: flex; align-items: center; gap: 8px; }
+        .rec-item p { font-size: 0.95rem; color: #555; white-space: pre-line; }
+
+        /* ── Action Buttons ── */
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.3s;
+            border: none;
+            width: 100%;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .btn-gold { background: var(--gold); color: white; }
+        .btn-gold:hover { background: var(--forest); transform: translateY(-3px); }
+
+        .btn-outline { border: 2px solid var(--gold); color: var(--gold); background: transparent; }
+        .btn-outline:hover { background: var(--gold); color: white; transform: translateY(-3px); }
+
+        /* ── Sidebar Info ── */
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed var(--soft-gray);
+        }
+        .info-label { color: #888; font-size: 0.85rem; }
+        .info-value { font-weight: 600; color: var(--forest); font-size: 0.9rem; }
+
+        /* ── Document List ── */
+        .doc-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 10px;
+            background: var(--pearl);
+            margin-bottom: 10px;
+            text-decoration: none;
+            color: inherit;
+        }
+        .doc-item:hover { background: #e8e6d8; }
+        .doc-icon { width: 35px; height: 35px; background: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gold); }
+
+        /* ── Responsive ── */
+        @media (max-width: 992px) {
+            .container { grid-template-columns: 1fr; }
+            .hero-section { padding: 30px; }
+            .hero-content h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">
+            <h2>Ayur<span>Rekha</span></h2>
+        </div>
+        <a href="{% url 'dashboard' %}" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <div class="hero-content">
+                <p>Hello, {{ user.username }}</p>
+                <h1>Wellness Consultation</h1>
+                <p>Rooted in Ayurveda, Personalized for You. Analysis from {{ today|date:"F d, Y" }}</p>
+            </div>
+        </div>
+
+        <!-- Main Column -->
+        <div class="main-col">
+            <!-- 1. Ayurvedic Diagnosis -->
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-dharmachakra"></i>
+                    <span>Ayurvedic Diagnosis (Prakriti)</span>
+                </div>
+                {% if result %}
+                <div class="dosha-analysis">
+                    <div class="dosha-circle vata {% if result.dominant_dosha == 'Vata' %}active{% endif %}">
+                        <span class="name">Vata</span>
+                        <span class="score">{{ result.vata }}%</span>
+                    </div>
+                    <div class="dosha-circle pitta {% if result.dominant_dosha == 'Pitta' %}active{% endif %}">
+                        <span class="name">Pitta</span>
+                        <span class="score">{{ result.pitta }}%</span>
+                    </div>
+                    <div class="dosha-circle kapha {% if result.dominant_dosha == 'Kapha' %}active{% endif %}">
+                        <span class="name">Kapha</span>
+                        <span class="score">{{ result.kapha }}%</span>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 20px; color: #666;">
+                    <p>Dominant Dosha: <strong>{{ result.dominant_dosha }}</strong></p>
+                    <p style="font-size: 0.85rem; font-style: italic;">Based on your dominant Dosha, we recommend a balance of movement and stillness.</p>
+                </div>
+                {% else %}
+                <div style="text-align: center; padding: 30px;">
+                    <i class="fas fa-clipboard-question fa-3x" style="color: #eee; margin-bottom: 15px;"></i>
+                    <p>No Dosha Analysis found.</p>
+                    <a href="{% url 'doshatest' %}" class="btn-gold" style="display:inline-block; padding: 10px 20px; border-radius: 8px; text-decoration: none; margin-top: 15px;">Take Dosha Quiz</a>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- 2. Personalized Treatment Plan -->
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    <span>Latest Treatment Plan</span>
+                </div>
+                {% if latest_recommendation %}
+                <div class="rec-item">
+                    <h4><i class="fas fa-pills"></i> Ayurvedic Medicines</h4>
+                    <p>{{ latest_recommendation.medicines }}</p>
+                </div>
+                <div class="rec-item">
+                    <h4><i class="fas fa-spa"></i> Prescribed Therapies</h4>
+                    <p>{{ latest_recommendation.therapies }}</p>
+                </div>
+                <div class="rec-item">
+                    <h4><i class="fas fa-om"></i> Yoga & Pranayama</h4>
+                    <p>{{ latest_recommendation.yoga_pranayama }}</p>
+                </div>
+                <div class="rec-item">
+                    <h4><i class="fas fa-leaf"></i> Diet & Lifestyle</h4>
+                    <p>{{ latest_recommendation.diet_plan }}</p>
+                </div>
+                <div style="font-size: 0.8rem; color: #999; text-align: right;">
+                    Consulted by Dr. {{ latest_recommendation.practitioner.username }} on {{ latest_recommendation.created_at|date:"M d, Y" }}
+                </div>
+                {% else %}
+                <div style="text-align: center; padding: 30px;">
+                    <i class="fas fa-scroll fa-3x" style="color: #eee; margin-bottom: 15px;"></i>
+                    <p>No recommendations matching your profile yet.</p>
+                    <p style="font-size: 0.85rem; color: #888;">Book a session with our practitioners to receive a plan.</p>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- 3. Clinical Observation -->
+            {% if latest_record %}
+            <div class="card">
+                <div class="card-title">
+                    <i class="fas fa-notes-medical"></i>
+                    <span>Clinical Observations</span>
+                </div>
+                <div class="vitals-grid" style="margin-bottom: 25px;">
+                    <div class="vital-item">
+                        <i class="fas fa-heart-pulse" style="color: #e74c3c;"></i>
+                        <div class="vital-label">BP</div>
+                        <div class="vital-value">{{ latest_record.blood_pressure }}</div>
+                        <div class="vital-unit">mmHg</div>
+                    </div>
+                    {% if latest_record.cholesterol %}
+                    <div class="vital-item">
+                        <i class="fas fa-droplet" style="color: #3498db;"></i>
+                        <div class="vital-label">Cholesterol</div>
+                        <div class="vital-value">{{ latest_record.cholesterol }}</div>
+                        <div class="vital-unit">mg/dL</div>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="rec-item" style="border-left-color: var(--forest);">
+                    <h4><i class="fas fa-comment-medical"></i> Practitioner Notes</h4>
+                    <p>{{ latest_record.physical_pain_details|default:"No specific pain observations." }}</p>
+                    <hr style="margin: 15px 0; opacity: 0.1;">
+                    <p>{{ latest_record.mental_health_notes|default:"No specific behavioral observations." }}</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="side-col">
+            <!-- Health Profile Summary -->
+            <div class="card">
+                <div class="card-title" style="font-size: 1.2rem;">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>Core Health Vitals</span>
+                </div>
+                <div class="vitals-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 20px;">
+                    <div class="vital-item" style="padding: 15px;">
+                        <div class="vital-label" style="margin-top:0">Weight</div>
+                        <div class="vital-value" style="font-size: 1.2rem;">{{ health_profile.weight|default:"--" }}</div>
+                        <div class="vital-unit">kg</div>
+                    </div>
+                    <div class="vital-item" style="padding: 15px;">
+                        <div class="vital-label" style="margin-top:0">Height</div>
+                        <div class="vital-value" style="font-size: 1.2rem;">{{ health_profile.height|default:"--" }}</div>
+                        <div class="vital-unit">cm</div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Blood Group</span>
+                    <span class="info-value">{{ health_profile.blood_group|default:"Unknown" }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Sleep Goal</span>
+                    <span class="info-value">{{ health_profile.sleep_duration|default:"8" }} hrs</span>
+                </div>
+                <div class="info-row" style="border:none">
+                    <span class="info-label">Diet Type</span>
+                    <span class="info-value">{{ health_profile.get_diet_type_display|default:"General" }}</span>
+                </div>
+                
+                <a href="{% url 'dashboard' %}" class="btn btn-outline" style="margin-top: 20px;">
+                    <i class="fas fa-pen-to-square"></i> Edit Profile
+                </a>
+            </div>
+
+            <!-- Rapid Actions -->
+            <div class="card">
+                <div class="card-title" style="font-size: 1.2rem;">
+                    <i class="fas fa-bolt"></i>
+                    <span>Rapid Actions</span>
+                </div>
+                <a href="{% url 'export_health_report' user.id %}" class="btn btn-gold">
+                    <i class="fas fa-file-pdf"></i> Download Report (PDF)
+                </a>
+                
+                {% if latest_recommendation %}
+                <a href="{% url 'consultation_chat' latest_recommendation.practitioner.id %}" class="btn btn-outline">
+                    <i class="fas fa-comments"></i> Message Practitioner
+                </a>
+                {% else %}
+                <a href="{% url 'practitioner_directory' %}" class="btn btn-outline">
+                    <i class="fas fa-user-md"></i> Find Practitioner
+                </a>
+                {% endif %}
+                
+                <a href="{% url 'dashboard' %}#h-documents" class="btn btn-outline">
+                    <i class="fas fa-upload"></i> Upload Lab Reports
+                </a>
+            </div>
+
+            <!-- Recent Documents -->
+            <div class="card">
+                <div class="card-title" style="font-size: 1.2rem;">
+                    <i class="fas fa-folder-open"></i>
+                    <span>Lab Reports</span>
+                </div>
+                {% for doc in health_documents|slice:":4" %}
+                <a href="{{ doc.file.url }}" target="_blank" class="doc-item">
+                    <div class="doc-icon"><i class="fas fa-file-waveform"></i></div>
+                    <div style="flex: 1; min-width: 0;">
+                        <div style="font-size: 0.85rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ doc.get_document_type_display }}</div>
+                        <div style="font-size: 0.7rem; color: #999;">{{ doc.uploaded_at|date:"M d, Y" }}</div>
+                    </div>
+                </a>
+                {% empty %}
+                <p style="font-size: 0.85rem; color: #bbb; text-align: center; padding: 10px;">No documents uploaded yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <footer style="margin-top: 60px; padding: 40px 20px; border-top: 1px solid #eee; text-align: center; color: #aaa; font-size: 0.85rem;">
+        <p>&copy; 2026 AyurRekha Wellness. Tracing the Path to Natural Healing.</p>
+    </footer>
+
+</body>
+</html>

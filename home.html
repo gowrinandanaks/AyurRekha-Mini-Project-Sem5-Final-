@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AyurRekha-Tracing the Path to Natural Wellness</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --forest: #1B3022;
+            --gold: #C5A059;
+            --pearl: #FBFAF5;
+            --soft-gray: #f2f2f2;
+            --text: #333333;
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--pearl);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--forest);
+        }
+
+        /* --- Header & Logo --- */
+
+        .header-top {
+            padding: 20px;
+            text-align: center;
+            background: white;
+        }
+
+        .header-top img {
+            height: 130px;
+            object-fit: contain;
+        }
+
+
+
+        /* --- Hero Section --- */
+
+        .hero {
+            position: relative;
+            height: 80vh;
+            background: linear-gradient(rgba(27, 48, 34, 0.4), rgba(27, 48, 34, 0.4)),
+                url("https://i.pinimg.com/736x/5f/4b/52/5f4b52469868262ddb70c68765969995.jpg") center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .hero-content h1 {
+            color: white;
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+        }
+
+        .hero-content p {
+            font-style: italic;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        /* --- Modern Search --- */
+
+        .search-box {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px 50px 15px 25px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-box input::placeholder {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .search-box .material-symbols-outlined {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .results {
+            position: absolute;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            margin-top: 10px;
+            color: var(--text);
+            text-align: left;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            display: none;
+            z-index: 1001;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .result-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .result-item:hover {
+            background: rgba(197, 160, 89, 0.1);
+        }
+
+        .result-item i {
+            color: var(--gold);
+            font-size: 1.1rem;
+            width: 25px;
+            text-align: center;
+        }
+
+        .result-item a {
+            text-decoration: none;
+            color: var(--forest);
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: block;
+            width: 100%;
+        }
+
+        .result-category {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888;
+            padding: 10px 20px 5px;
+            font-weight: 700;
+        }
+
+        /* --- Floating Nav --- */
+        .vertical-nav {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .vertical-nav a {
+            background: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--forest);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            font-size: 1.2rem;
+        }
+
+        .vertical-nav a:hover {
+            background: var(--forest);
+            color: white;
+        }
+
+        /* --- Quick Actions --- */
+        .quick-actions {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: -40px auto 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .action-btn {
+            background: white;
+            border: none;
+            padding: 20px;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--forest);
+        }
+
+        .action-btn i {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            color: var(--gold);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-5px);
+            background: var(--pearl);
+        }
+
+        /* --- Split Content Sections --- */
+        .section {
+            display: flex;
+            align-items: center;
+            max-width: 1200px;
+            margin: 80px auto;
+            gap: 50px;
+            padding: 0 20px;
+        }
+
+        .section:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .section-img {
+            flex: 1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-img img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+
+        .section-text {
+            flex: 1;
+        }
+
+        .section-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .section-text h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 50px;
+            height: 2px;
+            background: var(--gold);
+        }
+
+        /* --- Quiz Card --- */
+        .quiz-container {
+            background: var(--forest);
+            padding: 80px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .quiz-card {
+            background: white;
+            color: var(--text);
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px;
+            border-radius: 20px;
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        footer {
+            background: #fff;
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+
+        /* --- Modal (Popup) Background --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        /* --- Glassmorphism Wrapper (The Animation Container) --- */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            width: 400px;
+            height: 500px;
+            /* Default height for Login */
+            position: relative;
+            overflow: hidden;
+            /* Hides the form that is off-screen */
+            transition: height 0.3s ease;
+            /* Smoothly grows taller for register */
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        /* When the '.active' class is added via JS, make the box taller */
+        .glass-effect.active {
+            height: auto;
+            max-height: 90vh;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--gold) transparent;
+        }
+
+        .glass-effect.active::-webkit-scrollbar {
+            width: 6px;
+        }
+        .glass-effect.active::-webkit-scrollbar-thumb {
+            background-color: var(--gold);
+            border-radius: 10px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* --- Close Button --- */
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 5px;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.3s;
+            z-index: 10;
+            /* Keeps it on top of the sliding forms */
+        }
+
+        .close-btn:hover {
+            background: #ff4757;
+        }
+
+        /* --- Form Sliding Animation Logic --- */
+        .form-box {
+            width: 100%;
+            height: 100%;
+            padding: 40px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: transform 0.4s ease-in-out;
+            /* The sliding speed */
+        }
+
+        /* 1. Login form starts in the center */
+        .form-box.login {
+            transform: translateX(0);
+        }
+
+        /* 2. When active, login form slides OUT to the left */
+        .glass-effect.active .form-box.login {
+            transform: translateX(-400px);
+        }
+
+        /* 3. Register form starts hidden on the right */
+        .form-box.register {
+            transform: translateX(420px);
+        }
+
+        /* 4. When active, register form slides IN to the center */
+        .glass-effect.active .form-box.register {
+            transform: translateX(0);
+            position: relative;
+        }
+
+        /* --- Form Styles --- */
+        .form-box h2 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 25px;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 1px;
+            margin-top: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 10px 0;
+            background: transparent;
+            border: none;
+            border-bottom: 1.5px solid rgba(255, 255, 255, 0.4);
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .input-wrapper input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+
+        .input-wrapper input:focus {
+            border-bottom: 1.5px solid #fff;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-options {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .form-options label {
+            color: #fff;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            cursor: pointer;
+            gap: 8px;
+        }
+
+        .form-options a {
+            color: #fff;
+            font-size: 12px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .form-options a:hover {
+            text-decoration: underline;
+        }
+
+        .modal-btn {
+            width: 100%;
+            background: #1b2838;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .modal-btn:hover {
+            background: #2a3f54;
+        }
+
+        .toggle-link {
+            text-align: center;
+            color: #fff;
+            font-size: 13px;
+            margin-top: 15px;
+        }
+
+        .toggle-link a {
+            color: #C5A059;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .toggle-link a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* --- Django Messages --- */
+        .django-messages-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2000;
+            width: 80%;
+            max-width: 400px;
+        }
+
+        .django-message {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #2196F3;
+            /* Default color */
+        }
+
+        .django-message.success {
+            border-left-color: #4CAF50;
+        }
+
+        .django-message.error {
+            border-left-color: #f44336;
+        }
+
+        .django-message.info {
+            border-left-color: #2196F3;
+        }
+
+        .django-message.warning {
+            border-left-color: #ff9800;
+        }
+
+        /* --- DocAyu Chatbot Modal --- */
+        #chatModal {
+            display: none;
+        }
+
+        #chatModal .glass-effect {
+            width: 420px;
+            max-width: 95vw;
+            height: 580px;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .chat-header h2 {
+            color: #fff;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        .chat-disclaimer {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.75);
+            margin-top: 6px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .chat-msg {
+            max-width: 88%;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .chat-msg.user {
+            align-self: flex-end;
+            background: rgba(197, 160, 89, 0.4);
+            border: 1px solid rgba(197, 160, 89, 0.6);
+            color: #fff;
+        }
+
+        .chat-msg.assistant {
+            align-self: flex-start;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        .chat-input-wrap {
+            padding: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input-wrap input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .chat-input-wrap input::placeholder {
+            color: #fff;
+        }
+
+        .chat-send-btn {
+            padding: 12px 20px;
+            border-radius: 24px;
+            background: var(--gold);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .chat-send-btn:hover {
+            background: #d4b578;
+        }
+
+        .chat-send-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                flex-direction: column !important;
+                text-align: center;
+            }
+
+            .section-text h2::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .vertical-nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header-top">
+        <img src="https://i.pinimg.com/736x/e9/cf/f3/e9cff3536efddc806355f3793e9aedcf.jpg" alt="Logo">
+    </header>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Ayurveda : The Sacred Science of Jīvana</h1>
+            <p>“Rooted in Nature. Guided by Dharma.”</p>
+
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search yoga asanas,meditations,doshas...">
+                <span class="material-symbols-outlined" onclick="search()">search</span>
+                <div class="results" id="results" onmouseleave="hideResults()"></div>
+            </div>
+            <a href="{% if user.is_authenticated and user.profile.role == 'practitioner' %}{% url 'practitioner_dashboard' %}{% else %}{% url 'dashboard' %}{% endif %}" target="_blank">
+                <button class="btn-gold" title="dashboard" style="margin-top: 40px;">
+                    {% if user.is_authenticated and user.profile.role == 'practitioner' %}Practitioner Dashboard{% else %}Trace Your AyurRekha{% endif %}
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <!-- Django Messages Integration -->
+    {% if messages %}
+    <div class="django-messages-container">
+        {% for message in messages %}
+        <div data-django-message class="django-message {{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="vertical-nav">
+        {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}" title="Logout" onclick="localStorage.removeItem('doshaScore')"><i class="fas fa-sign-out-alt"></i></a>
+        {% else %}
+        <a href="#" title="Login" onclick="openLoginModal()"><i class="fas fa-user"></i></a>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+        <a href="#" title="Ayudoc" onclick="openChatModal(); return false;"><i class="fas fa-comments"></i></a>
+        {% endif %}
+        <a href="{% url 'therapies' %}" title="Treatment"><i class="fas fa-spa"></i></a>
+        <a href="{% url 'guide' %}" title="Guide on ayurveda"><i class="fas fa-book-open"></i></a>
+        <a href="{% url 'yoga' %}" title="Yoga"><span class="material-symbols-outlined">self_improvement</span></a>
+        <a href="{% url 'doshatest' %}" title="Dosha Quiz"><i class="fas fa-clipboard-list"></i></a>
+        <a href="{% url 'community_blogs' %}" title="Community Blogs"><i class="fas fa-blog"></i></a>
+        <a href="{% url 'help' %}" title="Help"><i class="fas fa-question-circle"></i></a>
+    </div>
+
+    <div class="quick-actions">
+        <a href="{% url 'nature' %}" style="text-decoration: none;"><button class="action-btn"><i
+                    class="fas fa-seedling"></i>Nature</button></a>
+        <button class="action-btn"><i class="fas fa-heart"></i>Healing</button>
+        <button class="action-btn"><i class="fas fa-tint"></i>Purify</button>
+        <button class="action-btn"><i class="fas fa-balance-scale"></i>Balance</button>
+    </div>
+
+
+    <section class="section">
+        <a href="{% url 'history' %}" title="history" style="text-decoration:none; display:contents;">
+            <div class="section-img">
+                <img src="https://i.pinimg.com/736x/8d/a3/3f/8da33fe5dfaa8fbbbf0f94180b84a6f4.jpg" alt="History">
+            </div>
+            <div class="section-text">
+                <h2>History of Ayurveda</h2>
+                <p>Originating over 5,000 years ago in the Vedic culture of India, Ayurveda is the foundational "Science
+                    of 
+                    Life". It explores holistic healing through the unity of body, mind, and consciousness, as recorded
+                    in
+                    the ancient sacred texts - Charaka samhita and Sushruta Samhita ,which explore holistic healing
+                    through
+                    nature, herbs, diet, and spiritual balance. It emphasizes the unity of body, mind, and
+                    consciousness.
+                </p>
+            </div>
+        </a>
+    </section>
+
+
+    <section class="section">
+        <a href="{% url 'nature' %}" title="nature" style="text-decoration:none; display:contents;">
+            <div class="section-img">
+                <img src="https://i.pinimg.com/736x/33/05/7c/33057c234f9bea27bee769abee2aab73.jpg" alt="Nature">
+            </div>
+            <div class="section-text">
+                <h2>The Soul of Nature</h2>
+                <p>The <strong>Panchamahabhutas</strong> — Space, Air, Fire, Water, and Earth — are the divine threads
+                    of
+                    existence. United in balance, they sculpt our spirit, reminding us that harmony is the heartbeat of
+                    well-being.
+                </p>
+            </div>
+        </a>
+    </section>
+
+    <section class="section">
+        <a href="{% url 'therapies' %}" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 50px;">
+            <div class="section-img">
+                <img src="https://i.pinimg.com/736x/38/a2/46/38a24698d93b43ab394b142de33f6a0f.jpg" alt="Therapy">
+            </div>
+            <div class="section-text">
+                <h2>Ayurvedic Therapies</h2>
+                <p>From the rejuvenating <strong>Abhyanga</strong> massage to the detoxifying <strong>Panchakarma</strong>,
+                    Ayurveda offers a path to purify and harmonize the body-mind system through ancient therapeutic
+                    techniques.</p>
+            </div>
+        </a>
+    </section>
+
+    <div id="loginModal" class="modal">
+
+        <div class="glass-effect" id="formWrapper">
+            <span class="close-btn" onclick="closeLoginModal()">&times;</span>
+
+            <div class="form-box login">
+                <h2>Login</h2>
+                <form
+                    action="{% url 'login' %}{% if request.GET.next %}?next={{ request.GET.next|urlencode }}{% endif %}"
+                    method="POST">
+                    {% csrf_token %}
+                    {% if request.GET.next %}<input type="hidden" name="next" value="{{ request.GET.next }}">{% endif %}
+                    <div class="input-group">
+                        <div class="input-wrapper">
+                            <input type="email" name="email" placeholder="Email" required>
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-wrapper">
+                            <input type="password" name="password" id="loginPass" placeholder="Password" required>
+                            <i class="fas fa-lock"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-options">
+                        <label><input type="checkbox" name="remember_me"> Remember me</label>
+                        <label><input type="checkbox" onclick="togglePassword(['loginPass'], this)"> Show
+                            password</label>
+                        <a href="{% url 'demo_password_reset' %}">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="modal-btn">Login</button>
+
+                    <p class="toggle-link">
+                        Don't have an account? <a onclick="switchToRegister()">Register</a>
+                    </p>
+                </form>
+            </div>
+
+            <div class="form-box register">
+                <h2>Registration</h2>
+                <form action="{% url 'register' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <div class="input-wrapper">
+                            <input type="text" name="username" placeholder="Username" required>
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-wrapper">
+                            <input type="email" name="email" id="regEmail" placeholder="Email" required>
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-wrapper">
+                            <input type="password" name="password" id="regPass" placeholder="New Password" required>
+                            <i class="fas fa-lock"></i>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-wrapper">
+                            <input type="password" name="confirm_password" id="regConfirmPass"
+                                placeholder="Confirm Password" required>
+                            <i class="fas fa-lock"></i>
+                        </div>
+                    </div>
+
+                    <!-- OTP Group (TEMPORARILY DISABLED) -->
+                    <!-- 
+                    <div class="input-group" id="otpGroup">
+                        <div class="input-wrapper" style="display: flex; flex-direction: column; gap: 10px;">
+                            <div style="display: flex; gap: 10px;">
+                                <input type="text" name="otp" id="otpInput" placeholder="Enter OTP"
+                                    style="flex: 1; min-width: 100px;">
+                                <button type="button" id="otpBtn" class="btn-gold"
+                                    style="padding: 10px 15px; font-size: 12px; margin-top: 0; white-space: nowrap; flex-shrink: 0; line-height: 1;"
+                                    onclick="sendOTP()">Send
+                                    OTP</button>
+                            </div>
+                            <span id="otpTimer" style="color: #fff; font-size: 12px; display: none;">Resend OTP in:
+                                <span id="timerCount">30</span>s</span>
+                        </div>
+                    </div>
+                    -->
+
+                    <div class="input-group">
+                        <label style="color:white; display:block; margin-bottom:5px;">Register as:</label>
+                        <select name="role" id="roleSelect" class="input-wrapper" style="width:100%; padding:10px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.4); color:white; border-radius:5px;" onchange="togglePractitionerFields()">
+                            <option value="patient" style="color:black;">Patient</option>
+                            <option value="practitioner" style="color:black;">Practitioner</option>
+                            <option value="user" style="color:black;">User</option>
+                        </select>
+                    </div>
+
+                    <div id="practitionerFields" style="display:none;">
+                        <div class="input-group">
+                            <div class="input-wrapper">
+                                <input type="text" name="qualification" placeholder="Qualification (e.g., BAMS, MD Ayurveda)">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <div class="input-wrapper">
+                                <input type="text" name="specialization" placeholder="Specialization (e.g., Panchakarma)">
+                                <i class="fas fa-stethoscope"></i>
+                            </div>
+                        </div>
+                         <div class="input-group">
+                            <div class="input-wrapper">
+                                <input type="number" name="experience" placeholder="Experience (Years)">
+                                <i class="fas fa-history"></i>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <div class="input-wrapper">
+                                <input type="text" name="hospital_name" placeholder="Hospital/Clinic Name">
+                                <i class="fas fa-hospital"></i>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                             <select name="hospital_district" class="input-wrapper" style="width:100%; padding:10px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.4); color:white; border-radius:5px;">
+                                <option value="" style="color:black;">Select Hospital District</option>
+                                <option value="thiruvananthapuram" style="color:black;">Thiruvananthapuram</option>
+                                <option value="kollam" style="color:black;">Kollam</option>
+                                <option value="pathanamthitta" style="color:black;">Pathanamthitta</option>
+                                <option value="alappuzha" style="color:black;">Alappuzha</option>
+                                <option value="kottayam" style="color:black;">Kottayam</option>
+                                <option value="idukki" style="color:black;">Idukki</option>
+                                <option value="ernakulam" style="color:black;">Ernakulam</option>
+                                <option value="thrissur" style="color:black;">Thrissur</option>
+                                <option value="palakkad" style="color:black;">Palakkad</option>
+                                <option value="malappuram" style="color:black;">Malappuram</option>
+                                <option value="kozhikode" style="color:black;">Kozhikode</option>
+                                <option value="wayanad" style="color:black;">Wayanad</option>
+                                <option value="kannur" style="color:black;">Kannur</option>
+                                <option value="kasaragod" style="color:black;">Kasaragod</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <div class="input-wrapper">
+                                <input type="text" name="hospital_place" placeholder="Hospital Place (City/Town)">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <div class="input-wrapper">
+                                <input type="text" name="contact_number" placeholder="Practitioner Contact Information">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <div class="input-wrapper">
+                                <textarea name="bio" placeholder="About Practitioner" style="width:100%; background:transparent; border:none; border-bottom:1.5px solid rgba(255,255,255,0.4); color:white; outline:none; height:60px;"></textarea>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label style="color:white; display:block; margin-bottom:5px; font-size:14px;">Profile Photo:</label>
+                            <input type="file" name="profile_photo" accept="image/*" style="color:white;">
+                        </div>
+                        <div class="input-group">
+                            <label style="color:white; display:block; margin-bottom:5px; font-size:14px;">Certificates (PDF/Images):</label>
+                            <input type="file" name="certificates" accept=".pdf,image/*" style="color:white;">
+                        </div>
+                    </div>
+
+                    <div class="form-options"
+                        style="flex-direction: column; align-items: flex-start; gap: 5px; margin-bottom: 20px;">
+                        <label><input type="checkbox" onclick="togglePassword(['regPass', 'regConfirmPass'], this)">
+                            Show password</label>
+                        <label><input type="checkbox" required> I agree to terms</label>
+                    </div>
+
+                    <button type="submit" class="modal-btn" onclick="return validateRegister()">Register</button>
+
+                    <p class="toggle-link">
+                        Already have an account? <a onclick="switchToLogin()">Login</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- DocAyu Chatbot Modal -->
+    <div id="chatModal" class="modal">
+        <div class="glass-effect">
+            <span class="close-btn" onclick="closeChatModal()">&times;</span>
+            <div class="chat-header">
+                <h2>Ayudoc</h2>
+                <p class="chat-disclaimer">A smart AI chatbot for Ayurveda guidance and wellness. I give tips based on
+                    Ayurvedic wisdom, but I am an Ayurvedic assistant—not a physician—to help you learn about Ayurveda.
+                    Always consult a qualified practitioner for medical advice.</p>
+            </div>
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="chat-input-wrap">
+                <input type="text" id="chatInput" placeholder="Ask about doshas, herbs, diet, yoga..."
+                    onkeypress="if(event.key==='Enter')sendChatMessage()">
+                <button type="button" class="chat-send-btn" id="chatSendBtn" onclick="sendChatMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="quiz-container">
+        <div class="quiz-card">
+            <h2 style="margin-top:0">Dosha Quiz</h2>
+            <p>Discover your unique Ayurvedic constitution and personalize your wellness journey.</p>
+            <a href="{% url 'doshatest' %}?q=1" class="btn-gold"
+                style="text-decoration: none; display: inline-block;">Start Quiz</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 AyurRekha | Tracing the Path to Natural Wellness</p>
+    </footer>
+
+    <script>
+        const pages = [
+            { title: "Sacred History of Ayurveda", url: "{% url 'history' %}", cat: "Wisdom", icon: "fa-book-history" },
+            { title: "Soul of Nature (Elements)", url: "{% url 'nature' %}", cat: "Nature", icon: "fa-seedling" },
+            { title: "Ayurvedic Therapies & Treatments", url: "{% url 'therapies' %}", cat: "Healing", icon: "fa-spa" },
+            { title: "Yoga & Pranayama Mastery", url: "{% url 'yoga' %}", cat: "Routine", icon: "fa-heart" },
+            { title: "Advanced Yogasana directory", url: "{% url 'yogasana' %}", cat: "Routine", icon: "fa-figure-yoga" },
+            { title: "Trace Your Dosha (Quiz)", url: "{% url 'doshatest' %}", cat: "Tools", icon: "fa-clipboard-list" },
+            { title: "Knowledge Quiz Master", url: "{% url 'dashboard' %}", cat: "Tools", icon: "fa-graduation-cap" },
+            { title: "Practitioner Directory", url: "{% url 'practitioner_directory' %}", cat: "Professional", icon: "fa-user-md" },
+            { title: "Ayurvedic Herbs Guide", url: "{% url 'guide_herbs' %}", cat: "Wisdom", icon: "fa-leaf" },
+            { title: "Daily Dinacharya Routine", url: "{% url 'guide_routine' %}", cat: "Wisdom", icon: "fa-clock" },
+            { title: "Diet & Nutrition Wisdom", url: "{% url 'guide_diet' %}", cat: "Wisdom", icon: "fa-utensils" },
+            { title: "Understanding Your Doshas", url: "{% url 'guide_doshas' %}", cat: "Wisdom", icon: "fa-balance-scale" },
+            { title: "Community Wellness Blogs", url: "{% url 'community_blogs' %}", cat: "Community", icon: "fa-blog" },
+            { title: "Get Help & Support", url: "{% url 'help' %}", cat: "Support", icon: "fa-question-circle" }
+        ];
+
+        function search() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+
+            if (!input) { resultsDiv.style.display = 'none'; return; }
+
+            const filtered = pages.filter(page => 
+                page.title.toLowerCase().includes(input) || 
+                page.cat.toLowerCase().includes(input)
+            );
+
+            if (filtered.length > 0) {
+                let currentCat = '';
+                filtered.forEach(page => {
+                    if (page.cat !== currentCat) {
+                        const catDiv = document.createElement('div');
+                        catDiv.className = "result-category";
+                        catDiv.textContent = page.cat;
+                        resultsDiv.appendChild(catDiv);
+                        currentCat = page.cat;
+                    }
+                    const div = document.createElement('div');
+                    div.className = "result-item";
+                    div.innerHTML = `
+                        <i class="fas ${page.icon}"></i>
+                        <a href="${page.url}">${page.title}</a>
+                    `;
+                    div.onclick = () => window.location.href = page.url;
+                    resultsDiv.appendChild(div);
+                });
+                resultsDiv.style.display = 'block';
+            } else {
+                resultsDiv.innerHTML = '<div class="result-item" style="color:#888; font-size:0.85rem;">No results found for "' + input + '"</div>';
+                resultsDiv.style.display = 'block';
+            }
+        }
+
+        function hideResults() { document.getElementById('results').style.display = 'none'; }
+        document.getElementById('searchInput').addEventListener('keyup', search);
+        var modal = document.getElementById("loginModal");
+        var formWrapper = document.getElementById("formWrapper");
+
+        function openLoginModal() {
+            modal.style.display = "flex";
+            formWrapper.classList.remove('active');
+        }
+
+        function closeLoginModal() {
+            modal.style.display = "none";
+        }
+
+        // DocAyu Chatbot
+        var chatModal = document.getElementById("chatModal");
+        function openChatModal() {
+            chatModal.style.display = "flex";
+            loadChatHistory();
+            document.getElementById("chatInput").focus();
+        }
+        function closeChatModal() {
+            chatModal.style.display = "none";
+        }
+        function loadChatHistory() {
+            fetch("{% url 'chat_history' %}", { credentials: 'same-origin' })
+                .then(r => r.json())
+                .then(data => {
+                    const container = document.getElementById("chatMessages");
+                    container.innerHTML = "";
+                    (data.messages || []).forEach(m => appendChatBubble(m.role, m.content));
+                    container.scrollTop = container.scrollHeight;
+                })
+                .catch(() => { });
+        }
+        function appendChatBubble(role, content) {
+            const div = document.createElement("div");
+            div.className = "chat-msg " + role;
+            div.textContent = content;
+            document.getElementById("chatMessages").appendChild(div);
+        }
+        async function sendChatMessage() {
+            const input = document.getElementById("chatInput");
+            const btn = document.getElementById("chatSendBtn");
+            const msg = input.value.trim();
+            if (!msg) return;
+            input.value = "";
+            btn.disabled = true;
+            appendChatBubble("user", msg);
+            const container = document.getElementById("chatMessages");
+            container.scrollTop = container.scrollHeight;
+            try {
+                const res = await fetch("{% url 'chat' %}", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", "X-CSRFToken": getCookie("csrftoken") },
+                    body: JSON.stringify({ message: msg }),
+                    credentials: "same-origin"
+                });
+                const data = await res.json();
+                appendChatBubble("assistant", data.message || "Sorry, something went wrong.");
+            } catch (e) {
+                appendChatBubble("assistant", "Sorry, I could not respond. Please try again.");
+            }
+            btn.disabled = false;
+            container.scrollTop = container.scrollHeight;
+        }
+        function getCookie(name) {
+            var v = document.cookie.match("(^|;)\\s*" + name + "\\s*=\\s*([^;]+)");
+            return v ? v.pop() : "";
+        }
+
+        window.onload = function () {
+            // Open login modal if there are Django messages, or if redirected with ?next= (e.g. from dashboard)
+            const messageElements = document.querySelectorAll('[data-django-message]');
+            const urlParams = new URLSearchParams(window.location.search);
+            if (messageElements.length > 0) {
+                openLoginModal();
+                messageElements.forEach(el => {
+                    if (el.textContent.toLowerCase().includes('registration') || el.textContent.toLowerCase().includes('otp')) {
+                        switchToRegister();
+                    }
+                });
+            } else if (urlParams.get('next')) {
+                openLoginModal();
+            }
+        };
+
+        window.onclick = function (event) {
+            if (event.target == modal) modal.style.display = "none";
+            if (event.target == chatModal) chatModal.style.display = "none";
+        }
+
+        function switchToRegister() {
+            formWrapper.classList.add('active');
+        }
+
+        function switchToLogin() {
+            formWrapper.classList.remove('active');
+        }
+
+        function togglePassword(inputIds, checkbox) {
+            inputIds.forEach(id => {
+                const input = document.getElementById(id);
+                if (checkbox.checked) {
+                    input.type = "text";
+                } else {
+                    input.type = "password";
+                }
+            });
+        }
+
+        let otpTimer;
+        function startTimer(duration) {
+            const timerDisplay = document.getElementById('otpTimer');
+            const countDisplay = document.getElementById('timerCount');
+            const otpBtn = document.getElementById('otpBtn');
+
+            timerDisplay.style.display = 'block';
+            otpBtn.disabled = true;
+            otpBtn.style.opacity = '0.5';
+
+            let timer = duration;
+            clearInterval(otpTimer);
+            otpTimer = setInterval(function () {
+                countDisplay.textContent = timer;
+                if (--timer < 0) {
+                    clearInterval(otpTimer);
+                    timerDisplay.style.display = 'none';
+                    otpBtn.disabled = false;
+                    otpBtn.style.opacity = '1';
+                    otpBtn.textContent = 'Resend OTP';
+                }
+            }, 1000);
+        }
+
+        async function sendOTP() {
+            alert("OTP service is temporarily disabled. You can register without an OTP.");
+            /*
+            const email = document.getElementById('regEmail').value;
+            if (!email) {
+                alert("Please enter an email first.");
+                return;
+            }
+
+            try {
+                const response = await fetch("#", { // Disabled URL
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({ email: email })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    alert("OTP sent successfully to " + email);
+                    startTimer(30);
+                } else {
+                    alert("Error: " + data.message);
+                }
+            } catch (error) {
+                console.error("Error sending OTP:", error);
+                alert("Failed to connect to server.");
+            }
+            */
+        }
+
+        function validateRegister() {
+            const pass = document.getElementById('regPass').value;
+            const confirmPass = document.getElementById('regConfirmPass').value;
+            const role = document.getElementById('roleSelect').value;
+
+            if (pass !== confirmPass) {
+                alert("Passwords do not match!");
+                return false;
+            }
+
+            if (role === 'practitioner') {
+                const qualification = document.getElementsByName('qualification')[0].value;
+                if (!qualification) {
+                     alert("Practitioners must provide their qualification.");
+                     return false;
+                }
+            }
+            return true;
+        }
+
+        function togglePractitionerFields() {
+            const role = document.getElementById('roleSelect').value;
+            const fields = document.getElementById('practitionerFields');
+            if (role === 'practitioner') {
+                fields.style.display = 'block';
+            } else {
+                fields.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+
+</html>

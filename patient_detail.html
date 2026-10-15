@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Profile - {{ patient.username }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest: #1B3022;
+            --gold: #C5A059;
+            --pearl: #FBFAF5;
+            --soft-gray: #f2f2f2;
+            --text: #333333;
+            --white: #ffffff;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--pearl);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px; background: var(--forest); color: white;
+            padding: 30px 20px; position: fixed; height: 100vh;
+        }
+        .main-content { flex: 1; margin-left: 280px; padding: 40px; }
+
+        .sidebar-header h2 { color: var(--gold); margin: 0; font-size: 1.8rem; font-family: 'Cormorant Garamond', serif; text-align: center; margin-bottom: 40px; }
+        .nav-links { list-style: none; padding: 0; }
+        .nav-links li { margin-bottom: 15px; }
+        .nav-links a { color: white; text-decoration: none; display: flex; align-items: center; gap: 15px; padding: 12px 15px; border-radius: 10px; }
+        .nav-links a:hover, .nav-links a.active { background: rgba(197, 160, 89, 0.2); color: var(--gold); }
+
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .header h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: var(--forest); margin: 0; }
+
+        .profile-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+        }
+
+        .card { background: var(--white); border-radius: 20px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        .card h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; margin-top: 0; color: var(--forest); border-bottom: 1px solid var(--soft-gray); padding-bottom: 15px; margin-bottom: 20px; }
+
+        .patient-info { text-align: center; }
+        .avatar { width: 120px; height: 120px; border-radius: 50%; background: var(--soft-gray); margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: var(--gold); }
+
+        .info-row { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 0.95rem; }
+        .info-label { font-weight: 600; color: #666; }
+        .info-value { color: var(--text); }
+
+        .dosha-badge { padding: 8px 15px; border-radius: 5px; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; display: inline-block; margin-top: 5px; }
+        .dosha-Vata { background: #e3f2fd; color: #1e88e5; }
+        .dosha-Pitta { background: #fff3e0; color: #fb8c00; }
+        .dosha-Kapha { background: #e8f5e9; color: #43a047; }
+
+        .tabs { display: flex; gap: 20px; margin-bottom: 20px; border-bottom: 1px solid var(--soft-gray); }
+        .tab-btn { padding: 10px 20px; cursor: pointer; font-weight: 600; border: none; background: none; color: #888; border-bottom: 3px solid transparent; }
+        .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+        .history-item { border-left: 3px solid var(--gold); padding: 15px 20px; background: #fdfdfd; margin-bottom: 15px; border-radius: 0 10px 10px 0; }
+        .history-item h4 { margin: 0 0 5px; font-size: 1rem; color: var(--forest); }
+        .history-item p { margin: 0; font-size: 0.85rem; color: #666; }
+
+        .btn-action { background: var(--forest); color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: 600; text-decoration: none; display: inline-block; font-size: 0.85rem; }
+        .btn-action:hover { background: var(--gold); }
+
+        .form-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
+        .modal-content { background: white; padding: 40px; border-radius: 20px; width: 500px; max-width: 90%; position: relative; }
+        .modal-content h3 { margin-top: 0; font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; }
+        .modal-close { position: absolute; right: 20px; top: 20px; font-size: 1.5rem; cursor: pointer; }
+        
+        input, select, textarea { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 15px; font-family: 'Montserrat', sans-serif; }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>AyurRekha</h2>
+        </div>
+        <ul class="nav-links">
+            <li><a href="{% url 'practitioner_dashboard' %}"><i class="fas fa-th-large"></i> <span>Dashboard</span></a></li>
+            <li><a href="{% url 'practitioner_patient_list' %}"><i class="fas fa-users"></i> <span>My Patients</span></a></li>
+            <li><a href="#"><i class="fas fa-calendar-alt"></i> <span>Appointments</span></a></li>
+            <li><a href="#"><i class="fas fa-comments"></i> <span>Consultations</span></a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <div class="header">
+            <h1>Patient Profile</h1>
+            <a href="{% url 'practitioner_patient_list' %}" style="color: var(--gold); text-decoration: none;"><i class="fas fa-arrow-left"></i> Back to Directory</a>
+        </div>
+
+        <div class="profile-container">
+            <div class="left-col">
+                <div class="card patient-info">
+                    <div class="avatar"><i class="fas fa-user"></i></div>
+                    <h3>{{ patient.username }}</h3>
+                    <p>{{ patient.email }}</p>
+                    <div style="margin-top:20px;">
+                        <a href="{% url 'consultation_chat' patient.id %}" class="btn-action" style="width:100%; text-align:center;">
+                            <i class="fas fa-comments"></i> Chat with Patient
+                        </a>
+                    </div>
+                    
+                    <div style="margin-top:20px; text-align: left;">
+                        <div class="info-row"><span class="info-label">Patient ID:</span> <span class="info-value">#{{ patient.id }}</span></div>
+                        <div class="info-row"><span class="info-label">Age:</span> <span class="info-value">{{ patient.profile.age|default:"N/A" }}</span></div>
+                        <div class="info-row"><span class="info-label">Profession:</span> <span class="info-value">{{ patient.profile.get_profession_display|default:"N/A" }}</span></div>
+                        
+                        {% if dosha_result %}
+                        <div class="info-row">
+                            <span class="info-label">Prakriti:</span> 
+                            <span class="dosha-badge dosha-{{ dosha_result.dominant_dosha }}">{{ dosha_result.dominant_dosha }}</span>
+                        </div>
+                        <div style="font-size: 0.8rem; color:#888; margin-top:5px;">
+                            V: {{ dosha_result.vata }}% | P: {{ dosha_result.pitta }}% | K: {{ dosha_result.kapha }}%
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>Quick Actions</h2>
+                    <div style="display:flex; flex-direction:column; gap:10px;">
+                        <button class="btn-action" onclick="openModal('recordModal')"><i class="fas fa-plus"></i> Add Health Record</button>
+                        <button class="btn-action" onclick="openModal('noteModal')"><i class="fas fa-pen"></i> Add Clinician Note</button>
+                        <button class="btn-action" onclick="openModal('remedyModal')"><i class="fas fa-mortar-pestle"></i> Prescribe Remedies</button>
+                        <a href="{% url 'export_health_report' patient.id %}" class="btn-action" style="text-align:center; background:var(--gold);"><i class="fas fa-file-pdf"></i> Download Health Report</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-col">
+                <div class="card">
+                    <div class="tabs">
+                        <button class="tab-btn active" onclick="showTab('history')">Appointments</button>
+                        <button class="tab-btn" onclick="showTab('vitals')">P. Records</button>
+                        <button class="tab-btn" onclick="showTab('health-profile')">Patient Profile</button>
+                        <button class="tab-btn" onclick="showTab('documents')">Documents</button>
+                        <button class="tab-btn" onclick="showTab('recommendations')">Treatment Plans</button>
+                        <button class="tab-btn" onclick="showTab('notes')">Internal Notes</button>
+                    </div>
+
+                    <div id="tab-history" class="tab-content">
+                        <h3>Consultation History</h3>
+                        {% for appt in appointments %}
+                        <div class="history-item">
+                            <h4>{{ appt.date_time|date:"d M, Y - H:i" }}</h4>
+                            <p>Status: <strong>{{ appt.status }}</strong></p>
+                            {% if appt.notes %}<p style="margin-top:5px; font-style: italic;">"{{ appt.notes }}"</p>{% endif %}
+                        </div>
+                        {% empty %}
+                        <p style="color:#888;">No historical appointments found.</p>
+                        {% endfor %}
+                    </div>
+
+                    <div id="tab-vitals" class="tab-content" style="display:none;">
+                        <h3>Practitioner Health Records</h3>
+                        {% for rec in health_records %}
+                        <div class="history-item">
+                            <h4>Recorded on {{ rec.created_at|date:"d M, Y" }}</h4>
+                            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:10px;">
+                                <div><strong>BP:</strong> {{ rec.blood_pressure }}</div>
+                                <div><strong>Cholesterol:</strong> {{ rec.cholesterol|default:"N/A" }}</div>
+                            </div>
+                            {% if rec.physical_pain_details %}
+                            <p style="margin-top:10px;"><strong>Pain Details:</strong> {{ rec.physical_pain_details }}</p>
+                            {% endif %}
+                            {% if rec.mental_health_notes %}
+                            <p style="margin-top:5px;"><strong>Mental Health:</strong> {{ rec.mental_health_notes }}</p>
+                            {% endif %}
+                        </div>
+                        {% empty %}
+                        <p style="color:#888;">No health records on file.</p>
+                        {% endfor %}
+                    </div>
+
+                    <div id="tab-health-profile" class="tab-content" style="display:none;">
+                        <h3>Patient's Personal Health Profile</h3>
+                        <p style="color:#888; font-size: 0.85rem; margin-bottom: 20px;">This data is self-reported by the patient and is read-only for practitioners.</p>
+                        
+                        <!-- 1. Basic Health Information & Vital Signs -->
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;">
+                            <div class="card" style="padding: 20px; border: 1px solid var(--soft-gray); background: #fafafa; margin-bottom: 0;">
+                                <h4 style="margin-top:0; color: var(--forest); border-bottom: 1px solid var(--soft-gray); padding-bottom: 10px;">Basic Information</h4>
+                                <div class="info-row"><span class="info-label">Blood Group:</span> <span class="info-value">{{ health_profile.blood_group|default:"Not set" }}</span></div>
+                                <div class="info-row"><span class="info-label">Height:</span> <span class="info-value">{{ health_profile.height|default:"N/A" }} cm</span></div>
+                                <div class="info-row"><span class="info-label">Weight:</span> <span class="info-value">{{ health_profile.weight|default:"N/A" }} kg</span></div>
+                                <div class="info-row"><span class="info-label">BMI:</span> <span class="info-value">{{ health_profile.bmi|default:"N/A" }}</span></div>
+                                <div class="info-row"><span class="info-label">Age:</span> <span class="info-value">{{ health_profile.age|default:"N/A" }}</span></div>
+                            </div>
+                            <div class="card" style="padding: 20px; border: 1px solid var(--soft-gray); background: #fafafa; margin-bottom: 0;">
+                                <h4 style="margin-top:0; color: var(--forest); border-bottom: 1px solid var(--soft-gray); padding-bottom: 10px;">Current Vital Signs</h4>
+                                <div class="info-row"><span class="info-label">Blood Pressure:</span> <span class="info-value">{{ health_profile.blood_pressure_systolic|default:"-" }}/{{ health_profile.blood_pressure_diastolic|default:"-" }} mmHg</span></div>
+                                <div class="info-row"><span class="info-label">Heart Rate:</span> <span class="info-value">{{ health_profile.heart_rate|default:"N/A" }} bpm</span></div>
+                                <div class="info-row"><span class="info-label">Blood Oxygen:</span> <span class="info-value">{{ health_profile.blood_oxygen|default:"N/A" }}%</span></div>
+                                <div class="info-row"><span class="info-label">Body Temp:</span> <span class="info-value">{{ health_profile.body_temperature|default:"N/A" }} °F</span></div>
+                                <div class="info-row"><span class="info-label">Respiratory Rate:</span> <span class="info-value">{{ health_profile.respiratory_rate|default:"N/A" }} bpm</span></div>
+                            </div>
+                        </div>
+
+                        <!-- 2. Blood Test Reports -->
+                        <div class="card" style="padding: 20px; border: 1px solid var(--soft-gray); background: #fafafa; margin-bottom: 25px;">
+                            <h4 style="margin-top:0; color: var(--forest); border-bottom: 1px solid var(--soft-gray); padding-bottom: 10px;">Blood Test Reports</h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+                                <div>
+                                    <h5 style="color: var(--gold); margin-bottom: 10px;">Sugar & Hematology</h5>
+                                    <div class="info-row"><span class="info-label">Fasting Sugar:</span> <span class="info-value">{{ health_profile.blood_sugar_fasting|default:"N/A" }} mg/dL</span></div>
+                                    <div class="info-row"><span class="info-label">Post Prandial:</span> <span class="info-value">{{ health_profile.blood_sugar_pp|default:"N/A" }} mg/dL</span></div>
+                                    <div class="info-row"><span class="info-label">HbA1c:</span> <span class="info-value">{{ health_profile.hba1c|default:"N/A" }}%</span></div>
+                                    <div class="info-row"><span class="info-label">Hemoglobin:</span> <span class="info-value">{{ health_profile.hemoglobin|default:"N/A" }} g/dL</span></div>
+                                </div>
+                                <div>
+                                    <h5 style="color: var(--gold); margin-bottom: 10px;">Lipid Profile</h5>
+                                    <div class="info-row"><span class="info-label">Total Cholesterol:</span> <span class="info-value">{{ health_profile.total_cholesterol|default:"N/A" }} mg/dL</span></div>
+                                    <div class="info-row"><span class="info-label">LDL (Bad):</span> <span class="info-value">{{ health_profile.ldl_cholesterol|default:"N/A" }} mg/dL</span></div>
+                                    <div class="info-row"><span class="info-label">HDL (Good):</span> <span class="info-value">{{ health_profile.hdl_cholesterol|default:"N/A" }} mg/dL</span></div>
+                                    <div class="info-row"><span class="info-label">Triglycerides:</span> <span class="info-value">{{ health_profile.triglycerides|default:"N/A" }} mg/dL</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Lifestyle Details -->
+                        <div class="card" style="padding: 20px; border: 1px solid var(--soft-gray); background: #fafafa; margin-bottom: 25px;">
+                            <h4 style="margin-top:0; color: var(--forest); border-bottom: 1px solid var(--soft-gray); padding-bottom: 10px;">Lifestyle Details</h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+                                <div>
+                                    <div class="info-row"><span class="info-label">Sleep Duration:</span> <span class="info-value">{{ health_profile.sleep_duration|default:"N/A" }} hours</span></div>
+                                    <div class="info-row"><span class="info-label">Stress Level (1-10):</span> <span class="info-value">{{ health_profile.stress_level|default:"N/A" }}</span></div>
+                                    <div class="info-row"><span class="info-label">Activity Level:</span> <span class="info-value">{{ health_profile.physical_activity|default:"N/A" }}</span></div>
+                                </div>
+                                <div>
+                                    <div class="info-row"><span class="info-label">Diet Type:</span> <span class="info-value">{{ health_profile.get_diet_type_display|default:"N/A" }}</span></div>
+                                    <div class="info-row"><span class="info-label">Daily Water:</span> <span class="info-value">{{ health_profile.water_intake|default:"N/A" }} Liters</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. Medical Information -->
+                        <div class="card" style="padding: 20px; border: 1px solid var(--soft-gray); background: #fafafa; margin-bottom: 25px;">
+                            <h4 style="margin-top:0; color: var(--forest); border-bottom: 1px solid var(--soft-gray); padding-bottom: 10px;">Medical Records & History</h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+                                <div>
+                                    <h5 style="color: var(--gold); margin-bottom: 5px;">Conditions & Allergies</h5>
+                                    <p><strong>Existing Diseases:</strong><br>{{ health_profile.existing_diseases|default:"None reported"|linebreaksbr }}</p>
+                                    <p><strong>Allergies:</strong><br>{{ health_profile.allergies|default:"None reported"|linebreaksbr }}</p>
+                                </div>
+                                <div>
+                                    <h5 style="color: var(--gold); margin-bottom: 5px;">Treatments & History</h5>
+                                    <p><strong>Current Medications:</strong><br>{{ health_profile.current_medications|default:"None"|linebreaksbr }}</p>
+                                    <p><strong>Previous Surgeries:</strong><br>{{ health_profile.previous_surgeries|default:"None"|linebreaksbr }}</p>
+                                    <p><strong>Family History:</strong><br>{{ health_profile.family_medical_history|default:"None reported"|linebreaksbr }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 5. Ayurveda Details -->
+                        <div class="card" style="padding: 20px; border: 1px solid var(--soft-gray); background: #fafafa;">
+                            <h4 style="margin-top:0; color: var(--forest); border-bottom: 1px solid var(--soft-gray); padding-bottom: 10px;">Ayurveda-Specific Information</h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+                                <div>
+                                    <div class="info-row"><span class="info-label">Dominant Dosha:</span> <span class="info-value">{{ health_profile.dominant_dosha|default:"Not calculated" }}</span></div>
+                                    <div class="info-row"><span class="info-label">Digestion Type:</span> <span class="info-value">{{ health_profile.get_digestion_type_display|default:"N/A" }}</span></div>
+                                </div>
+                                <div>
+                                    <p><strong>Body Constitution (Prakriti):</strong><br>{{ health_profile.body_constitution|default:"N/A" }}</p>
+                                    <p><strong>Current Imbalance (Vikriti):</strong><br>{{ health_profile.current_imbalance|default:"N/A" }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tab-documents" class="tab-content" style="display:none;">
+                        <h3>Medical Documents & Reports</h3>
+                        <div class="patient-grid" style="grid-template-columns: 1fr; gap: 15px;">
+                            {% for doc in health_documents %}
+                                <div>
+                                    <h4 style="margin:0;">{{ doc.get_document_type_display }}</h4>
+                                    <p style="margin:5px 0 0;">Notes: {{ doc.notes|default:"No notes" }} | Uploaded: {{ doc.uploaded_at|date:"d M, Y" }}</p>
+                                </div>
+                                <a href="{{ doc.file.url }}" target="_blank" class="btn-action" style="background: var(--gold); padding: 5px 12px; font-size: 0.75rem;">
+                                    <i class="fas fa-external-link-alt"></i> View Document
+                                </a>
+                            </div>
+                            {% empty %}
+                            <p style="color:#888; text-align: center; padding: 30px;">No medical documents uploaded by the patient.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div id="tab-recommendations" class="tab-content" style="display:none;">
+                        <h3>Active Treatment Plans</h3>
+                        {% for plan in recommendations %}
+                        <div class="history-item">
+                            <h4>Plan from {{ plan.created_at|date:"d M, Y" }}</h4>
+                            <div style="margin-top:10px;">
+                                <strong>Medicines:</strong><p>{{ plan.medicines }}</p>
+                                <strong style="display:block; margin-top:10px;">Therapies:</strong><p>{{ plan.therapies }}</p>
+                                <strong style="display:block; margin-top:10px;">Diet & Lifestyle:</strong><p>{{ plan.diet_plan }}</p>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <p style="color:#888;">No treatment plans yet.</p>
+                        {% endfor %}
+                    </div>
+
+                    <div id="tab-notes" class="tab-content" style="display:none;">
+                        <h3>Practitioner Notes</h3>
+                        {% for note in notes %}
+                        <div class="history-item">
+                            <h4>{{ note.created_at|date:"d M, Y H:i" }}</h4>
+                            <p>{{ note.note }}</p>
+                        </div>
+                        {% empty %}
+                        <p style="color:#888;">No internal notes for this patient.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modals -->
+    <div id="recordModal" class="form-modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('recordModal')">&times;</span>
+            <h3>Add Health Record</h3>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="action_type" value="add_record">
+                <input type="text" name="blood_pressure" placeholder="Blood Pressure (e.g. 120/80)" required>
+                <input type="text" name="cholesterol" placeholder="Cholesterol Levels">
+                <textarea name="physical_pain" placeholder="Physical Pain Details (where, when, intensity)"></textarea>
+                <textarea name="mental_health" placeholder="Mental Health Observations"></textarea>
+                <button type="submit" class="btn-action" style="width:100%">Save Record</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="noteModal" class="form-modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('noteModal')">&times;</span>
+            <h3>Add Internal Note</h3>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="action_type" value="add_note">
+                <textarea name="note" placeholder="Write internal patient notes here..." required style="height:150px;"></textarea>
+                <button type="submit" class="btn-action" style="width:100%">Save Note</button>
+            </form>
+        </div>
+    </div>
+
+     <div id="remedyModal" class="form-modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('remedyModal')">&times;</span>
+            <h3>Update Treatment Plan</h3>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="action_type" value="add_recommendation">
+                <textarea name="medicines" placeholder=" Ayurvedic Medicines" required></textarea>
+                <textarea name="therapies" placeholder="Panchakarma Therapies"></textarea>
+                <textarea name="yoga" placeholder="Yoga & Pranayama"></textarea>
+                <textarea name="diet" placeholder="Dietary Guidelines"></textarea>
+                <button type="submit" class="btn-action" style="width:100%">Add Plan</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('tab-' + tabName).style.display = 'block';
+            event.currentTarget.classList.add('active');
+        }
+
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        
+        window.onclick = function(event) {
+            if (event.target.className === 'form-modal') {
+                event.target.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

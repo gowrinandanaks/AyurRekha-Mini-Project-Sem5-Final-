@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Practitioner Portal - AyurRekha{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest: #1B3022;
+            --gold: #C5A059;
+            --pearl: #FBFAF5;
+            --soft-gray: #f2f2f2;
+            --text: #333333;
+            --danger: #e74c3c;
+            --success: #2ecc71;
+        }
+
+        * { box-sizing: border-box; transition: all 0.3s ease; }
+
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--pearl);
+            color: var(--text);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3 { font-family: 'Cormorant Garamond', serif; color: var(--forest); }
+
+        /* --- Sidebar --- */
+        .sidebar {
+            width: 280px;
+            background: var(--forest);
+            color: white;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            z-index: 1000;
+        }
+
+        .sidebar-header { text-align: center; margin-bottom: 40px; }
+        .sidebar-header h2 { color: var(--gold); margin: 0; font-size: 1.8rem; }
+        .sidebar-header p { font-size: 0.8rem; opacity: 0.8; font-style: italic; }
+
+        .nav-links { list-style: none; padding: 0; margin: 0; flex: 1; }
+        .nav-links li { margin-bottom: 15px; }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 15px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(197, 160, 89, 0.2);
+            color: var(--gold);
+        }
+        .nav-links i { width: 20px; text-align: center; }
+
+        .logout-link {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+        }
+        .logout-link a { color: #ff7675; }
+
+        /* --- Main Content --- */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 40px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .profile-chip {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .profile-chip img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* --- Cards --- */
+        .glass-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar { width: 80px; padding: 30px 10px; }
+            .sidebar-header, .nav-links span, .logout-link span { display: none; }
+            .main-content { margin-left: 80px; }
+        }
+
+        {% block extra_css %}{% endblock %}
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>AyurRekha</h2>
+            <p>Practitioner Portal</p>
+        </div>
+        <ul class="nav-links">
+            <li><a href="{% url 'practitioner_dashboard' %}" class="{% if request.resolver_match.url_name == 'practitioner_dashboard' %}active{% endif %}"><i class="fas fa-th-large"></i> <span>Dashboard</span></a></li>
+            <li><a href="{% url 'practitioner_patient_list' %}" class="{% if request.resolver_match.url_name == 'practitioner_patient_list' or request.resolver_match.url_name == 'practitioner_patient_detail' %}active{% endif %}"><i class="fas fa-users"></i> <span>My Patients</span></a></li>
+            <li><a href="{% url 'practitioner_appointments' %}" class="{% if request.resolver_match.url_name == 'practitioner_appointments' %}active{% endif %}"><i class="fas fa-calendar-alt"></i> <span>Appointments</span></a></li>
+            <li><a href="{% url 'practitioner_consultations' %}" class="{% if request.resolver_match.url_name == 'practitioner_consultations' or request.resolver_match.url_name == 'consultation_chat' %}active{% endif %}"><i class="fas fa-comments"></i> <span>Consultations</span></a></li>
+            <li><a href="{% url 'practitioner_analytics' %}" class="{% if request.resolver_match.url_name == 'practitioner_analytics' %}active{% endif %}"><i class="fas fa-chart-line"></i> <span>Analytics</span></a></li>
+            <li><a href="{% url 'practitioner_settings' %}" class="{% if request.resolver_match.url_name == 'practitioner_settings' %}active{% endif %}"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+        </ul>
+        <div class="logout-link">
+            <a href="{% url 'home' %}" style="color: var(--gold);"><i class="fas fa-home"></i> <span>Back to Home</span></a>
+            <a href="{% url 'logout' %}" style="margin-top: 10px; display: flex; align-items: center; gap: 15px; color: #ff7675; padding: 10px 15px; border-radius: 10px; text-decoration: none;"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="header">
+            <div class="welcome-text">
+                <h1>{% block header_title %}Swagata, Dr. {{ user.username }}{% endblock %}</h1>
+                <p>{% block header_subtitle %}Rooted in Nature. Guided by Dharma.{% endblock %}</p>
+            </div>
+            <div class="profile-chip">
+                <span>{{ user.email }}</span>
+                {% if user.profile.profile_photo %}
+                    <img src="{{ user.profile.profile_photo.url }}" alt="Profile">
+                {% else %}
+                    <i class="fas fa-user-circle fa-2x" style="color: var(--gold);"></i>
+                {% endif %}
+            </div>
+        </header>
+
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="glass-card" style="padding: 15px; border-left: 5px solid {% if message.tags == 'success' %}var(--success){% else %}var(--danger){% endif %}; margin-bottom: 20px;">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block extra_js %}{% endblock %}
+
+</body>
+</html>

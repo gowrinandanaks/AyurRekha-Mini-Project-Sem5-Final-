@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yoga Asanas Guide | AyurRekha</title>
+    <meta name="description" content="Explore key yoga asanas for strength, flexibility, and mental peace.">
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --forest: #1B3022;
+            --gold: #C5A059;
+            --pearl: #FBFAF5;
+            --soft-gray: #f2f2f2;
+            --text: #333333;
+            --white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--pearl);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--forest);
+        }
+
+        /* --- Global Layout --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* --- Header & Hero --- */
+        .header-top {
+            padding: 20px;
+            text-align: center;
+            background: white;
+            border-bottom: 1px solid #eee;
+        }
+
+        .header-top img {
+            height: 100px;
+            object-fit: contain;
+        }
+
+        .hero {
+            position: relative;
+            height: 50vh;
+            background: linear-gradient(rgba(27, 48, 34, 0.6), rgba(27, 48, 34, 0.6)),
+                url("https://i.pinimg.com/736x/ca/ad/48/caad485cedd6f7d8e7d9f1d30ff9399d.jpg") center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .hero-content h1 {
+            color: white;
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+        }
+
+        .hero-content p {
+            font-style: italic;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* --- Modern Navigation --- */
+        .page-nav {
+            background: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--forest);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-menu a:hover {
+            color: var(--gold);
+        }
+
+        /* Floating Nav */
+        .vertical-nav {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .vertical-nav a {
+            background: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--forest);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            font-size: 1.2rem;
+        }
+
+        .vertical-nav a:hover {
+            background: var(--forest);
+            color: white;
+        }
+
+        /* --- Search Block --- */
+        .search-container {
+            max-width: 600px;
+            margin: -30px auto 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-box {
+            background: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            padding: 10px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-box i {
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+
+        /* --- Sections & Cards --- */
+        .section {
+            margin-bottom: 80px;
+        }
+
+        .section h2 {
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 60%;
+            height: 3px;
+            background: var(--gold);
+        }
+
+        .content-block {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+        }
+
+        /* Split Section Pattern */
+        .split-section {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .split-section:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .split-img {
+            flex: 1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            max-width: 450px; /* Constrain wide screen images */
+            margin: 0 auto;
+        }
+
+        .split-img img {
+            width: 100%;
+            height: 350px; /* Fixed height for consistency */
+            object-fit: contain; /* Good for removebg PNGs */
+            display: block;
+            cursor: zoom-in;
+            background: #f9f9f9; /* Subtle background for transparency */
+        }
+
+        .split-img img.zoomed {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1.5);
+            z-index: 2000;
+            width: auto;
+            max-width: 90vw;
+            height: auto;
+            max-height: 90vh;
+            box-shadow: 0 0 100px rgba(0, 0, 0, 0.5);
+            cursor: zoom-out;
+            object-fit: contain;
+        }
+
+        .split-text {
+            flex: 1.2;
+        }
+
+        /* --- Asana Grid --- */
+        .asana-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .asana-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+        }
+
+        .asana-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1);
+        }
+
+        .asana-thumb {
+            height: 200px; /* Slightly more compact */
+            overflow: hidden;
+            background: #eee;
+        }
+
+        .asana-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .asana-info {
+            padding: 25px;
+        }
+
+        .asana-info h3 {
+            margin: 0 0 10px;
+            font-size: 1.5rem;
+        }
+
+        .asana-info p {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 0;
+        }
+
+        /* --- Accordions --- */
+        .accordion {
+            border: 1px solid #eee;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background: white;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--forest);
+        }
+
+        .accordion-header:hover {
+            background: var(--soft-gray);
+        }
+
+        .accordion-content {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            background: #fafafa;
+        }
+
+        .accordion.open .accordion-content {
+            padding: 20px;
+            max-height: 1000px;
+            border-top: 1px solid #eee;
+        }
+
+        .accordion-header i {
+            transition: transform 0.3s;
+        }
+
+        .accordion.open .accordion-header i {
+            transform: rotate(180deg);
+        }
+
+        /* --- List Styles --- */
+        ul.custom-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul.custom-list li {
+            padding-left: 30px;
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        ul.custom-list li::before {
+            content: '\f105';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+        }
+
+        footer {
+            background: white;
+            padding: 60px 20px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            color: #888;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .split-section {
+                flex-direction: column !important;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .vertical-nav {
+                display: none;
+            }
+
+            .nav-menu {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header-top">
+        <a href="{% url 'home' %}">
+            <img src="https://i.pinimg.com/736x/e9/cf/f3/e9cff3536efddc806355f3793e9aedcf.jpg" alt="Logo">
+        </a>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Yoga Asanas Guide</h1>
+            <p>“Sthira Sukham Asanam – Steady and Comfortable Posture”</p>
+        </div>
+    </section>
+
+    <div class="search-container">
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search postures, benefits, or history...">
+        </div>
+    </div>
+
+    <nav class="page-nav">
+        <ul class="nav-menu">
+            <li><a href="{% url 'yoga' %}">Yoga Overview</a></li>
+            <li><a href="#history">History</a></li>
+            <li><a href="#asanas">Asanas Guide</a></li>
+            <li><a href="#pranayama">Pranayama</a></li>
+            <li><a href="#benefits">Benefits</a></li>
+        </ul>
+    </nav>
+
+    <div class="vertical-nav">
+        <a href="{% url 'home' %}" title="Home"><i class="fas fa-home"></i></a>
+        <a href="{% url 'therapies' %}" title="Treatment"><i class="fas fa-spa"></i></a>
+        <a href="{% url 'guide' %}" title="Guide on ayurveda"><i class="fas fa-book-open"></i></a>
+        <a href="{% url 'dashboard' %}" title="Dashboard"><i class="fas fa-chart-line"></i></a>
+        <a href="{% url 'doshatest' %}" title="Dosha Quiz"><i class="fas fa-clipboard-list"></i></a>
+        <a href="{% url 'help' %}" title="Help"><i class="fas fa-question-circle"></i></a>
+    </div>
+
+    <div class="container">
+
+        <!-- OVERVIEW -->
+        <section id="overview" class="section">
+            <div class="content-block">
+                <h2>Overview</h2>
+                <p>In Ayurveda, yoga is recommended not only for physical health but also for balancing the doshas.
+                    There are over <strong>84 classical asanas</strong>, but Ayurveda emphasizes a set of foundational
+                    poses for detox, digestion, and mental clarity.</p>
+
+                <h3>Common Categories:</h3>
+                <div class="asana-grid" style="margin-top: 20px;">
+                    <div class="accordion">
+                        <div class="accordion-header">Standing Poses <i class="fas fa-chevron-down"></i></div>
+                        <div class="accordion-content">Tadasana, Utkatasana, Trikonasana, Virabhadrasana.</div>
+                    </div>
+                    <div class="accordion">
+                        <div class="accordion-header">Seated Poses <i class="fas fa-chevron-down"></i></div>
+                        <div class="accordion-content">Padmasana, Siddhasana, Gomukhasana, Paschimottanasana.</div>
+                    </div>
+                    <div class="accordion">
+                        <div class="accordion-header">Inversions & More <i class="fas fa-chevron-down"></i></div>
+                        <div class="accordion-content">Shirshasana, Sarvangasana, Halasana, Bhujangasana, Savasana.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HISTORY -->
+        <section id="history" class="section">
+            <div class="split-section">
+                <div class="split-img">
+                    <img src="https://i.pinimg.com/736x/29/dc/6a/29dc6a7efe6cd4a08a75ece72eb6f9bb.jpg" alt="Hand Mudra"
+                        onclick="toggleZoom(this)">
+                </div>
+                <div class="split-text">
+                    <h2>History & Evolution</h2>
+                    <p>The practice of asanas dates back thousands of years to ancient India. Originally, asanas were
+                        meditative seated postures used by sages during deep contemplation.</p>
+                    <p>From the Vedic rituals involving chants and fire offerings to the <strong>Eight Limbs of
+                            Ashtanga Yoga</strong> by Patanjali, yoga has evolved into a global science of health.</p>
+
+                    <div class="accordion">
+                        <div class="accordion-header">The Eight Limbs (Ashtanga) <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <ul class="custom-list">
+                                <li><strong>Yama</strong>: Ethical restraints</li>
+                                <li><strong>Niyama</strong>: Personal observances</li>
+                                <li><strong>Asana</strong>: Physical postures</li>
+                                <li><strong>Pranayama</strong>: Breath control</li>
+                                <li><strong>Pratyahara</strong>: Withdrawal of senses</li>
+                                <li><strong>Dharana</strong>: Concentration</li>
+                                <li><strong>Dhyana</strong>: Meditation</li>
+                                <li><strong>Samadhi</strong>: Enlightenment</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CLASSICAL TEXTS -->
+        <section id="yogic-texts" class="section">
+            <div class="split-section">
+                <div class="split-text">
+                    <h2>Classical Texts</h2>
+                    <p>Ancient scriptures provide the framework of yoga as a spiritual and physical discipline.</p>
+                    <ul class="custom-list">
+                        <li><strong>Patanjali's Yoga Sutras</strong>: Defines asana as "steady and comfortable".</li>
+                        <li><strong>Hatha Yoga Pradipika</strong>: Detailed instructions on 15 core asanas.</li>
+                        <li><strong>Gheranda Samhita</strong>: Encyclopedic approach describing 32 asanas.</li>
+                        <li><strong>Shiva Samhita</strong>: Outlines 84 asanas and their spiritual links.</li>
+                    </ul>
+                </div>
+                <div class="split-img">
+                    <img src="https://i.pinimg.com/1200x/8b/a3/04/8ba3041e4ab0852f3bf0495971a92163.jpg"
+                        alt="Yogic Text" onclick="toggleZoom(this)">
+                </div>
+            </div>
+        </section>
+
+        <!-- PRANAYAMA -->
+        <section id="pranayama" class="section">
+            <div class="split-section">
+                <div class="split-img">
+                    <img src="https://i.pinimg.com/736x/73/e5/1d/73e51dbffc6927c8522b9f0e8847b5e2.jpg"
+                        alt="Pranayama" onclick="toggleZoom(this)">
+                </div>
+                <div class="split-text">
+                    <h2>Pranayama & Asana</h2>
+                    <p>Asanas prepare the body by removing physical blockages, allowing the practitioner to sit
+                        comfortably. Once stable, Pranayama balances energy (prana).</p>
+
+                    <div class="accordion">
+                        <div class="accordion-header">Techniques & Benefits <i class="fas fa-chevron-down"></i></div>
+                        <div class="accordion-content">
+                            <ul class="custom-list">
+                                <li><strong>Nadi Shodhana</strong>: Balances brain hemispheres.</li>
+                                <li><strong>Bhramari</strong>: Humming bee breath relieves anxiety.</li>
+                                <li><strong>Kapalabhati</strong>: Detoxifies the respiratory system.</li>
+                                <li><strong>Ujjayi</strong>: Soothes the nervous system.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- KEY ASANAS -->
+        <section id="asanas" class="section">
+            <h2 id="standing">Standing Postures</h2>
+            <div class="asana-grid">
+                <div class="asana-card">
+                    <div class="asana-thumb">
+                        <img src="https://i.pinimg.com/1200x/3f/7b/43/3f7b43eceea1c3d380744eac840fcabf.jpg" alt="Tadasana">
+                    </div>
+                    <div class="asana-info">
+                        <h3>Tadasana</h3>
+                        <p>Mountain Pose. Improves posture, balance, and focus.</p>
+                    </div>
+                </div>
+                <div class="asana-card">
+                    <div class="asana-thumb">
+                        <img src="https://i.pinimg.com/1200x/d3/93/36/d39336ad6e36c25df784e539509b94b2.jpg" alt="Vrikshasana">
+                    </div>
+                    <div class="asana-info">
+                        <h3>Vrikshasana</h3>
+                        <p>Tree Pose. Enhances stability and concentration.</p>
+                    </div>
+                </div>
+                <div class="asana-card">
+                    <div class="asana-thumb">
+                        <img src="https://i.pinimg.com/1200x/11/13/b5/1113b5c02543d178fd569831d6476780.jpg" alt="Trikonasana">
+                    </div>
+                    <div class="asana-info">
+                        <h3>Trikonasana</h3>
+                        <p>Triangle Pose. Stretches spine and aids digestion.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2 id="seated" style="margin-top: 60px;">Seated & Floor Postures</h2>
+            <div class="asana-grid">
+                <div class="asana-card">
+                    <div class="asana-thumb">
+                        <img src="https://i.pinimg.com/736x/56/ce/e4/56cee4eb42a1af37e8f630974544bd19.jpg" alt="Bhujangasana">
+                    </div>
+                    <div class="asana-info">
+                        <h3>Bhujangasana</h3>
+                        <p>Cobra Pose. Strengthens spine and opens chest.</p>
+                    </div>
+                </div>
+                <div class="asana-card">
+                    <div class="asana-thumb">
+                        <img src="https://i.pinimg.com/1200x/c5/1a/3d/c51a3d0503429c1358de85e0c35c6f76.jpg" alt="Paschimottanasana">
+                    </div>
+                    <div class="asana-info">
+                        <h3>Paschimottanasana</h3>
+                        <p>Forward Bend. Relieves stress and supports kidneys.</p>
+                    </div>
+                </div>
+                <div class="asana-card">
+                    <div class="asana-thumb">
+                        <img src="https://i.pinimg.com/736x/f5/f6/7b/f5f67b3b247c97da4e66f466c2db80df.jpg" alt="Padmasana">
+                    </div>
+                    <div class="asana-info">
+                        <h3>Padmasana</h3>
+                        <p>Lotus Pose. Calms brain and aids meditation.</p>
+                    </div>
+                </div>
+                <div class="asana-card">
+                    <div class="asana-thumb">
+                        <img src="https://i.pinimg.com/736x/30/81/d6/3081d67e9d8f1a978ab8a65bd75633c6.jpg" alt="Setu Bandhasana">
+                    </div>
+                    <div class="asana-info">
+                        <h3>Setu Bandhasana</h3>
+                        <p>Bridge Pose. Strengthens glutes and reduces anxiety.</p>
+                    </div>
+                </div>
+                <div class="asana-card">
+                    <div class="asana-thumb">
+                        <img src="https://i.pinimg.com/1200x/b9/4a/40/b94a407f9f59e11a6a274735f6778454.jpg" alt="Dhanurasana">
+                    </div>
+                    <div class="asana-info">
+                        <h3>Dhanurasana</h3>
+                        <p>Bow Pose. Stimulates organs and improves flexibility.</p>
+                    </div>
+                </div>
+                <div class="asana-card" id="supine">
+                    <div class="asana-thumb">
+                        <img src="https://i.pinimg.com/1200x/5d/5d/94/5d5d941b42029597644068d8480616cf.jpg" alt="Shavasana">
+                    </div>
+                    <div class="asana-info">
+                        <h3>Shavasana</h3>
+                        <p>Corpse Pose. Deep relaxation and blood pressure control.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Added missing section IDs to anchor correctly -->
+            <div id="prone"></div>
+            <div id="inversions"></div>
+            <div id="balancing"></div>
+        </section>
+
+        <!-- BENEFITS -->
+        <section id="benefits" class="section">
+            <div class="content-block">
+                <h2>Health Benefits</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+                    <div>
+                        <h3>Physical</h3>
+                        <ul class="custom-list">
+                            <li>Improves flexibility & posture</li>
+                            <li>Boosts strength & stamina</li>
+                            <li>Enhances respiratory efficiency</li>
+                            <li>Supports cardiovascular health</li>
+                            <li>Improves digestion & metabolism</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Mental</h3>
+                        <ul class="custom-list">
+                            <li>Reduces anxiety & depression</li>
+                            <li>Improves concentration</li>
+                            <li>Promotes better sleep</li>
+                            <li>Enhances mood balance</li>
+                            <li>Increases mindfulness</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 AyurRekha | Tracing the Path to Natural Wellness</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Accordion Logic
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const parent = header.parentElement;
+                parent.classList.toggle('open');
+            });
+        });
+
+        // Search Logic
+        const searchInput = document.getElementById('searchInput');
+        const searchItems = document.querySelectorAll('.asana-card, .content-block, .split-section');
+
+        searchInput.addEventListener('input', () => {
+            const filter = searchInput.value.toLowerCase();
+            searchItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(filter)) {
+                    item.style.display = '';
+                    item.style.opacity = '1';
+                } else {
+                    item.style.display = 'none';
+                    item.style.opacity = '0';
+                }
+            });
+        });
+
+        // Zoom Logic
+        function toggleZoom(img) {
+            img.classList.toggle('zoomed');
+            if (img.classList.contains('zoomed')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+    </script>
+
+</body>
+
+</html>

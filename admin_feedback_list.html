@@ -1,0 +1,48 @@
+{% extends 'ayu/admin_base.html' %}
+
+{% block title %}Feedback Management - AyurRekha Admin{% endblock %}
+{% block page_title %}User Feedback & Reviews{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h3>Customer Reviews</h3>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 25px; padding: 20px;">
+        {% for f in feedbacks %}
+        <div style="background: white; border: 1px solid #eee; border-radius: 12px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.02);">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 32px; height: 32px; background: #eee; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem;">{{ f.user.username|first|upper }}</div>
+                    <div style="font-weight: 600;">{{ f.user.username }}</div>
+                </div>
+                <div style="color: var(--gold);">
+                    {% for i in "12345" %}
+                        <i class="fas fa-star{% if forloop.counter > f.rating %}-o{% endif %}"></i>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            {% if f.target_practitioner %}
+            <div style="margin-bottom: 10px; font-size: 0.8rem; color: #888;">
+                Review for: <strong style="color: var(--forest);">Dr. {{ f.target_practitioner.username }}</strong>
+            </div>
+            {% endif %}
+            
+            <p style="font-size: 0.9rem; line-height: 1.5; color: #555; margin-bottom: 15px;">"{{ f.comment }}"</p>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f9f9f9; padding-top: 15px;">
+                <span style="font-size: 0.75rem; color: #999;">{{ f.created_at|date:"M d, Y" }}</span>
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn" style="padding: 5px 12px; font-size: 0.7rem; background: #fdfaf0; color: var(--gold);">Respond</button>
+                    <button class="btn btn-danger" style="padding: 5px 10px; font-size: 0.7rem;"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div style="grid-column: 1/-1; text-align: center; padding: 50px; color: #888;">No feedback received yet.</div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

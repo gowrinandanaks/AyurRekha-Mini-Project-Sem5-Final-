@@ -1,0 +1,104 @@
+{% extends 'ayu/admin_base.html' %}
+
+{% block title %}Help Requests - AyurRekha Admin{% endblock %}
+{% block page_title %}Help & Support Requests{% endblock %}
+
+{% block extra_css %}
+<style>
+    .request-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        border-left: 5px solid var(--forest);
+    }
+    .request-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    .request-details {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 15px;
+        font-size: 0.9rem;
+    }
+    .request-message {
+        background: #f9f9f9;
+        padding: 15px;
+        border-radius: 8px;
+        font-style: italic;
+        margin-bottom: 15px;
+    }
+    .reply-form {
+        margin-top: 15px;
+        border-top: 1px dashed #ddd;
+        padding-top: 15px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h3>User Help Requests</h3>
+    </div>
+    
+    <div>
+        {% for r in requests %}
+        <div class="request-card" style="border-left-color: {% if r.status == 'spam' %}#e74c3c{% elif r.status == 'resolved' %}#2ecc71{% else %}var(--forest){% endif %};">
+            <div class="request-header">
+                <h4 style="margin: 0; font-family: 'Montserrat', sans-serif;">{{ r.first_name }} {{ r.surname }}</h4>
+                <div>
+                    <span class="status-badge" style="background:#eee; color:#666;">{{ r.get_status_display }}</span>
+                    <span style="font-size: 0.8rem; color: #888; margin-left: 10px;">{{ r.created_at|date:"M d, Y H:i" }}</span>
+                </div>
+            </div>
+            
+            <div class="request-details">
+                <div><strong>Email:</strong> {{ r.email }}</div>
+                <div><strong>Phone:</strong> {{ r.telephone|default:"N/A" }}</div>
+                <div><strong>Programme:</strong> {{ r.programme }}</div>
+                <div><strong>Dates:</strong> {{ r.arrival_date }} to {{ r.departure_date }}</div>
+                <div><strong>Country:</strong> {{ r.country|default:"N/A" }}</div>
+            </div>
+            
+            {% if r.message %}
+            <div class="request-message">
+                "{{ r.message }}"
+            </div>
+            {% endif %}
+
+            {% if r.reply_message %}
+            <div class="request-message" style="background: #e3f2fd; border-left: 3px solid #0288d1;">
+                <strong>Admin Reply:</strong><br>
+                "{{ r.reply_message }}"
+            </div>
+            {% endif %}
+            
+            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                {% if r.status == 'pending' %}
+                <button class="btn btn-gold" style="padding: 5px 15px; font-size: 0.85rem;" onclick="document.getElementById('reply-form-{{ r.id }}').style.display = 'block';">Reply</button>
+                <a href="{% url 'admin_resolve_help' r.id %}" class="btn btn-forest" style="padding: 5px 15px; font-size: 0.85rem;"><i class="fas fa-check"></i> Mark Resolved</a>
+                <a href="{% url 'admin_spam_help' r.id %}" class="btn btn-danger" style="padding: 5px 15px; font-size: 0.85rem;" onclick="return confirm('Mark as spam?');"><i class="fas fa-ban"></i> Spam</a>
+                {% endif %}
+            </div>
+
+            <div id="reply-form-{{ r.id }}" class="reply-form" style="display: none;">
+                <form method="POST" action="{% url 'admin_reply_help' r.id %}">
+                    {% csrf_token %}
+                    <textarea name="reply_message" rows="4" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 10px;" required placeholder="Type your reply here... This will simulate sending an email."></textarea>
+                    <button type="submit" class="btn btn-forest">Send Reply</button>
+                    <button type="button" class="btn" style="background: #eee;" onclick="document.getElementById('reply-form-{{ r.id }}').style.display = 'none';">Cancel</button>
+                </form>
+            </div>
+        </div>
+        {% empty %}
+        <p style="text-align: center; color: #888; padding: 40px;">No help requests available.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

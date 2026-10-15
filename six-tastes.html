@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shad Rasa: The Six Tastes | AyurRekha</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --forest: #1B3022;
+            --gold: #C5A059;
+            --pearl: #FBFAF5;
+            --text: #333333;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--pearl);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--forest);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--forest);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .hero-mini {
+            background: linear-gradient(rgba(27, 48, 34, 0.8), rgba(27, 48, 34, 0.8)),
+                url("https://images.unsplash.com/photo-1547928503-0c76483d311b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80") center/cover no-repeat;
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .hero-mini h1 {
+            color: white;
+            font-size: 3rem;
+            margin: 0;
+        }
+
+        .intro-text {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px;
+        }
+
+        .tastes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .taste-card {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            text-align: center;
+            border: 1px solid #eee;
+            transition: 0.4s;
+        }
+
+        .taste-card:hover {
+            transform: scale(1.05);
+            border-color: var(--gold);
+        }
+
+        .taste-circle {
+            width: 80px;
+            height: 80px;
+            background: var(--soft-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            color: var(--forest);
+            border: 2px solid var(--gold);
+        }
+
+        .taste-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .elements-tag {
+            display: inline-block;
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .effects-box {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .effects-box strong { color: var(--forest); }
+
+        footer {
+            background: white;
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            color: #888;
+            margin-top: 80px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="hero-mini">
+        <h1>Shad Rasa: The Six Tastes</h1>
+        <p>Decoding the Elemental Language of Flavor and Physiology</p>
+    </div>
+
+    <div class="container">
+        
+        <a href="{% url 'guide' %}" class="back-link"><i class="fas fa-arrow-left"></i> Back to Guide</a>
+
+        <div class="intro-text">
+            <h2>Balance in Every Bite</h2>
+            <p>In Ayurveda, taste is not just for pleasure; it is a clinical indicator of a food's effect on our physiology. Each taste (Rasa) is made of two primary elements and has a direct impact—either pacifying or aggravating—on the three Doshas.</p>
+        </div>
+
+        <div class="tastes-grid">
+            
+            <!-- Sweet -->
+            <div class="taste-card">
+                <div class="taste-circle">🍯</div>
+                <h3>Madhura</h3>
+                <span class="elements-tag">Earth + Water</span>
+                <p>Nourishing, grounding, and building. Found in grains, dairy, and sweet fruits.</p>
+                <div class="effects-box">
+                    <p><strong>Decreases:</strong> Vata & Pitta</p>
+                    <p><strong>Increases:</strong> Kapha</p>
+                </div>
+            </div>
+
+            <!-- Sour -->
+            <div class="taste-card">
+                <div class="taste-circle">🍋</div>
+                <h3>Amla</h3>
+                <span class="elements-tag">Earth + Fire</span>
+                <p>Stimulates digestion and circulation. Found in citrus, vinegar, and yogurt.</p>
+                <div class="effects-box">
+                    <p><strong>Decreases:</strong> Vata</p>
+                    <p><strong>Increases:</strong> Pitta & Kapha</p>
+                </div>
+            </div>
+
+            <!-- Salty -->
+            <div class="taste-card">
+                <div class="taste-circle">🧂</div>
+                <h3>Lavana</h3>
+                <span class="elements-tag">Water + Fire</span>
+                <p>Enhances flavor and softens tissues. Found in sea salt and kelp.</p>
+                <div class="effects-box">
+                    <p><strong>Decreases:</strong> Vata</p>
+                    <p><strong>Increases:</strong> Pitta & Kapha</p>
+                </div>
+            </div>
+
+            <!-- Pungent -->
+            <div class="taste-card">
+                <div class="taste-circle">🌶️</div>
+                <h3>Katu</h3>
+                <span class="elements-tag">Fire + Air</span>
+                <p>Stimulates metabolism and clears sinuses. Found in chilies, ginger, and garlic.</p>
+                <div class="effects-box">
+                    <p><strong>Decreases:</strong> Kapha</p>
+                    <p><strong>Increases:</strong> Vata & Pitta</p>
+                </div>
+            </div>
+
+            <!-- Bitter -->
+            <div class="taste-card">
+                <div class="taste-circle">🥬</div>
+                <h3>Tikta</h3>
+                <span class="elements-tag">Air + Space</span>
+                <p>Detoxifying, anti-inflammatory, and cooling. Found in leafy greens and turmeric.</p>
+                <div class="effects-box">
+                    <p><strong>Decreases:</strong> Pitta & Kapha</p>
+                    <p><strong>Increases:</strong> Vata</p>
+                </div>
+            </div>
+
+            <!-- Astringent -->
+            <div class="taste-card">
+                <div class="taste-circle">🍏</div>
+                <h3>Kashaya</h3>
+                <span class="elements-tag">Earth + Air</span>
+                <p>Drying and firming. Found in beans, green tea, and pomegranate.</p>
+                <div class="effects-box">
+                    <p><strong>Decreases:</strong> Pitta & Kapha</p>
+                    <p><strong>Increases:</strong> Vata</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 AyurRekha | Tracing the Path to Natural Wellness</p>
+    </footer>
+
+</body>
+</html>

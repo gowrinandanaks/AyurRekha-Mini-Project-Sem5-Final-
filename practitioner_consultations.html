@@ -1,0 +1,87 @@
+{% extends "ayu/practitioner_base.html" %}
+
+{% block title %}Patient Consultations - AyurRekha{% endblock %}
+
+{% block header_title %}Medical Consultations{% endblock %}
+{% block header_subtitle %}Manage your patient interactions and chat threads.{% endblock %}
+
+{% block extra_css %}
+    .patient-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 25px;
+    }
+    .patient-card {
+        background: white;
+        padding: 25px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        position: relative;
+        overflow: hidden;
+    }
+    .patient-card::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 5px;
+        background: var(--gold);
+    }
+    .patient-photo {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        background: var(--soft-gray);
+    }
+    .patient-info h3 { margin: 0; font-size: 1.1rem; color: var(--forest); }
+    .patient-info p { margin: 5px 0 0; font-size: 0.85rem; color: #888; }
+    
+    .btn-chat {
+        margin-top: 15px;
+        display: inline-block;
+        background: var(--forest);
+        color: white;
+        padding: 8px 20px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+    .btn-chat:hover {
+        background: var(--gold);
+    }
+{% endblock %}
+
+{% block content %}
+<div class="patient-grid">
+    {% for patient in patients %}
+    <div class="patient-card">
+        {% if patient.profile.profile_photo %}
+            <img src="{{ patient.profile.profile_photo.url }}" class="patient-photo" alt="{{ patient.username }}">
+        {% else %}
+            <div class="patient-photo" style="display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-user-circle fa-2x" style="color: #ccc;"></i>
+            </div>
+        {% endif %}
+        <div class="patient-info">
+            <h3>{{ patient.get_full_name|default:patient.username }}</h3>
+            <p>{{ patient.email }}</p>
+            <a href="{% url 'consultation_chat' patient.id %}" class="btn-chat">
+                <i class="fas fa-comment-dots"></i> Open Chat
+            </a>
+        </div>
+    </div>
+    {% empty %}
+    <div class="glass-card" style="grid-column: 1 / -1; text-align: center; padding: 50px;">
+        <i class="fas fa-comments fa-3x" style="color: #ddd; margin-bottom: 20px;"></i>
+        <p style="color: #888;">No active consultation threads found.</p>
+        <p style="font-size: 0.9rem;">Start a consultation from the <a href="{% url 'practitioner_patient_list' %}" style="color: var(--gold);">Patient List</a>.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

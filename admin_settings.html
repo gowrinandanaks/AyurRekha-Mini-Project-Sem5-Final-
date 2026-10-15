@@ -1,0 +1,62 @@
+{% extends 'ayu/admin_base.html' %}
+
+{% block title %}System Settings - AyurRekha Admin{% endblock %}
+{% block page_title %}Platform Configuration{% endblock %}
+
+{% block content %}
+<div style="display: grid; grid-template-columns: 1fr 300px; gap: 30px;">
+    <div class="card">
+        <div class="card-header">
+            <h3>General Settings</h3>
+        </div>
+        <form method="POST" style="padding: 20px; display: flex; flex-direction: column; gap: 20px;">
+            {% csrf_token %}
+            <input type="hidden" name="update_settings" value="1">
+            <div class="form-group">
+                <label style="display: block; margin-bottom: 8px; font-weight: 600;">Platform Name</label>
+                <input type="text" name="site_name" value="{{ settings.site_name }}" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+            </div>
+            <div class="form-group">
+                <label style="display: block; margin-bottom: 8px; font-weight: 600;">Support Email</label>
+                <input type="email" name="contact_email" value="{{ settings.contact_email }}" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+            </div>
+            <div class="form-group">
+                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                    <input type="checkbox" name="enable_notifications" {% if settings.enable_email_notifications %}checked{% endif %}> Enable Email Notifications
+                </label>
+            </div>
+            <div class="form-group">
+                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                    <input type="checkbox" name="maintenance_mode" {% if settings.maintenance_mode %}checked{% endif %}> Maintenance Mode
+                </label>
+            </div>
+            <div style="margin-top: 10px;">
+                <button type="submit" class="btn btn-gold">Update Core Settings</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="card">
+        <div class="card-header">
+            <h3>Manage FAQs</h3>
+        </div>
+        <div style="padding: 20px;">
+            <ul style="list-style: none; padding: 0; margin-bottom: 20px;">
+                {% for faq in faqs %}
+                <li style="padding: 10px; border-bottom: 1px solid #eee;">
+                    <strong>Q: {{ faq.question }}</strong>
+                </li>
+                {% endfor %}
+            </ul>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="add_faq" value="1">
+                <input type="text" name="question" placeholder="New Question" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px;" required>
+                <textarea name="answer" placeholder="Answer" style="width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px;" required></textarea>
+                <button type="submit" class="btn btn-forest" style="width: 100%;">Add FAQ Item</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoga - AyurRekha | The Living Mantra of Ayurveda</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --forest: #1B3022;
+            --gold: #C5A059;
+            --pearl: #FBFAF5;
+            --soft-gray: #f2f2f2;
+            --text: #333333;
+            --teal: #4C9A92;
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--pearl);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--forest);
+        }
+
+        .header-top {
+            padding: 20px;
+            text-align: center;
+            background: white;
+            border-bottom: 1px solid #eee;
+        }
+
+        .header-top img {
+            height: 60px;
+        }
+
+        .hero {
+            height: 60vh;
+            background: linear-gradient(rgba(27, 48, 34, 0.7), rgba(27, 48, 34, 0.7)),
+                url("https://i.pinimg.com/736x/f7/de/48/f7de489dcc82a75fda3376e992eec3fc.jpg");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .hero-content h1 {
+            color: white;
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .nav-bar {
+            background-color: var(--teal);
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-bar a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-bar a:hover {
+            color: var(--gold);
+        }
+
+        .section {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            position: relative;
+            text-align: center;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: var(--gold);
+        }
+
+        .content-box {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+
+        .content-box p {
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .benefits-list li {
+            background: var(--soft-gray);
+            padding: 20px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 500;
+        }
+
+        .benefits-list li i {
+            color: var(--teal);
+            font-size: 1.2rem;
+        }
+
+        .asana-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .asana-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--gold);
+        }
+
+        .asana-card h3 {
+            margin-top: 0;
+            font-size: 1.4rem;
+            color: var(--forest);
+        }
+
+        .asana-desc {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .dosha-tag {
+            display: inline-block;
+            background: var(--teal);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .technique-box {
+            margin-bottom: 30px;
+        }
+
+        .technique-box h4 {
+            color: var(--teal);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .cta-section {
+            background: var(--forest);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: var(--gold);
+            color: white;
+            text-decoration: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 30px;
+            text-transform: uppercase;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        footer {
+            background: white;
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid #eee;
+        }
+
+        .vertical-nav {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .vertical-nav a {
+            background: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--forest);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            font-size: 1.2rem;
+        }
+
+        .vertical-nav a:hover {
+            background: var(--forest);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .nav-bar {
+                gap: 15px;
+            }
+            .vertical-nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header-top">
+        <a href="{% url 'home' %}">
+            <img src="https://i.pinimg.com/736x/e9/cf/f3/e9cff3536efddc806355f3793e9aedcf.jpg" alt="Logo">
+        </a>
+    </header>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Yoga: The Living Mantra</h1>
+            <p>“Inhale Ayurveda’s living mantra; exhale its harmony into every fiber of your being.”</p>
+        </div>
+    </div>
+
+    <nav class="nav-bar">
+        <a href="#intro">What is Yoga?</a>
+        <a href="#benefits">Benefits</a>
+        <a href="#asanas">Asanas</a>
+        <a href="#pranayama">Pranayama</a>
+        <a href="#meditation">Meditation</a>
+    </nav>
+
+    <div class="vertical-nav">
+        <a href="{% url 'home' %}" title="Home"><i class="fas fa-home"></i></a>
+        <a href="{% url 'nature' %}" title="Nature"><i class="fas fa-seedling"></i></a>
+        <a href="{% url 'doshatest' %}" title="Dosha Quiz"><i class="fas fa-clipboard-list"></i></a>
+        <a href="{% url 'help' %}" title="Help"><i class="fas fa-question-circle"></i></a>
+    </div>
+
+    <section class="section" id="intro">
+        <h2>What is Yoga?</h2>
+        <div class="content-box">
+            <p>Yoga is a holistic science that integrates physical, mental, and spiritual practices. Originating from ancient India, it includes physical postures (Asanas), breath control (Pranayama), meditation (Dhyana), and ethical principles. Yoga aims to unite body and mind, creating balance and harmony in daily life.</p>
+        </div>
+    </section>
+
+    <section class="section" id="benefits">
+        <h2>Benefits of Yoga</h2>
+        <div class="content-box">
+            <ul class="benefits-list">
+                <li><i class="fas fa-check-circle"></i> Improves flexibility & posture</li>
+                <li><i class="fas fa-check-circle"></i> Reduces stress & anxiety</li>
+                <li><i class="fas fa-check-circle"></i> Enhances breath awareness</li>
+                <li><i class="fas fa-check-circle"></i> Supports mental clarity</li>
+                <li><i class="fas fa-check-circle"></i> Boosts immunity & vitality</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section" id="asanas">
+        <h2>Yoga Asanas</h2>
+        <div class="asana-grid">
+            <div class="asana-card">
+                <h3>Tadasana</h3>
+                <p class="asana-desc">Mountain Pose: Improves posture, strengthens legs, and promotes grounding.</p>
+                <span class="dosha-tag">Balances: Vata</span>
+            </div>
+            <div class="asana-card">
+                <h3>Bhujangasana</h3>
+                <p class="asana-desc">Cobra Pose: Strengthens spine, opens chest, improves digestion.</p>
+                <span class="dosha-tag">Balances: Pitta</span>
+            </div>
+            <div class="asana-card">
+                <h3>Vrikshasana</h3>
+                <p class="asana-desc">Tree Pose: Improves focus and balance, promotes mental grounding.</p>
+                <span class="dosha-tag">Balances: Vata</span>
+            </div>
+            <div class="asana-card">
+                <h3>Dhanurasana</h3>
+                <p class="asana-desc">Bow Pose: Stimulates abdominal organs and boosts energy levels.</p>
+                <span class="dosha-tag">Balances: Pitta</span>
+            </div>
+            <div class="asana-card">
+                <h3>Padmasana</h3>
+                <p class="asana-desc">Lotus Pose: The classic meditative pose for calmness and focus.</p>
+                <span class="dosha-tag">Balances: All Doshas</span>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="{% url 'yogasana' %}" class="cta-btn" style="background: var(--teal);">Explore Full Asanas Guide</a>
+        </div>
+    </section>
+
+    <section class="section" id="pranayama">
+        <h2>Pranayama</h2>
+        <div class="content-box">
+            <p style="margin-bottom: 30px;">Pranayama helps regulate the prana (life force) through breathing techniques. It purifies the mind and body while balancing the three doshas.</p>
+            
+            <div class="technique-box">
+                <h4>Anulom Vilom</h4>
+                <p>Alternate nostril breathing to calm the mind and balance nervous system.</p>
+            </div>
+            <div class="technique-box">
+                <h4>Kapalbhati</h4>
+                <p>Energizing breathing that clears toxins and stimulates digestive fire.</p>
+            </div>
+            <div class="technique-box">
+                <h4>Bhramari</h4>
+                <p>Humming bee breath to instantly reduce stress and improve sleep quality.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="meditation">
+        <h2>Meditation</h2>
+        <div class="content-box">
+            <p style="margin-bottom: 30px;">Meditation is the practice of focused awareness and inner stillness, deepening your connection to the self.</p>
+            
+            <div class="technique-box">
+                <h4>Mindfulness</h4>
+                <p>Observing thoughts and sensations without judgment in the present moment.</p>
+            </div>
+            <div class="technique-box">
+                <h4>Mantra Meditation</h4>
+                <p>Repetition of sacred sounds like "Om" to focus and uplift the mind.</p>
+            </div>
+            <div class="technique-box">
+                <h4>Yoga Nidra</h4>
+                <p>Deep guided relaxation that brings the body into a state of conscious sleep.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="cta-section">
+        <h2>Personalize Your Journey</h2>
+        <p>Understand your unique constitution to tailor your Yoga practice.</p>
+        <a href="{% url 'doshatest' %}" class="cta-btn">Take the Dosha Quiz</a>
+    </div>
+
+    <footer>
+        <p>© 2026 AyurRekha | Your Trusted Guide to Natural Wellness</p>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+{% extends 'ayu/admin_base.html' %}
+
+{% block title %}Add Appointment - AyurRekha Admin{% endblock %}
+{% block page_title %}Add New Appointment{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width: 600px; margin: 0 auto;">
+    <div class="card-header">
+        <h3>Create Appointment</h3>
+    </div>
+    
+    <div style="padding: 20px;">
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label>Patient</label>
+                <select name="patient" class="form-control" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; margin-top: 5px;">
+                    <option value="">-- Select Patient --</option>
+                    {% for p in patients %}
+                    <option value="{{ p.id }}">{{ p.username }} ({{ p.email }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group" style="margin-top: 15px;">
+                <label>Practitioner</label>
+                <select name="practitioner" class="form-control" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; margin-top: 5px;">
+                    <option value="">-- Select Practitioner --</option>
+                    {% for p in practitioners %}
+                    <option value="{{ p.user.id }}">{{ p.user.username }} - {{ p.specialization }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group" style="margin-top: 15px;">
+                <label>Date and Time</label>
+                <input type="datetime-local" name="date_time" class="form-control" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; margin-top: 5px;">
+            </div>
+
+            <div class="form-group" style="margin-top: 15px;">
+                <label>Status</label>
+                <select name="status" class="form-control" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; margin-top: 5px;">
+                    <option value="pending">Pending</option>
+                    <option value="approved">Approved</option>
+                    <option value="completed">Completed</option>
+                </select>
+            </div>
+
+            <div class="form-group" style="margin-top: 15px;">
+                <label>Notes (Optional)</label>
+                <textarea name="notes" rows="4" class="form-control" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; margin-top: 5px;"></textarea>
+            </div>
+
+            <div style="margin-top: 25px; text-align: right;">
+                <a href="{% url 'admin_appointment_list' %}" class="btn" style="background:#ddd; border-radius: 6px; padding: 10px 20px;">Cancel</a>
+                <button type="submit" class="btn btn-forest" style="border-radius: 6px; padding: 10px 20px;">Create Appointment</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

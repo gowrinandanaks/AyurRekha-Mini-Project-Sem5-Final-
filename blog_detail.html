@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ blog.title }} - AyurRekha Community</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --forest: #1B3022;
+            --gold: #C5A059;
+            --pearl: #FBFAF5;
+            --text: #333333;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--pearl);
+            color: var(--text);
+            line-height: 1.8;
+        }
+        .header-top {
+            padding: 20px;
+            text-align: center;
+            background: white;
+            border-bottom: 2px solid var(--forest);
+        }
+        .header-top img {
+            height: 80px;
+            object-fit: contain;
+        }
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--forest);
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--forest);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .back-link:hover {
+            color: var(--gold);
+        }
+        .blog-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .blog-title {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+        .blog-meta {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+        .share-btn {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 8px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .share-btn:hover {
+            background: var(--gold);
+            color: white;
+        }
+        .blog-hero-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .blog-content {
+            font-size: 1.1rem;
+            color: #444;
+            margin-bottom: 60px;
+            white-space: pre-line; /* preserves newlines from text area */
+        }
+        
+        /* --- Reviews Section --- */
+        .reviews-section {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.03);
+            margin-top: 40px;
+            margin-bottom: 60px;
+        }
+        .reviews-section h3 {
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 10px;
+            display: inline-block;
+            margin-top: 0;
+        }
+        .review-item {
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+        }
+        .review-item:last-child {
+            border-bottom: none;
+        }
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .reviewer-name {
+            font-weight: 600;
+            color: var(--forest);
+        }
+        .review-date {
+            font-size: 0.85rem;
+            color: #888;
+        }
+        .stars {
+            color: #f1c40f;
+            margin-bottom: 10px;
+        }
+        .review-comment {
+            color: #555;
+            font-size: 0.95rem;
+        }
+        
+        /* Form styling */
+        .review-form-container {
+            margin-top: 40px;
+            background: var(--pearl);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #eee;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--forest);
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+        .btn-gold {
+            background: var(--gold);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-gold:hover {
+            background: #b38f4d;
+        }
+
+        /* Toast for copy link */
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: var(--forest);
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1000;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+        }
+        #toast.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+        @keyframes fadein {
+            from {bottom: 0; opacity: 0;}
+            to {bottom: 30px; opacity: 1;}
+        }
+        @keyframes fadeout {
+            from {bottom: 30px; opacity: 1;}
+            to {bottom: 0; opacity: 0;}
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-top">
+        <a href="{% url 'home' %}">
+            <img src="https://i.pinimg.com/736x/e9/cf/f3/e9cff3536efddc806355f3793e9aedcf.jpg" alt="Logo">
+        </a>
+    </header>
+
+    <div class="container">
+        <a href="{% url 'community_blogs' %}" class="back-link">&larr; Back to Community Insights</a>
+        
+        {% if messages %}
+            {% for message in messages %}
+                <div style="background: #e8f5e9; color: #2e7d32; padding: 15px; border-radius: 5px; margin-bottom: 20px; border-left: 5px solid #4CAF50;">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="blog-header">
+            <h1 class="blog-title">{{ blog.title }}</h1>
+            <div class="blog-meta">
+                Written by <strong>{{ blog.author.username }}</strong> on {{ blog.created_at|date:"F d, Y" }}
+            </div>
+            <button class="share-btn" onclick="copyToClipboard()">
+                <i class="fas fa-share-alt"></i> Share Article
+            </button>
+        </div>
+
+        {% if blog.image_url %}
+            <img src="{{ blog.image_url }}" alt="{{ blog.title }}" class="blog-hero-img">
+        {% endif %}
+
+        <div class="blog-content">
+            {{ blog.content }}
+        </div>
+
+        <div class="reviews-section">
+            <h3>Community Responses ({{ reviews.count }})</h3>
+            
+            {% if reviews %}
+                {% for review in reviews %}
+                    <div class="review-item">
+                        <div class="review-header">
+                            <span class="reviewer-name"><i class="fas fa-user-circle" style="color:var(--gold);"></i> {{ review.user.username }}</span>
+                            <span class="review-date">{{ review.created_at|date:"M d, Y" }}</span>
+                        </div>
+                        <div class="stars">
+                            {% for i in "12345"|make_list %}
+                                {% if forloop.counter <= review.rating %}
+                                    <i class="fas fa-star"></i>
+                                {% else %}
+                                    <i class="far fa-star"></i>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="review-comment">
+                            {{ review.comment }}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p style="color: #777; font-style: italic;">No reviews yet. Be the first to share your thoughts!</p>
+            {% endif %}
+
+            <div class="review-form-container">
+                <h4 style="margin-top: 0; color: var(--forest);">Leave a Review</h4>
+                {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'blog_detail' blog.id %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="{{ review_form.rating.id_for_label }}">Rating (1-5)</label>
+                            {{ review_form.rating }}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ review_form.comment.id_for_label }}">Your Thoughts</label>
+                            {{ review_form.comment }}
+                        </div>
+                        <button type="submit" class="btn-gold">Submit Review</button>
+                    </form>
+                {% else %}
+                    <p style="color: #d32f2f; background: #ffebee; padding: 10px; border-radius: 5px;">
+                        You must be logged in to leave a review. 
+                        <a href="{% url 'home' %}?login=true" style="color: #b71c1c; font-weight: bold;">Login here</a>.
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div id="toast">Link copied to clipboard!</div>
+
+    <script>
+        function copyToClipboard() {
+            var dummy = document.createElement('input'),
+                text = window.location.href;
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand('copy');
+            document.body.removeChild(dummy);
+
+            var toast = document.getElementById("toast");
+            toast.className = "show";
+            setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+        }
+    </script>
+</body>
+</html>

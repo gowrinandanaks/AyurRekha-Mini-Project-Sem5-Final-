@@ -1,0 +1,202 @@
+{% extends "ayu/admin_base.html" %}
+
+{% block title %}Dr. {{ practitioner.username }} - Profile | AyurRekha{% endblock %}
+{% block page_title %}Practitioner Profile{% endblock %}
+
+{% block content %}
+<style>
+    .profile-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        padding: 40px;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    .profile-header {
+        display: flex;
+        gap: 40px;
+        align-items: center;
+        margin-bottom: 40px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 30px;
+    }
+    .profile-avatar {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid var(--soft-gray);
+    }
+    .profile-avatar-placeholder {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: var(--soft-gray);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+        color: #ccc;
+    }
+    .profile-info h1 {
+        color: var(--forest);
+        margin: 0 0 10px;
+        font-size: 2.5rem;
+        font-family: 'Cormorant Garamond', serif;
+    }
+    .specialization-tag {
+        background: var(--gold);
+        color: white;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        display: inline-block;
+        margin-bottom: 15px;
+    }
+    .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+    .info-item {
+        background: #fdfaf0;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid #faebcc;
+    }
+    .info-item h4 {
+        margin: 0 0 10px;
+        color: var(--forest);
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .info-item p {
+        margin: 0;
+        color: #555;
+        line-height: 1.5;
+    }
+    .bio-section {
+        background: #fdfdfd;
+        padding: 25px;
+        border-radius: 10px;
+        border-left: 4px solid var(--forest);
+        margin-bottom: 40px;
+    }
+    .bio-section h3 {
+        margin: 0 0 15px;
+        color: var(--forest);
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.5rem;
+    }
+    .bio-section p {
+        margin: 0;
+        color: #666;
+        line-height: 1.8;
+    }
+    .action-buttons {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+    }
+    .btn-book-large {
+        background: var(--gold);
+        color: white;
+        text-decoration: none;
+        padding: 15px 40px;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: transform 0.3s, box-shadow 0.3s;
+        box-shadow: 0 4px 15px rgba(197,160,89,0.3);
+    }
+    .btn-book-large:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(197,160,89,0.4);
+        background: #d4b578;
+        color: white;
+        text-decoration: none;
+    }
+    .btn-back-outline {
+        border: 2px solid var(--forest);
+        color: var(--forest);
+        text-decoration: none;
+        padding: 13px 30px;
+        border-radius: 30px;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+    .btn-back-outline:hover {
+        background: var(--forest);
+        color: white;
+        text-decoration: none;
+    }
+    
+    @media (max-width: 768px) {
+        .profile-header {
+            flex-direction: column;
+            text-align: center;
+        }
+        .info-grid {
+            grid-template-columns: 1fr;
+        }
+        .action-buttons {
+            flex-direction: column;
+        }
+        .btn-book-large, .btn-back-outline {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
+
+<div class="profile-card">
+    <div class="profile-header">
+        {% if practitioner.profile.profile_photo %}
+            <img src="{{ practitioner.profile.profile_photo.url }}" alt="Dr. {{ practitioner.username }}" class="profile-avatar">
+        {% else %}
+            <div class="profile-avatar-placeholder">
+                <i class="fas fa-user-md"></i>
+            </div>
+        {% endif %}
+        <div class="profile-info">
+            <h1>Dr. {{ practitioner.get_full_name|default:practitioner.username }}</h1>
+            <div class="specialization-tag">{{ practitioner.profile.specialization|default:"General Ayurveda" }}</div>
+            <div style="color: #666; font-size: 1.1rem;">
+                <i class="fas fa-graduation-cap" style="color: var(--gold);"></i> {{ practitioner.profile.qualification|default:"Ayurvedic Practitioner" }}
+            </div>
+        </div>
+    </div>
+
+    <div class="info-grid">
+        <div class="info-item">
+            <h4><i class="fas fa-hospital"></i> Current Practice</h4>
+            <p><strong>{{ practitioner.profile.hospital_name|default:"Private Practice" }}</strong><br>
+            {{ practitioner.profile.hospital_place|default:"Not specified" }}<br>
+            {% if practitioner.profile.hospital_district %}{{ practitioner.profile.get_hospital_district_display }} District, Kerala{% endif %}</p>
+        </div>
+        <div class="info-item">
+            <h4><i class="fas fa-star"></i> Experience</h4>
+            <p style="font-size: 1.2rem; margin-top: 15px;">
+                <strong>{{ practitioner.profile.experience_years|default:"0" }}</strong> Years in practice
+            </p>
+        </div>
+    </div>
+
+    {% if practitioner.profile.bio %}
+    <div class="bio-section">
+        <h3>About Dr. {{ practitioner.username }}</h3>
+        <p>{{ practitioner.profile.bio }}</p>
+    </div>
+    {% endif %}
+
+    <div class="action-buttons">
+        <a href="{% url 'practitioner_directory' %}" class="btn-back-outline"><i class="fas fa-arrow-left"></i> Back to Directory</a>
+        <a href="{% url 'book_appointment' practitioner.id %}" class="btn-book-large"><i class="far fa-calendar-check"></i> Book Consultation</a>
+    </div>
+</div>
+{% endblock %}
